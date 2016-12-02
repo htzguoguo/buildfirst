@@ -1,0 +1,9 @@
+{
+  "credentials": {
+    "host": "127.0.0.1",
+    "user": "sa",
+    "password": "sa"
+  },
+  "db": "TJX_APP_BuildFirst_20161121",
+  "scripts": "scripts"
+}

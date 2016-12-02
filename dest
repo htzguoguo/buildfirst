@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><title>JavaScript Application Design: A Build First Approach</title><style type="text/css">
+
+</style>
+<script id="loadcss">
+(function(u,s){!function(e){"use strict";var n=function(n,t,o){var l,r=e.document,i=r.createElement("link");if(t)l=t;else{var a=(r.body||r.getElementsByTagName("head")[0]).childNodes;l=a[a.length-1]}var d=r.styleSheets;i.rel="stylesheet",i.href=n,i.media="only x",l.parentNode.insertBefore(i,t?l:l.nextSibling);var f=function(e){for(var n=i.href,t=d.length;t--;)if(d[t].href===n)return e();setTimeout(function(){f(e)})};return i.onloadcssdefined=f,f(function(){i.media=o||"all"}),i};"undefined"!=typeof module?module.exports=n:e.loadCSS=n}("undefined"!=typeof global?global:this);for(var i in u){loadCSS(u[i],s);}}(['../css/all.css'],document.getElementById("loadcss")));
+</script>
+<noscript>
+<link rel="stylesheet" href="../css/all.css">
+</noscript></head><body><h1><a href="https://ponyfoo.com/bf" target="_blank" class="link">JavaScript Application Design: A Build First Approach aaaccc</a></h1><h3 class="italic">Chapter 03, Sample 01</h3><section class="images"><img src="../img/alpha-covers/Bevacqua_JavaScript1.jpg"><img src="../img/alpha-covers/Bevacqua_JavaScript2.jpg"><img src="../img/alpha-covers/Bevacqua_JavaScript3.jpg"></section><article class="sample-description"></article></body><that>command will just copy the images, without any optimizations.<script src="../js/all.min.js"></script></that></html>
