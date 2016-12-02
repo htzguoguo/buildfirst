@@ -5,6 +5,19 @@
 'use strict';
 
 var
+    http = require( 'http' ),
+    app = http.createServer( handler )
+    ;
+app.listen( process.env.PORT || 3000, function () {
+    console.log( 'app listening on http://localhost:3000/' );
+} );
+
+function handler( request, response ) {
+    response.writeHead(200, { 'Content-Type': 'text/plain' });
+    response.end('It\'s alive!');
+}
+
+/*var
     path = require( 'path' ),
     http = require( 'http' ),
     fs = require( 'fs' ),
@@ -22,4 +35,4 @@ app = http.createServer( function ( request, response ) {
 
 app.listen( 3000, function () {
     console.log( 'app listening on http://localhost:3000/' );
-} );
+} );*/
