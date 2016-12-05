@@ -6,15 +6,19 @@
 
 var
     http = require( 'http' ),
+    logger = require( './lib/logger.js' ),
     app = http.createServer( handler )
     ;
+logger.info('Process ID is %s.', process.pid);
+logger.warn('This sample is not quite thorough.');
+
 app.listen( process.env.PORT || 3000, function () {
     console.log( 'app listening on http://localhost:3000/' );
 } );
 
 function handler( request, response ) {
     response.writeHead(200, { 'Content-Type': 'text/plain' });
-    response.end('It\'s alive!');
+    response.end('It\'s alive! ha ha ha');
 }
 
 /*var

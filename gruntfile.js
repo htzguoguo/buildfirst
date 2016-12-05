@@ -17,6 +17,10 @@ module.exports = function ( grunt ) {
                 build: 'build'
             },
             jshint : {
+                options : {
+                    jshintrc: '.jshintrc'
+                },
+                lint : [ 'app.js', 'gruntfile.js' ],
                 client : [ 'public/js/**/*.js' ]
             },
             useminPrepare: {
@@ -317,6 +321,8 @@ module.exports = function ( grunt ) {
 
     grunt.registerTask( 'pem', [ 'pemcrypt' ] );
     grunt.registerTask( 'dev', [ 'build:debug', 'concurrent' ] );
+
+    grunt.registerTask( 'heroku', [ 'jshint:lint' ] );
 
 
 
