@@ -1,6 +1,6 @@
 # package management
-node_modules
+/node_modules
 npm-debug.log
-.jshintrc
-.travis.yml
+*.jshintrc
+*.travis.yml
 
