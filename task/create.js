@@ -7,8 +7,8 @@
 module.exports = function ( grunt ) {
     grunt.registerTask( 'db_create', 'Creates the database for the first time.', function () {
         var 
-            connect = require( 'lib/connect.js' ),
-            util = require( 'lib/util.js' )
+            connect = require( 'amd/connect.js' ),
+            util = require( 'amd/util.js' )
             ;
     } );
 };

@@ -1,5 +1,7 @@
 # package management
-/node_modules
+node_modules/
+/build
+/chapter_9_rest/public/assets
 npm-debug.log
 *.jshintrc
 *.travis.yml

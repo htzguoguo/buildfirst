@@ -1,0 +1,20 @@
+{
+  "name": "bower-package",
+  "authors": [
+    "Administrator <binnorman@139.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.2"
+  }
+}

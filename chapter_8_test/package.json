@@ -1,0 +1,39 @@
+{
+  "name": "chapter_8_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glob": "^7.1.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-pagespeed": "^2.0.1",
+    "grunt-photobox": "^0.9.0",
+    "grunt-tape": "^0.1.0",
+    "grunt-testling": "^1.2.0",
+    "grunt-yslow": "0.0.4",
+    "mkdirp": "^0.5.1",
+    "phantomjs": "^2.1.7",
+    "proxyquire": "^1.7.11",
+    "proxyquireify": "^3.2.1",
+    "sinon": "^2.1.0",
+    "testling": "^1.7.1"
+  },
+  "dependencies": {
+    "backbone": "^1.3.3",
+    "brfs": "^1.4.3",
+    "mustache": "^2.3.0",
+    "superagent": "^3.5.2"
+  },
+  "testling": {
+    "files": "test/compute.js"
+  }
+}

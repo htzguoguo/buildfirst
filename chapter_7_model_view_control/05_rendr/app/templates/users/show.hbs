@@ -1,0 +1,28 @@
+<img src="{{avatar_url}}" width="80px" height="80px" />{{login}}
+({{public_repos}} public repos)
+<br/>
+<div>
+    <div>
+        {{view 'user_repos_view' collection=repos}}
+    </div>
+    <div>
+        <h3>Info</h3>
+        <br/>
+        <table>
+            <tr>
+                <th>
+                    location
+                </th>
+                <td>
+                    {{location}}
+                </td>
+            </tr>
+            <tr>
+                <th>blog</th>
+                <td>
+                    {{blog}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

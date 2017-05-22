@@ -1,0 +1,18 @@
+{
+  "name": "04_async_flow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serial_flow.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.1.4",
+    "jquery": "^3.1.1"
+  },
+  "devDependencies": {
+    "grunt-browserify": "^5.0.0"
+  }
+}

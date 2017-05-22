@@ -1,0 +1,31 @@
+<ul>
+    {{#shopping_list}}
+<li>
+    {{^editing}}
+    <span>{{quantity}} x {{name}}</span>
+    <button class="remove" data-name="{{name}}">X</button>
+    <button class="edit" data-name="{{name}}">Edit</button>
+    {{/editing}}
+    {{#editing}}
+    <input class="edit-quantity" type="number" value="{{quantity}}">
+    <button class="save" data-name="{{name}}">Save</button>
+    <button class="cancel" data-name="{{name}}">Cancel</button>
+    {{#error}}
+    <p>{{error}}</p>
+    {{/error}}
+    {{/editing}}
+</li>
+    {{/shopping_list}}
+</ul>
+
+<fieldset>
+    <legend>Add Product</legend>
+    <label>名称</label>
+    <input   class="name" placeholder="请输入水果名称" value="{{name}}">
+    <label>数量</label>
+    <input type="number" class="quantity" placeholder="数量" value="{{quantity}}">
+    <button class="add">ok</button>
+    {{#error}}
+    <p>{{error}}</p>
+    {{/error}}
+</fieldset>

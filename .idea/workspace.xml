@@ -2,8 +2,164 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="987afbbb-0c06-42f8-a575-142002ae8d13" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/angularjs/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/angularjs/js/app/testcontroller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/angularjs/js/app/testservice.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/angularjs/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower-package/.bowerrc" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower-package/js/app/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bower-package/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/js/lib/text.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/js/lib/tjx.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/js/lib/tjx.util.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/browserify-cjs/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/callback-hell/callback-hell.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/callback-hell/not_that_bad.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/callback-hell/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/03_error_async_handling/flow.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/map.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/queue.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/serial.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/serial_flow.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow/sort.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/getGithubUsers.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/promise.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/promise_all.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/promise_basic.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/tjx_io_promise.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/11_emitter/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/11_emitter/consumer.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/11_emitter/emitter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/11_emitter/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/12_generator/fibanocci.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/12_generator/flow.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/12_generator/flow_usage.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/collections/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/models/collection.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/models/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/service/binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/Collection.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/templates/collection.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/templates/sample.mu" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/app/views/templates/sample1.mu" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/collections/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/models/book.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/models/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/routers/viewrouter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/service/binary.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/collection.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/modelsample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/sample.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/templates/collection.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/templates/model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/templates/sample.mu" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/collection/products.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/custom_event.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/memoryleak.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/models/product.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/routers/approuter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/services/productsServices.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/addItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/list.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/listItem.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/listView.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/addItem.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/list.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/listItem.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/shoppinglist.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/list.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app/collection/TaskCollection.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app/model/task.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app/view/TaskCollectionView.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/app/view/taskview.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/collections/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/collections/repos.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/collections/users.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/controllers/home_controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/controllers/user_controller.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/models/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/models/repos.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/models/user.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/router.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/routes.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/templates/_layout.hbs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/templates/home/index.hbs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/templates/user_repos_view.hbs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/templates/users/index.hbs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/templates/users/show.hbs" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/views/base.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/views/home/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/views/users/index.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/views/users/show.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/app/views/users/user_repos_view.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/obj.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/compute.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/emitter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/event-bar.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/event-bar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/event-entry.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/mapper.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/maxwell.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/models/User.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/qotd.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/src/qotdService.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/compute.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/emitter.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/event-bar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/mapper.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/maxwell.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/qotd.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/routers.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/runner.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_8_test/test/shoppingItems.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_9_rest/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_9_rest/modules/http_module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_9_rest/test/http_module.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chapter_9_rest/test/http_module_mock.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/harmony-traceur/Gruntfile.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/harmony-traceur/js/math.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/request-on-request/requests.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/request-on-request/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirejsusage/js/amd/app.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirejsusage/js/amd/lib/textdown.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirejsusage/js/amd/lib/textup.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirejsusage/test.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/3__BuildFirst_node_modules.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/3. BuildFirst.iml" afterPath="$PROJECT_DIR$/.idea/3. BuildFirst.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gruntfile.js" afterPath="$PROJECT_DIR$/gruntfile.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/task/create.js" afterPath="$PROJECT_DIR$/task/create.js" />
     </list>
     <ignored path="3. BuildFirst.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -14,7 +170,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -24,38 +179,80 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sluggish.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sluggish.js">
+      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/login.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="1619">
+              <caret line="149" column="48" lean-forward="false" selection-start-line="149" selection-start-column="48" selection-end-line="149" selection-end-column="48" />
               <folding>
-                <element signature="n#!!doc;n#stamp#0" expanded="false" />
+                <element signature="e#1413#3184#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-average.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app-average.js">
+      <file leaf-file-name="profile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+            <state relative-caret-position="308">
+              <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contact.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/models/contact.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
               <folding>
-                <element signature="n#!!doc;n#Average#0" expanded="false" />
+                <element signature="e#0#49#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-scope.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app-scope.js">
+      <file leaf-file-name="http_helper.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/http_helper.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+            <state relative-caret-position="370">
+              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="471">
+              <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
               <folding>
-                <element signature="n#!!doc;n#getcounter#0" expanded="false" />
+                <element signature="e#0#49#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/templates/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="470">
+              <caret line="21" column="55" lean-forward="true" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="contact.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/templates/contact.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,45 +260,29 @@
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app-hoisting.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app-hoisting.js">
+      <file leaf-file-name="contact.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/schema/contact.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#49#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="304">
+              <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="simple.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/simple.js">
+      <file leaf-file-name="contactsrouter.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/routers/contactsrouter.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
-              <folding>
-                <element signature="e#0#49#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app-cjs.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app-cjs.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#49#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="330">
+              <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,54 +292,82 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AMD JavaScript File" />
+        <option value="CSS File" />
         <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>data-dismiss</find>
+      <find>data-</find>
+      <find>assets</find>
+      <find>close</find>
+      <find>min</find>
+      <find>containerHeight</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/chapter_6_understanding_async_flow_control/06_promise/promise_basic.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/css/layout.less" />
-        <option value="$PROJECT_DIR$/build/css/complied.css" />
-        <option value="$PROJECT_DIR$/public/css/classes.less" />
-        <option value="$PROJECT_DIR$/public/css/elements.less" />
-        <option value="$PROJECT_DIR$/public/js/something.js" />
-        <option value="$PROJECT_DIR$/public/js/something-else.js" />
-        <option value="$PROJECT_DIR$/public/hello.html" />
-        <option value="$PROJECT_DIR$/db.json" />
-        <option value="$PROJECT_DIR$/task/lib/util.js" />
-        <option value="$PROJECT_DIR$/../2. Src/ch02/10_mysql-tasks/db.json" />
-        <option value="$PROJECT_DIR$/task/create.js" />
-        <option value="$PROJECT_DIR$/task/lib/connect.js" />
-        <option value="$PROJECT_DIR$/public/css/home.less" />
-        <option value="$PROJECT_DIR$/public/js/foo.js" />
-        <option value="$PROJECT_DIR$/public/js/filewatch.js" />
-        <option value="$PROJECT_DIR$/.nodemonignore" />
-        <option value="$PROJECT_DIR$/public/views/home.jade" />
-        <option value="$PROJECT_DIR$/build/views/app/msg.html" />
-        <option value="$PROJECT_DIR$/build/views/js/app.js" />
-        <option value="$PROJECT_DIR$/public/views/js/app.js" />
-        <option value="$PROJECT_DIR$/public/views/app/msg.html" />
-        <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/Procfile.txt" />
-        <option value="$PROJECT_DIR$/.jshintrc" />
-        <option value="$PROJECT_DIR$/gruntfile.js" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
-        <option value="$PROJECT_DIR$/lib/globals.js" />
-        <option value="$PROJECT_DIR$/lib/logger.js" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/app-pm2.js" />
-        <option value="$PROJECT_DIR$/app-slug.js" />
-        <option value="$PROJECT_DIR$/sluggish.js" />
-        <option value="$PROJECT_DIR$/app-average.js" />
-        <option value="$PROJECT_DIR$/app-scope.js" />
-        <option value="$PROJECT_DIR$/app-hoisting.js" />
-        <option value="$PROJECT_DIR$/lib/simple.js" />
-        <option value="$PROJECT_DIR$/app-cjs.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/utils/tjx.core.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/assets/modules/css/login.css" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/modules/users/main.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/modules/users/views/templates/login.html" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/modules/users/models/usersession.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/modules/users/views/profile.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/routes/groups.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/contacts_leveldb.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/package.json" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/test/contact_model.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/base_model.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/routes/api_v2.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/app.js" />
+        <option value="internal/linkedlist.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/routes/contacts_v2.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/test/http_module.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/modules/users/views/login.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/templates/assets/css/login.css" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/usersession.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/assets/apps/css/login.css" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/templates/login.html" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/user.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/assets/js/core/app.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/main.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/main.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/app.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/loginaccount.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/index.html" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/lib/js/baseview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/lib/js/modelview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/routers/userrouters.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/common/js/baseview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/common/js/baseapp.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/common/js/modelview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/utils/viewhelper.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/utils/baseview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/profile.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/utils/modelview.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/app.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/routers/approuters.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/contact.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/models/contact.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/routes/contacts.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/routers/contactsrouter.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/contacts_mongodb.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/schema/contact.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/modules/http_helper.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/login.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js" />
+        <option value="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/templates/contact.html" />
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
@@ -169,21 +378,27 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/browserify-cjs/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_7_model_view_control/01_backbone/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_7_model_view_control/04_backbone_using/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_7_model_view_control/05_rendr/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_8_test/node_modules" />
+    <handled-path value="$PROJECT_DIR$/chapter_9_rest/node_modules" />
+    <handled-path value="$PROJECT_DIR$/harmony-traceur/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+    <handled-path value="$PROJECT_DIR$/requirejsusage/node_modules" />
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1378" />
-    <option name="height" value="780" />
+    <option name="width" value="1696" />
+    <option name="height" value="1066" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -207,12 +422,6 @@
               <option name="myItemId" value="3. BuildFirst" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="3. BuildFirst" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="3. BuildFirst" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -228,11 +437,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="requirejsusage" />
+              <option name="myItemId" value="chapter_9_rest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="3. BuildFirst" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="3. BuildFirst" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="chapter_9_rest" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -243,26 +466,52 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="E:/项目资料(8_1_2011)/40. 安全生产和环境保护地理信息系统项目/3. src/TJX.AJHB" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../51. Webapp Template/9. 个人网站/【HTML5UP】横向滑动个人网站 - ethereal/templatesy_557/557" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="prop_add_unversioned_files" value="true" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files (x86)/nodejs/node" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="JavaScriptPreferStrict" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\requirejsusage\js" />
-      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\public" />
-      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\public\app" />
-      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\private" />
+      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\chapter_9_rest\public\assets\apps\css" />
+      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\chapter_9_rest\public\assets\modules" />
+      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\chapter_9_rest\public\modules\users\views\templates" />
+      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\chapter_9_rest\modules" />
+      <recent name="E:\程序资料(10_21_2011)\42. JavaScript Application Design_A Build First Approach\3. BuildFirst\chapter_7_model_view_control\05_rendr\app\collections" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Node.js.app">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <method />
     </configuration>
     <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
@@ -271,10 +520,16 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
-    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="$PROJECT_DIR$/chapter_6_understanding_async_flow_control/04_async_flow">
       <method />
     </configuration>
     <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
@@ -293,7 +548,7 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
+      <command value="run" />
       <scripts />
       <node-interpreter value="project" />
       <envs />
@@ -312,6 +567,12 @@
       <recursive>false</recursive>
       <method />
     </configuration>
+    <configuration default="false" name="app" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" path-to-js-file="app.js" working-dir="$PROJECT_DIR$/chapter_9_rest">
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.app" />
+    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -332,34 +593,85 @@
       <workItem from="1480299924476" duration="18845000" />
       <workItem from="1480685238308" duration="705000" />
       <workItem from="1480942307058" duration="3460000" />
-      <workItem from="1480988889554" duration="9089000" />
+      <workItem from="1480988889554" duration="37461000" />
+      <workItem from="1481543815136" duration="12169000" />
+      <workItem from="1481766373261" duration="566000" />
+      <workItem from="1481802417727" duration="3741000" />
+      <workItem from="1482110068985" duration="576000" />
+      <workItem from="1482755460078" duration="70500000" />
+      <workItem from="1483365607214" duration="8088000" />
+      <workItem from="1483944852000" duration="34000" />
+      <workItem from="1483965570281" duration="7260000" />
+      <workItem from="1484052190700" duration="5428000" />
+      <workItem from="1484393896041" duration="1693000" />
+      <workItem from="1484451170870" duration="1248000" />
+      <workItem from="1484487997728" duration="1119000" />
+      <workItem from="1484575955573" duration="3979000" />
+      <workItem from="1484638804386" duration="2555000" />
+      <workItem from="1484703893988" duration="3614000" />
+      <workItem from="1485091286772" duration="6135000" />
+      <workItem from="1485483014807" duration="2179000" />
+      <workItem from="1486868105818" duration="2548000" />
+      <workItem from="1490013712473" duration="39038000" />
+      <workItem from="1490668178871" duration="21202000" />
+      <workItem from="1490790239782" duration="33672000" />
+      <workItem from="1491398571506" duration="25944000" />
+      <workItem from="1491526797244" duration="34945000" />
+      <workItem from="1491872693902" duration="32236000" />
+      <workItem from="1492062698000" duration="39802000" />
+      <workItem from="1492436702635" duration="2505000" />
+      <workItem from="1492476457527" duration="50729000" />
+      <workItem from="1493172718871" duration="13296000" />
+      <workItem from="1493691428187" duration="313000" />
+      <workItem from="1494128615985" duration="4408000" />
+      <workItem from="1494223215061" duration="572000" />
+      <workItem from="1494317712964" duration="12134000" />
+      <workItem from="1494463008624" duration="6172000" />
+      <workItem from="1494553483439" duration="5120000" />
+      <workItem from="1494812680439" duration="8795000" />
+      <workItem from="1494860811784" duration="20688000" />
+      <workItem from="1495163981823" duration="65000" />
+      <workItem from="1495164205796" duration="629000" />
+      <workItem from="1495169039974" duration="591000" />
+      <workItem from="1495372945748" duration="26113000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="110088000" />
+    <option name="totallyTimeSpent" value="650861000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1378" height="780" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1696" height="1066" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16716418" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17913148" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4834437" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852563" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4044199" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.nodemonignore" />
@@ -376,349 +688,461 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/chapter_9_rest/routes/products.js</url>
+          <line>40</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/chapter_9_rest/routes/contacts.js</url>
+          <line>18</line>
+          <properties />
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="29" />
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="NodeJSConfigurationType">
+        <watch expression="ll[index]" language="JavaScript" />
+        <watch expression="uu[index]" language="JavaScript" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../2. Src/ch03/01_distribution-config/public/js/foo.js">
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/shoppinglist.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="266">
+          <caret line="14" column="14" lean-forward="false" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/all.min.js" />
-    <entry file="file://$PROJECT_DIR$/build/css/all.css" />
-    <entry file="file://$PROJECT_DIR$/../2. Src/ch03/01_distribution-config/Gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="86" column="45" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/filewatch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/home.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/views/js/app.js" />
-    <entry file="file://$PROJECT_DIR$/build/views/app/msg.html" />
-    <entry file="file://$PROJECT_DIR$/public/app/js/app.js" />
-    <entry file="file://$PROJECT_DIR$/build/app/js/858ead6d.app.js" />
-    <entry file="file://$PROJECT_DIR$/public/app/app/msg.html" />
-    <entry file="file://$PROJECT_DIR$/build/app/app/msg.html" />
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/js/2be891da.2be891da.tjx.app.currentsituation.bangong.min.js" />
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/js/4f7aadac.4f7aadac.tjx.app.currentsituation.detail.js" />
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/currentsituationsearch.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9744">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/app/securityinfo/dangerouschemicalsadd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15118">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/currentsituationbangong.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="480" column="27" selection-start-line="480" selection-start-column="27" selection-end-line="480" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/currentsituationdetail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="700" column="6" selection-start-line="700" selection-start-column="6" selection-end-line="700" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/currentsituationhome.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/app/currentsituation/currentsituationhomeoffice.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/views/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="10" selection-start-line="9" selection-start-column="10" selection-end-line="9" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/views/page.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="39" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/css/f3178d05.all.css">
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/b9228a57.bundle.js">
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/routers/approuter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="37" lean-forward="false" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/listItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" column="64" lean-forward="false" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/templates/listItem.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="10" lean-forward="false" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/03_shoppinglist/app/views/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1501">
+          <caret line="79" column="15" lean-forward="false" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_7_model_view_control/02_backbone/js/views/modelsample.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="31" column="48" lean-forward="true" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/assets/apps/css/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="17" lean-forward="true" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/api_v2.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/js/d74c924f.all.min.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
+        <state relative-caret-position="190">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/foo.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/assets/js/core/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="29" column="47" lean-forward="true" selection-start-line="29" selection-start-column="47" selection-end-line="29" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20333">
+          <caret line="14818" column="0" lean-forward="true" selection-start-line="14818" selection-start-column="0" selection-end-line="14818" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/something.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/something-else.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/css/f3178d05.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/tjx.lib.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/tjx.lib.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile.txt" />
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.jshintrc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.nodemonignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gruntfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="323" column="0" selection-start-line="323" selection-start-column="0" selection-end-line="323" selection-end-column="0" />
+        <state relative-caret-position="4199">
+          <caret line="1043" column="13" lean-forward="false" selection-start-line="1043" selection-start-column="13" selection-end-line="1043" selection-end-column="13" />
           <folding>
-            <element signature="e#0#50#0" expanded="false" />
-            <element signature="e#355#401#0" expanded="false" />
-            <element signature="e#659#1118#0" expanded="false" />
-            <element signature="e#1861#2571#0" expanded="false" />
-            <element signature="e#2592#3210#0" expanded="false" />
-            <element signature="e#3731#3836#0" expanded="false" />
-            <element signature="e#3860#3972#0" expanded="false" />
-            <element signature="e#4000#4196#0" expanded="false" />
-            <element signature="e#4218#5032#0" expanded="false" />
-            <element signature="e#5056#5151#0" expanded="false" />
-            <element signature="e#5178#5391#0" expanded="false" />
-            <element signature="e#5416#5722#0" expanded="false" />
-            <element signature="e#5742#5915#0" expanded="false" />
-            <element signature="e#5938#6266#0" expanded="false" />
-            <element signature="e#6290#6624#0" expanded="false" />
-            <element signature="e#8074#8800#0" expanded="false" />
-            <element signature="e#8999#9360#0" expanded="false" />
+            <element signature="e#742#870#0" expanded="false" />
+            <element signature="e#923#1048#0" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#li#1;n#ul#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#2630#2635#0" expanded="false" />
+            <element signature="e#6385#6390#0" expanded="false" />
+            <element signature="e#21241#21246#0" expanded="false" />
+            <element signature="e#21368#21373#0" expanded="false" />
+            <element signature="n#li#2;n#ul#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#42900#42905#0" expanded="false" />
+            <element signature="n#li#3;n#ul#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#li#4;n#ul#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#ul#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app-pm2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app-slug.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/Gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
-          <caret line="24" column="29" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/logger.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/common/js/modelview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+        <state relative-caret-position="448">
+          <caret line="19" column="38" lean-forward="true" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/common/js/baseview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/baseapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-103">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/common/js/baseapp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/tjx.core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2033">
+          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
           <folding>
-            <element signature="e#0#49#0" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1492434890559" expanded="true" signature="12559:12565" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="28243:28249" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="28249:28255" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="28540:28546" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="28546:28552" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="31118:31124" ph=" " />
+            <marker date="1492434890559" expanded="true" signature="31124:31130" ph=" " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/globals.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/viewhelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sluggish.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/loginaccount.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc;n#stamp#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="-114">
+          <caret line="12" column="24" lean-forward="false" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app-average.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/usersession.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-          <folding>
-            <element signature="n#!!doc;n#Average#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="94">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app-scope.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/baseview.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-          <folding>
-            <element signature="n#!!doc;n#getcounter#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="351">
+          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app-hoisting.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/baseview_1.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <caret line="10" column="75" lean-forward="false" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/utils/modelview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="19" column="53" lean-forward="false" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/templates/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="7" lean-forward="true" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/contacts_v2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/api_v1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="22" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="7" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="35" column="31" lean-forward="true" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/routers/userrouters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding>
             <element signature="e#0#49#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/simple.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/routers/approuters.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
+        <state relative-caret-position="270">
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/routes/contacts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/contacts_mongodb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="106" column="20" lean-forward="true" selection-start-line="106" selection-start-column="20" selection-end-line="106" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/http_helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/profile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/models/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="15" column="2" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
           <folding>
             <element signature="e#0#49#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app-cjs.js">
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        <state relative-caret-position="471">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
           <folding>
             <element signature="e#0#49#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1619">
+          <caret line="149" column="48" lean-forward="false" selection-start-line="149" selection-start-column="48" selection-end-line="149" selection-end-column="48" />
+          <folding>
+            <element signature="e#1413#3184#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/templates/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="21" column="55" lean-forward="true" selection-start-line="21" selection-start-column="55" selection-end-line="21" selection-end-column="55" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/routers/contactsrouter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/modules/schema/contact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/templates/contact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="22" column="32" lean-forward="true" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        <state relative-caret-position="152">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>

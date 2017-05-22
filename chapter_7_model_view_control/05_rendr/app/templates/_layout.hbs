@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Entouage</title>
+    </head>
+    <body>
+        <div>
+            <a href="/">GitHub Browser</a>
+        </div>
+        <ul>
+            <li>
+                <a  href="/">Home</a>
+            </li>
+            <li>
+                <a href="/users">Users</a>
+            </li>
+        </ul>
+        <section id="content" class="container">
+            {{body}}
+        </section>
+        <script src="/bundle.js"></script>
+        <script>
+            ( function () {
+                var App = window.App = new (require('app/app'))({{json appData}});
+                App.bootstrapData({{json bootstrappedData}});
+                App.start();
+            } )();
+        </script>
+    </body>
+
+</html>

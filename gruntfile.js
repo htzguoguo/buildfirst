@@ -253,12 +253,52 @@ module.exports = function ( grunt ) {
                     }]
                 }
             },
+
             bump : {
                 options : {
                     commit : true,
                     createTag : true,
                     push : true
                 }
+            },
+
+            requirejs: {
+
+                // these defaults will be used as a base for every target we define
+                options: {
+                    // the name is used to find js/amd/app.js, basically
+                    name: 'app',
+
+                    // this should be set to the path from your project root to the
+                    // root of your AMD JavaScript files.
+                    baseUrl: 'requirejsusage/js/amd',
+
+                    // where we want the compilation result to go
+                    out: 'build/js/app.min.js'
+                },
+
+                debug: {
+
+                    // These options also get merged with the defaults defined above
+                    options: {
+
+                        // for some reason, generating source maps requires this to be off
+                        // and it's on by default...
+                        preserveLicenseComments: false,
+
+                        // we want source maps because we're bundling everything together
+                        // learn more about source maps here:
+                        // http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
+                        generateSourceMaps: true,
+
+                        // also required by the generateSourceMaps option
+                        optimize: 'none'
+                    }
+                },
+
+                // This target will inherit the default options, which is
+                // enough for us. The defaults are tuned to optimize.
+                release: {}
             }
 
           /*  db : {
@@ -295,7 +335,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-copy' );
     grunt.loadNpmTasks( 'grunt-contrib-concat' );
     grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-    grunt.loadNpmTasks( 'grunt-pemcrypt' );
+  /*  grunt.loadNpmTasks( 'grunt-pemcrypt' );*/
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-nodemon' );
     grunt.loadNpmTasks( 'grunt-concurrent' );
@@ -306,6 +346,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
     grunt.loadNpmTasks( 'grunt-contrib-htmlmin' );
     grunt.loadNpmTasks( 'grunt-bump' );
+    grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
 
     grunt.registerTask( 'build:debug',
         'Lint and compile',
@@ -323,6 +364,8 @@ module.exports = function ( grunt ) {
     grunt.registerTask( 'dev', [ 'build:debug', 'concurrent' ] );
 
     grunt.registerTask( 'heroku', [ 'jshint:lint' ] );
+
+    grunt.registerTask( 'requirejs', [  'requirejs:debug' ] );
 
 
 

@@ -1,0 +1,14 @@
+{{^editing}}
+<span>{{quantity}}X{{name}}</span>
+<button class="edit">Edit</button>
+<button class="remove">X</button>
+{{/editing}}
+{{#editing}}
+<span>{{name}}</span>
+<input class="edit-quantity" value="{{quantity}}" type="number">
+<button class="save">Save</button>
+<button class="cancel">Cancel</button>
+{{/editing}}
+{{#error}}
+<span>{{error}}</span>
+{{/error}}
