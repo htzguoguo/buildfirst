@@ -1,216 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="987afbbb-0c06-42f8-a575-142002ae8d13" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/css/10fd9e3d.tjx.app.currentsituation.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/css/7adc9896.tjx.app.currentsituation.info.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationbangong.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationhome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationhomeoffice.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationinfo.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/currentsituationsearch.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/17b89bb7.tjx.app.currentsituation.home.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/224a2f24.tjx.data.currentsituation.detail.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/4f7aadac.tjx.app.currentsituation.detail.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/50978a67.tjx.app.currentsituation.office.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/8a456e42.tjx.app.currentsituation.bangong.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/956dce4b.tjx.app.currentsituation.info.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/abd9277d.tjx.app.currentsituation.office.info.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/js/f08ab148.tjx.app.currentsituation.search.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/currentsituation/para/search.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/css/61a07862.timeline.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/dangerchemicaldetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/environmentaldetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/hazardidentificationdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/33e1317e.tjx.data.detail.photo.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/43d90956.tjx.app.detail.photo.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/58baa981.tjx.app.detail.onsite.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/6648675f.tjx.app.detail.safety.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/7e5c8f5a.tjx.data.detail.onsite.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/a1b8b27b.tjx.app.detail.element.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/js/d8230b13.tjx.app.detail.environmental.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/onsiteinspectiondetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/onsitereviewdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/photodetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/practitionercertificationdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/practitionercertificationwarningdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/safetydetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/safetyequipmentdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/safetyinspectiondetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/safetyinspectionwarningdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/specialequipmentdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/detail/specialequipmentwarningdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/css/6498db38.tjx.app.documents.files.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/css/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/files.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/4f79fb8b.tjx.data.documents.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/7a6512c3.tjx.app.documents.list.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/8e5ed85f.tjx.app.documents.index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/8ece3973.tjx.app.document.init.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/c209c6ff.tjx.data.documents.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/c2120d83.tjx.app.document.init.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/js/fbc66b31.tjx.app.documents.list.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/para/catalog.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/para/catalog1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/documents/para/files.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalbasicadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalequipmentadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalexhaustpollutantadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalexhaustportadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalnoiseboundaryadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalproductadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalproductionplantpollutantsadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalsewagedisposaladd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalsolidwasteadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalwastesiteadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/environmental/environmentalwastewaterpollutantadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/kpi/kpiadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/cctv.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/css/5b248859.hntp.shell.index1.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/css/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/css/b6c529ae.hntp.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/1.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/4765fd1f.dian.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/65187b17.dw.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/9f0eb347.monitor2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/ce9b60b2.monitor1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/eb5360cc.monitor.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/images/f7198de4.webcam.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/1d7cacb6.hntp.core.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/257e431f.hntp.admin.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/2a48b181.tjx.app.monitor.monitoring.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/3943dab8.tjx.app.monitor.map.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/3f2dd9aa.tjx.app.monitor.map.b.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/53f66bd0.hntp.helpers.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/5d2a64fe.tjx.map.monitor.camera.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/bd4f3220.hntp.datatables.helper.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/js/fc61b079.tjx.map.monitor.camera.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/monitoring.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/monitoring_b.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/monitoring_c.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/monitoring_d.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/para/all.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/para/hntp.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/monitor/video1.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/chemicaldailybatchreport.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/chemicaldailyreport.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/09957dc4.tjx.app.onsitecheck.chemicaldailybatchreport.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/38184e67.tjx.app.onsitecheck.onsitecheckadd.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/5eb76486.tjx.app.onsitecheck.chemicaldailyreport.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/70e2198b.tjx.app.onsitecheck.onsitecheckreply.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/78befd0c.tjx.data.onsitecheck.chemicaldailyreport.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/dd70e091.tjx.app.onsitecheck.onsitecheckhome.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/js/ebe7351c.tjx.data.onsitecheck.onsitecheck.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitecheckadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitecheckadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitecheckhome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitecheckhome_b.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitecheckreply.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/onsitecheck/onsitehome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/certrating.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/chemicalrating.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/css/8d38394e.profile-old.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/css/d8ddd539.enterpriserating.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/css/edf10e03.tasks.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/enterpriserating.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/js/58fda512.tjx.app.rating.itemrating.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/js/c6083263.tjx.data.rating.enterpriserating.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/js/de0b5864.tjx.app.rating.home.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/js/f05797fc.tjx.app.rating.enterpriserating.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/ratingdetail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/ratinghome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/rating/ratinghome_b.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/EnvironmentalTotal.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/chemicalhome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/css/0b576dac.tjx.app.survery.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/css/4ec4cc59.tjx.app.safetyhome.animate.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/css/a362d496.tjx.app.safetyhome.style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/dangerouschemicalsadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/dangerouschemicalsadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/dangerouschemicalsedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/environmentalhome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/environmentalsearch.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/feiqigotomap.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/feishuigotomap.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/hazardidentificationadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/hazardidentificationadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/hazardidentificationedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/images/chemicalhome/1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/images/chemicalhome/2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/images/chemicalhome/3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/1a914e90.tjx.app.securityinfo.chemicalhome.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/22197f46.tjx.app.securityinfo.chemical.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/2ba4d759.tjx.app.securityinfo.hazardidentification.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/3a65825c.tjx.app.securityinfo.equipment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/3d2131df.tjx.app.securityinfo.safetysearch.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/4f8b3781.tjx.app.securityinfo.survery.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/73b28d9c.tjx.app.securityinfo.safetyhome.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/77764ce1.tjx.app.securityinfo.environmentalsearch.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/ErrorLog.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/a187ee45.tjx.app.securityinfo.specialequipment.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/af98a801.tjx.app.securityinfo.certification.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/js/e859baae.tjx.app.securityinfo.safetyinspection.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/practitionercertificationadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/practitionercertificationedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyequipmentadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyequipmentadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyequipmentedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyhome.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyinspectionadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyinspectionadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetyinspectionedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetysearch.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/safetytotal.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/specialequipmentadd.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/specialequipmentadd_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/specialequipmentedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/survey.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/survey_m.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/app/securityinfo/surveyedit.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/f3178d05.all.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/css/f3178d05.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/img/alpha-covers/Bevacqua_JavaScript1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/img/alpha-covers/Bevacqua_JavaScript2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/img/alpha-covers/Bevacqua_JavaScript3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/b9228a57.bundle.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/js/d74c924f.all.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/views/home.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/views/page.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/views/contact.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/Gruntfile.js" afterPath="$PROJECT_DIR$/chapter_9_rest/Gruntfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/modules/http_helper.js" afterPath="$PROJECT_DIR$/chapter_9_rest/modules/http_helper.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/modules/user.js" afterPath="$PROJECT_DIR$/chapter_9_rest/modules/user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/package.json" afterPath="$PROJECT_DIR$/chapter_9_rest/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/app.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/models/contact.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/models/contact.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/routers/contactsrouter.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/routers/contactsrouter.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/app.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/loginaccount.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/models/loginaccount.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/routers/userrouters.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/routers/userrouters.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/login.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/profile.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/apps/users/views/profile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/bundle.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/index.html" afterPath="$PROJECT_DIR$/chapter_9_rest/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/main.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/routers/approuters.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/routers/approuters.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/utils/baseapp.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/utils/baseapp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/utils/baseview.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/utils/baseview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/public/utils/modelview.js" afterPath="$PROJECT_DIR$/chapter_9_rest/public/utils/modelview.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chapter_9_rest/routes/contacts.js" afterPath="$PROJECT_DIR$/chapter_9_rest/routes/contacts.js" />
-    </list>
+    <list default="true" id="987afbbb-0c06-42f8-a575-142002ae8d13" name="Default" comment="" />
     <ignored path="3. BuildFirst.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -288,8 +79,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+            <state relative-caret-position="703">
+              <caret line="39" column="21" lean-forward="true" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
               <folding>
                 <element signature="e#0#49#0" expanded="false" />
               </folding>
@@ -998,12 +789,12 @@
       <workItem from="1495372945748" duration="45269000" />
       <workItem from="1495636309614" duration="1552000" />
       <workItem from="1495765577779" duration="22285000" />
-      <workItem from="1496192786683" duration="32014000" />
+      <workItem from="1496192786683" duration="32614000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="725868000" />
+    <option name="totallyTimeSpent" value="726468000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3761,8 +3552,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chapter_9_rest/public/apps/contacts/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        <state relative-caret-position="703">
+          <caret line="39" column="21" lean-forward="true" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
           <folding>
             <element signature="e#0#49#0" expanded="false" />
           </folding>
