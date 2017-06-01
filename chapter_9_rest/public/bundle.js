@@ -1922,7 +1922,7 @@
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":21,"underscore":3}],2:[function(require,module,exports){
+},{"jquery":33,"underscore":3}],2:[function(require,module,exports){
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -4111,30 +4111,33 @@
  */
 
 var BackBone = require( 'backbone' ),
+    LoginApp = require( './apps/users/app' ),
+    Region = require( './utils/region' ),
     _ = require( 'underscore' ),
     DefaultRouter = null,
     Application = null;
+
 
 Application = function () {
     "use strict";
     this.Models = {};
     this.Collections = {};
     this.Routers =  {};
+    this.currentSubapp = undefined;
+    this.bodyRegion = new Region( { el : 'body' } );
+    this.headerRegion = new Region( { el : '#navbar-main' } );
+    this.mainRegion = new Region( { el : '.content-wrapper' } );
+    this.footerRegion = new Region( { el : '.tjx-bottom-booter' } );
+    this.rightModal = new Region ( { el : '#todo-task-modal' } );
 };
-
-
 
 global.window.app = new Application();
 DefaultRouter = require( './routers/approuters' );
-
-
   _.extend( Application.prototype, {
     pubsub :  _.extend( {}, BackBone.Events ),
     start : function () {
         "use strict";
-        console.log( 'Routers', this.Routers );
         this.router = new DefaultRouter();
-
         _.each(_.values(this.Routers), function(Router) {
             new Router();
         });
@@ -4142,13 +4145,24 @@ DefaultRouter = require( './routers/approuters' );
     },
     startSubApplication : function ( SubApplication ) {
         "use strict";
+
+        if ( SubApplication.prototype.constructor ===   LoginApp) {
+            $( '.tjx-top-first-menu' ).hide();
+            $( '.tjx-bottom-booter' ).hide();
+            $( '#tjx-shell-main' ).hide();
+        }else {
+            $( '.tjx-top-first-menu' ).show();
+            $( '.tjx-bottom-booter' ).show();
+            $( '#tjx-shell-main' ).show();
+        }
+
         if ( this.currentSubapp && this.currentSubapp instanceof  SubApplication) {
             return this.currentSubapp;
         }
-        if ( this.currentSubapp && this.currentSubapp.destory ) {
-            this.currentSubapp.destory();
+        if ( this.currentSubapp && this.currentSubapp.destroy ) {
+            this.currentSubapp.destroy();
         }
-        this.currentSubapp = new SubApplication( { region : '' } );
+        this.currentSubapp = new SubApplication( { bodyRegion : this.bodyRegion ,mainRegion : this.mainRegion } );
         return this.currentSubapp;
     }
 } );
@@ -4159,48 +4173,142 @@ module.exports = Application;
  
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./routers/approuters":17,"backbone":1,"underscore":3}],5:[function(require,module,exports){
+},{"./apps/users/app":17,"./routers/approuters":25,"./utils/region":32,"backbone":1,"underscore":3}],5:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
 
-var ContactView = require( './views/contact' ),
+var ContactView = require( './views/contactlistitem' ),
+    ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
+    ContactCollection = require( './collections/contacts' ),
     AppBase = require( '../../utils/baseapp' ),
     _ = require( 'underscore' ),
     App;
 
-_.extend( AppBase.prototype, {
-    ShowContract : function ( id ) {
+App = function ( options ) {
+    "use strict";
+    this.currentController = null;
+    this.mainRegion = options.mainRegion;
+    this.bodyRegion = options.bodyRegion;
+    this.GetName = function () {
+        "use strict";
+        return 'ContactApp';
+    };
+    this.ShowContact = function ( id ) {
         "use strict";
         var contact = new ContactModel( {
-            id :   id
-        } ),
-        app = this;
-
-        console.log( 'id', id );
+                id :   id
+            } ),
+            app = this;
         contact.fetch( {
-            success : function ( data, response ) {
+            success : function ( contact ) {
                 var contactView = app.startController(ContactView);
-                contactView.viewModel = data.toJSON();
-                console.log(   data, response );
+                contactView.model = contact;
                 $('.content-wrapper').html( contactView.render().el );
             },
             error : function () {
-               // window.app.router.navigate('login', {trigger: true});
+                // window.app.router.navigate('login', {trigger: true});
             }
         } );
+    };
+    this.ShowContactList = function () {
+        "use strict";
+        var contracts = new ContactCollection(),
+            app = this;
+        contracts.fetch(
+            {
+                success : function ( collection ) {
+                    var contactList = app.startController(ContactList);
+                    contactList.showList(collection);
+                },
+                error : function () {
+
+                }
+            }
+        );
     }
+};
+
+_.extend( App.prototype, AppBase );
+
+module.exports = App;
+
+
+
+
+
+
+
+},{"../../utils/baseapp":26,"./collections/contacts":6,"./controllers/contactlist":7,"./models/contact":8,"./views/contactlistitem":12,"underscore":3}],6:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/24.
+ */
+
+var Backbone = require( 'backbone' ),
+    Contact = require( '../models/contact' ),
+    Contacts;
+
+Contacts = module.exports = Backbone.Collection.extend( {
+    url : 'api/v1/contacts',
+    model : Contact
 } );
 
-module.exports = AppBase;
+},{"../models/contact":8,"backbone":1}],7:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/26.
+ */
+
+var ContactList,
+    Backbone = require( 'backbone' ),
+    App = require( '../../../utils/basecontroller' ),
+    _ = require( 'underscore' ),
+    ContactListLayout = require( '../views/contactlistlayout' ),
+    ContactListActionBar = require( '../views/contactlistactionbar' ),
+    ContactListView = require( '../views/contactList' );
+
+ContactList = module.exports = function ( options ) {
+    "use strict";
+    this.mainRegion = options.mainRegion;
+
+    _.extend( this, Backbone.Events );
+
+    this.showList = function ( contacts ) {
+        var layout = new ContactListLayout(),
+            actionbar = new ContactListActionBar(),
+            contactList = new ContactListView({collection: contacts});
+        this.mainRegion.show( layout );
 
 
 
+        layout.getRegion( 'actions' ).show( actionbar );
+        layout.getRegion( 'list' ).show( contactList );
+      //  $('.content-wrapper').html( contactList.render().el );
 
+        this.listenTo(  contactList, 'item:contact:delete', this.deleteContact );
+    };
 
+    this.deleteContact = function ( view, contact ) {
+        this.askConfirmation( 'The contact will be deleted', function ( isConfirm ) {
+            if ( isConfirm ) {
 
-},{"../../utils/baseapp":18,"./models/contact":6,"./views/contact":8,"underscore":3}],6:[function(require,module,exports){
+                contact.id = contact.get( 'primarycontactnumber' );
+                contact.destroy( {
+                    success : function () {
+                        this.notifySuccess( 'The contact was deleted' );
+                    },
+                    error : function () {
+                        this.notifyError( 'Ooops... Something was wrong' );
+                    }
+                } );
+            }
+        } );
+    };
+};
+
+_.extend( ContactList.prototype, App );
+
+},{"../../../utils/basecontroller":27,"../views/contactList":10,"../views/contactlistactionbar":11,"../views/contactlistlayout":13,"backbone":1,"underscore":3}],8:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4211,13 +4319,14 @@ var Backbone = require( 'backbone' ),
 Contact = module.exports = Backbone.Model.extend(
     {
         urlRoot : 'api/v1/contacts',
+        idAttribute: 'primarycontactnumber',
         defaults : {
             firstname : 'John Doe',
             lastname : 556677
         }
     }
 );
-},{"backbone":1}],7:[function(require,module,exports){
+},{"backbone":1}],9:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -4232,12 +4341,18 @@ var Backbone = require( 'backbone' ),
 
 ContactsRouters = module.exports = Backbone.Router.extend( {
     routes : {
-        'contacts/:id' : 'profile'
+        'contacts/:id' : 'profile',
+        'contacts' : 'list'
     },
     profile : function ( id ) {
         "use strict";
         var app = this.startApp();
-        app.ShowContract( encodeURIComponent(id) );
+        app.ShowContact( encodeURIComponent(id) );
+    },
+    list : function () {
+        "use strict";
+        var app = this.startApp();
+        app.ShowContactList(  );
     },
     startApp : function () {
         "use strict";
@@ -4250,7 +4365,86 @@ window.app.Routers.ContactsRouter = ContactsRouters;
 
 
 
-},{"../app":5,"backbone":1}],8:[function(require,module,exports){
+},{"../app":5,"backbone":1}],10:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/22.
+ */
+
+var CollectionView = require( '../../../utils/collectionview' ),
+    ContactListItemView = require( './contactlistitem' ),
+    ContactListView;
+
+ContactListView = module.exports = CollectionView.extend( {
+    modelView : ContactListItemView,
+    className : 'contact-list',
+   /* render : function () {
+        "use strict";
+        var view, html, app = this;
+        html = this.collection.map( function ( model ) {
+            view = app.renderModel( model );
+            return view.$el;
+        } );
+        this.$el.html( this.template );
+        this.$el.find( '.list-container' ).html( html );
+
+        return this;
+    },
+    events : {
+        'click .createcontact' : 'addContract'
+    },
+    addContract : function () {
+        "use strict";
+        var contact = new ContactModel(),
+            app = this;
+        contact.set( {
+            "firstname": "errt",
+            "lastname": "sssssss",
+            "title": "bnm.",
+            "company": "tygb",
+            "jobtitle": "Developer",
+            "primarycontactnumber": "12345678",
+            "primaryemailaddress": "joe.smith@xyz.com",
+        } );
+        this.collection.create( contact );
+    }*/
+} );
+
+
+
+},{"../../../utils/collectionview":29,"./contactlistitem":12}],11:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/1.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    ContactModel = require('../models/contact'),
+    template = "<button class=\"btn btn-lg btn-success createcontact\">Create a new contact</button>",
+    View;
+
+View = module.exports = ModelView.extend( {
+    className : 'options-bar col-xs-12',
+    template : template,
+    events : {
+        'click .createcontact' : 'addContract'
+    },
+    addContract : function () {
+        "use strict";
+        var contact = new ContactModel(),
+            app = this;
+        contact.set( {
+            "firstname": "errt",
+            "lastname": "sssssss",
+            "title": "bnm.",
+            "company": "tygb",
+            "jobtitle": "Developer",
+            "primarycontactnumber": "12345678",
+            "primaryemailaddress": "joe.smith@xyz.com",
+        } );
+        this.collection.create( contact );
+    }
+} );
+
+},{"../../../utils/modelview":31,"../models/contact":8}],12:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4261,55 +4455,146 @@ var ModelView = require('../../../utils/modelview'),
 
 ContactView = module.exports = ModelView.extend( {
     template : template,
-    updateView : function ( key ) {
+    className : 'col-xs-12 col-sm-6 col-md-3',
+    events : {
+        'click #delete' : 'deleteContact'
+    },
+    deleteContact : function () {
         "use strict";
-        user.fetch( {
-            success : function ( model, response ) {
-                console.log(response  );
-                app.viewModel = response;
-                app.render();
-                container.html( app.el );
-            },
-            error : function () {
-                window.app.router.navigate('login', {trigger: true});
-            }
-        } );
+        console.log( 'deleteContact' );
+        this.trigger( 'contact:delete', this.model );
     }
 } );
 
 
 
-},{"../../../utils/modelview":20}],9:[function(require,module,exports){
+},{"../../../utils/modelview":31}],13:[function(require,module,exports){
 /**
- * Created by Administrator on 2017/4/13.
+ * Created by Administrator on 2017/6/1.
  */
-var LoginView = require( './views/login' ),
-    ProfileView = require( './views/profile' ),
+
+var Layout = require('../../../utils/layout'),
+    template = "<div class=\"actions-bar-container\">\r\n\r\n</div>\r\n<div class=\"list-container\">\r\n\r\n</div>",
+    ContactListLayout;
+
+ContactListLayout = module.exports = Layout.extend( {
+    template : template,
+    className : 'row page-container',
+    regions : {
+        actions : '.actions-bar-container',
+        list : '.list-container'
+    }
+} );
+
+
+
+},{"../../../utils/layout":30}],14:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/24.
+ */
+
+var MainView = require( './views/shell' ),
     AppBase = require( '../../utils/baseapp' ),
     $ = require( 'jquery' ),
     _ = require( 'underscore' );
 
 _.extend( AppBase.prototype, {
-    ShowLogin : function () {
+    ShowMain : function () {
         "use strict";
-        var loginView = this.startController(LoginView);
-      $( 'body' ).append( loginView.render().el );
-        loginView.initUI();
-    },
-    ShowProfile : function () {
-        "use strict";
-        var profileView = this.startController(ProfileView);
-        profileView.updateView( $('.content-wrapper') );
+        var mainView = this.startController(MainView);
+        $( 'body' ).append( mainView.template );
+        window.app.router.navigate('contacts', {trigger: true});
     }
 } );
 module.exports = AppBase;
+},{"../../utils/baseapp":26,"./views/shell":16,"jquery":33,"underscore":3}],15:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/24.
+ */
+
+var Backbone = require( 'backbone' ),
+    App = require( '../app' ),
+    MainRouters;
+
+MainRouters = module.exports = Backbone.Router.extend( {
+    routes : {
+        'main' : 'main'
+    },
+    main : function ( id ) {
+        "use strict";
+        var app = this.startApp();
+        app.ShowMain();
+    },
+    startApp : function () {
+        "use strict";
+        return window.app.startSubApplication( App );
+    }
+} );
+
+window.app.Routers.MainRouter = MainRouters;
+},{"../app":14,"backbone":1}],16:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/24.
+ */
+
+var Backbone = require('backbone'),
+    template = "<div class=\"navbar navbar-default tjx-top-first-menu  navbar-lg \" id=\"navbar-main\" style=\"\">\r\n\r\n    <div class=\"navbar-header\">\r\n        <a class=\"navbar-brand\" href=\"index.html\"><img src=\"../assets/images/logo_icon_dark.png\" alt=\"\"></a>\r\n\r\n        <ul class=\"nav navbar-nav pull-right visible-xs-block\">\r\n            <li><a data-toggle=\"collapse\" data-target=\"#navbar-mobile\"><i class=\"icon-tree5\"></i></a></li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"navbar-collapse collapse\" id=\"navbar-mobile\">\r\n        <ul class=\"nav navbar-nav\">\r\n            <li><a href=\"index.html\"><i class=\"icon-display4 position-left\"></i></a></li>\r\n\r\n            <li class=\"dropdown mega-menu mega-menu-wide\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Components <span class=\"caret\"></span></a>\r\n\r\n                <div class=\"dropdown-menu dropdown-content\">\r\n                    <div class=\"dropdown-content-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Forms</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-pencil3\"></i> Form components</a>\r\n                                        <ul>\r\n                                            <li><a href=\"form_inputs_basic.html\">Basic inputs</a></li>\r\n                                            <li><a href=\"form_checkboxes_radios.html\">Checkboxes &amp; radios</a></li>\r\n                                            <li><a href=\"form_input_groups.html\">Input groups</a></li>\r\n                                            <li><a href=\"form_controls_extended.html\">Extended controls</a></li>\r\n                                            <li><a href=\"form_floating_labels.html\">Floating labels</a></li>\r\n                                            <li>\r\n                                                <a href=\"#\">Selects</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"form_select2.html\">Select2 selects</a></li>\r\n                                                    <li><a href=\"form_multiselect.html\">Bootstrap multiselect</a></li>\r\n                                                    <li><a href=\"form_select_box_it.html\">SelectBoxIt selects</a></li>\r\n                                                    <li><a href=\"form_bootstrap_select.html\">Bootstrap selects</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"form_tag_inputs.html\">Tag inputs</a></li>\r\n                                            <li><a href=\"form_dual_listboxes.html\">Dual Listboxes</a></li>\r\n                                            <li><a href=\"form_editable.html\">Editable forms</a></li>\r\n                                            <li><a href=\"form_validation.html\">Validation</a></li>\r\n                                            <li><a href=\"form_inputs_grid.html\">Inputs grid</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-file-css\"></i> JSON forms</a>\r\n                                        <ul>\r\n                                            <li><a href=\"alpaca_basic.html\">Basic inputs</a></li>\r\n                                            <li><a href=\"alpaca_advanced.html\">Advanced inputs</a></li>\r\n                                            <li><a href=\"alpaca_controls.html\">Controls</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-footprint\"></i> Wizards</a>\r\n                                        <ul>\r\n                                            <li><a href=\"wizard_steps.html\">Steps wizard</a></li>\r\n                                            <li><a href=\"wizard_form.html\">Form wizard</a></li>\r\n                                            <li><a href=\"wizard_stepy.html\">Stepy wizard</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-spell-check\"></i> Editors</a>\r\n                                        <ul>\r\n                                            <li><a href=\"editor_summernote.html\">Summernote editor</a></li>\r\n                                            <li><a href=\"editor_ckeditor.html\">CKEditor</a></li>\r\n                                            <li><a href=\"editor_wysihtml5.html\">WYSIHTML5 editor</a></li>\r\n                                            <li><a href=\"editor_code.html\">Code editor</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-select2\"></i> Pickers</a>\r\n                                        <ul>\r\n                                            <li><a href=\"picker_date.html\">Date &amp; time pickers</a></li>\r\n                                            <li><a href=\"picker_color.html\">Color pickers</a></li>\r\n                                            <li><a href=\"picker_location.html\">Location pickers</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-insert-template\"></i> Form layouts</a>\r\n                                        <ul>\r\n                                            <li><a href=\"form_layout_vertical.html\">Vertical form</a></li>\r\n                                            <li><a href=\"form_layout_horizontal.html\">Horizontal form</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Appearance</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-grid\"></i> Components</a>\r\n                                        <ul>\r\n                                            <li><a href=\"components_modals.html\">Modals</a></li>\r\n                                            <li><a href=\"components_dropdowns.html\">Dropdown menus</a></li>\r\n                                            <li><a href=\"components_tabs.html\">Tabs component</a></li>\r\n                                            <li><a href=\"components_pills.html\">Pills component</a></li>\r\n                                            <li><a href=\"components_navs.html\">Accordion and navs</a></li>\r\n                                            <li><a href=\"components_buttons.html\">Buttons</a></li>\r\n                                            <li><a href=\"components_notifications_pnotify.html\">PNotify notifications</a></li>\r\n                                            <li><a href=\"components_notifications_others.html\">Other notifications</a></li>\r\n                                            <li><a href=\"components_popups.html\">Tooltips and popovers</a></li>\r\n                                            <li><a href=\"components_alerts.html\">Alerts</a></li>\r\n                                            <li><a href=\"components_pagination.html\">Pagination</a></li>\r\n                                            <li><a href=\"components_labels.html\">Labels and badges</a></li>\r\n                                            <li><a href=\"components_loaders.html\">Loaders and bars</a></li>\r\n                                            <li><a href=\"components_thumbnails.html\">Thumbnails</a></li>\r\n                                            <li><a href=\"components_page_header.html\">Page header</a></li>\r\n                                            <li><a href=\"components_breadcrumbs.html\">Breadcrumbs</a></li>\r\n                                            <li><a href=\"components_media.html\">Media objects</a></li>\r\n                                            <li><a href=\"components_affix.html\">Affix and Scrollspy</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-browser\"></i> Content panels</a>\r\n                                        <ul>\r\n                                            <li><a href=\"panels.html\">Panels</a></li>\r\n                                            <li><a href=\"panels_heading.html\">Heading elements</a></li>\r\n                                            <li><a href=\"panels_footer.html\">Footer elements</a></li>\r\n                                            <li><a href=\"panels_draggable.html\">Draggable panels</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-droplets\"></i> Content styling</a>\r\n                                        <ul>\r\n                                            <li><a href=\"appearance_text_styling.html\">Text styling</a></li>\r\n                                            <li><a href=\"appearance_typography.html\">Typography</a></li>\r\n                                            <li><a href=\"appearance_helpers.html\">Helper classes</a></li>\r\n                                            <li><a href=\"appearance_syntax_highlighter.html\">Syntax highlighter</a></li>\r\n                                            <li><a href=\"appearance_content_grid.html\">Grid system</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-gift\"></i> Extra components</a>\r\n                                        <ul>\r\n                                            <li><a href=\"extra_sliders_noui.html\">NoUI sliders</a></li>\r\n                                            <li><a href=\"extra_sliders_ion.html\">Ion range sliders</a></li>\r\n                                            <li><a href=\"extra_trees.html\">Dynamic tree views</a></li>\r\n                                            <li><a href=\"extra_context_menu.html\">Context menu</a></li>\r\n                                            <li><a href=\"extra_fab.html\">Floating action buttons</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-wrench3\"></i> Tools</a>\r\n                                        <ul>\r\n                                            <li><a href=\"tools_session_timeout.html\">Session timeout</a></li>\r\n                                            <li><a href=\"tools_idle_timeout.html\">Idle timeout</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Extensions</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-puzzle4\"></i> Extensions</a>\r\n                                        <ul>\r\n                                            <li><a href=\"extension_image_cropper.html\">Image cropper</a></li>\r\n                                            <li><a href=\"extension_blockui.html\">Block UI</a></li>\r\n                                            <li><a href=\"extension_dnd.html\">Drag and drop</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-popout\"></i> JQuery UI</a>\r\n                                        <ul>\r\n                                            <li><a href=\"jqueryui_interactions.html\">Interactions</a></li>\r\n                                            <li><a href=\"jqueryui_forms.html\">Forms</a></li>\r\n                                            <li><a href=\"jqueryui_components.html\">Components</a></li>\r\n                                            <li><a href=\"jqueryui_sliders.html\">Sliders</a></li>\r\n                                            <li><a href=\"jqueryui_navigation.html\">Navigation</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-upload\"></i> File uploaders</a>\r\n                                        <ul>\r\n                                            <li><a href=\"uploader_plupload.html\">Plupload</a></li>\r\n                                            <li><a href=\"uploader_bootstrap.html\">Bootstrap file uploader</a></li>\r\n                                            <li><a href=\"uploader_dropzone.html\">Dropzone</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-calendar3\"></i> Event calendars</a>\r\n                                        <ul>\r\n                                            <li><a href=\"fullcalendar_views.html\">Basic views</a></li>\r\n                                            <li><a href=\"fullcalendar_styling.html\">Event styling</a></li>\r\n                                            <li><a href=\"fullcalendar_formats.html\">Language and time</a></li>\r\n                                            <li><a href=\"fullcalendar_advanced.html\">Advanced usage</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-sphere\"></i> Internationalization</a>\r\n                                        <ul>\r\n                                            <li><a href=\"internationalization_switch_direct.html\">Direct translation</a></li>\r\n                                            <li><a href=\"internationalization_switch_query.html\">Querystring parameter</a></li>\r\n                                            <li><a href=\"internationalization_on_init.html\">Set language on init</a></li>\r\n                                            <li><a href=\"internationalization_after_init.html\">Set language after init</a></li>\r\n                                            <li><a href=\"internationalization_fallback.html\">Language fallback</a></li>\r\n                                            <li><a href=\"internationalization_callbacks.html\">Callbacks</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Tables</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-table2\"></i> Basic tables</a>\r\n                                        <ul>\r\n                                            <li><a href=\"table_basic.html\">Basic examples</a></li>\r\n                                            <li><a href=\"table_sizing.html\">Table sizing</a></li>\r\n                                            <li><a href=\"table_borders.html\">Table borders</a></li>\r\n                                            <li><a href=\"table_styling.html\">Table styling</a></li>\r\n                                            <li><a href=\"table_elements.html\">Table elements</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-grid7\"></i> Data tables</a>\r\n                                        <ul>\r\n                                            <li><a href=\"datatable_basic.html\">Basic initialization</a></li>\r\n                                            <li><a href=\"datatable_styling.html\">Basic styling</a></li>\r\n                                            <li><a href=\"datatable_advanced.html\">Advanced examples</a></li>\r\n                                            <li><a href=\"datatable_sorting.html\">Sorting options</a></li>\r\n                                            <li><a href=\"datatable_api.html\">Using API</a></li>\r\n                                            <li><a href=\"datatable_data_sources.html\">Data sources</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-alignment-unalign\"></i> Data tables extensions</a>\r\n                                        <ul>\r\n                                            <li><a href=\"datatable_extension_reorder.html\">Columns reorder</a></li>\r\n                                            <li><a href=\"datatable_extension_row_reorder.html\">Row reorder</a></li>\r\n                                            <li><a href=\"datatable_extension_fixed_columns.html\">Fixed columns</a></li>\r\n                                            <li><a href=\"datatable_extension_fixed_header.html\">Fixed header</a></li>\r\n                                            <li><a href=\"datatable_extension_autofill.html\">Auto fill</a></li>\r\n                                            <li><a href=\"datatable_extension_key_table.html\">Key table</a></li>\r\n                                            <li><a href=\"datatable_extension_scroller.html\">Scroller</a></li>\r\n                                            <li><a href=\"datatable_extension_select.html\">Select</a></li>\r\n                                            <li>\r\n                                                <a href=\"#\">Buttons</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"datatable_extension_buttons_init.html\">Initialization</a></li>\r\n                                                    <li><a href=\"datatable_extension_buttons_flash.html\">Flash buttons</a></li>\r\n                                                    <li><a href=\"datatable_extension_buttons_print.html\">Print buttons</a></li>\r\n                                                    <li><a href=\"datatable_extension_buttons_html5.html\">HTML5 buttons</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n\r\n                                            <li><a href=\"datatable_extension_colvis.html\">Columns visibility</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-file-spreadsheet\"></i> Handsontable</a>\r\n                                        <ul>\r\n                                            <li><a href=\"handsontable_basic.html\">Basic configuration</a></li>\r\n                                            <li><a href=\"handsontable_advanced.html\">Advanced setup</a></li>\r\n                                            <li><a href=\"handsontable_cols.html\">Column features</a></li>\r\n                                            <li><a href=\"handsontable_cells.html\">Cell features</a></li>\r\n                                            <li><a href=\"handsontable_types.html\">Basic cell types</a></li>\r\n                                            <li><a href=\"handsontable_custom_checks.html\">Custom &amp; checkboxes</a></li>\r\n                                            <li><a href=\"handsontable_ac_password.html\">Autocomplete &amp; password</a></li>\r\n                                            <li><a href=\"handsontable_search.html\">Search</a></li>\r\n                                            <li><a href=\"handsontable_context.html\">Context menu</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-versions\"></i> Responsive options</a>\r\n                                        <ul>\r\n                                            <li><a href=\"table_responsive.html\">Responsive basic tables</a></li>\r\n                                            <li><a href=\"datatable_responsive.html\">Responsive data tables</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </li>\r\n\r\n            <li class=\"dropdown mega-menu mega-menu-wide\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">Features <span class=\"caret\"></span></a>\r\n\r\n                <div class=\"dropdown-menu dropdown-content\">\r\n                    <div class=\"dropdown-content-body\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Main content</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-stack2\"></i> Page layouts</a>\r\n                                        <ul>\r\n                                            <li><a href=\"layout_navbar_main_fixed.html\">Fixed main navbar</a></li>\r\n                                            <li><a href=\"layout_navbar_secondary_fixed.html\">Fixed secondary navbar</a></li>\r\n                                            <li><a href=\"layout_navbar_main_hideable.html\">Hideable main navbar</a></li>\r\n                                            <li><a href=\"layout_navbar_secondary_hideable.html\">Hideable secondary navbar</a></li>\r\n                                            <li><a href=\"layout_footer_fixed.html\">Fixed footer</a></li>\r\n                                            <li><a href=\"layout_sidebar_sticky_custom.html\">Sticky sidebar (custom scroll)</a></li>\r\n                                            <li><a href=\"layout_sidebar_sticky_native.html\">Sticky sidebar (native scroll)</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-align-center-horizontal\"></i> Fixed width</a>\r\n                                        <ul>\r\n                                            <li><a href=\"boxed_full.html\">Boxed full width</a></li>\r\n                                            <li><a href=\"boxed_default.html\">Boxed with default sidebar</a></li>\r\n                                            <li><a href=\"boxed_mini.html\">Boxed with mini sidebar</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-copy\"></i> Layouts</a>\r\n                                        <ul>\r\n                                            <li><a href=\"../../../layout_1/LTR/default/index.html\" id=\"layout1\">Layout 1</a></li>\r\n                                            <li><a href=\"../../../layout_2/LTR/default/index.html\" id=\"layout2\">Layout 2</a></li>\r\n                                            <li><a href=\"../../../layout_3/LTR/default/index.html\" id=\"layout3\">Layout 3</a></li>\r\n                                            <li><a href=\"index.html\" id=\"layout4\">Layout 4 <span class=\"label bg-warning-400\">Current</span></a></li>\r\n                                            <li><a href=\"../../../layout_5/LTR/default/index.html\" id=\"layout5\">Layout 5</a></li>\r\n                                            <li class=\"disabled\"><a href=\"../../layout_6/LTR/default/index.html\" id=\"layout6\">Layout 6 <span class=\"label bg-slate-300\">Coming soon</span></a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-droplet2\"></i> Color system</a>\r\n                                        <ul>\r\n                                            <li><a href=\"colors_primary.html\">Primary palette</a></li>\r\n                                            <li><a href=\"colors_danger.html\">Danger palette</a></li>\r\n                                            <li><a href=\"colors_success.html\">Success palette</a></li>\r\n                                            <li><a href=\"colors_warning.html\">Warning palette</a></li>\r\n                                            <li><a href=\"colors_info.html\">Info palette</a></li>\r\n                                            <li class=\"divider\"></li>\r\n                                            <li><a href=\"colors_pink.html\">Pink palette</a></li>\r\n                                            <li><a href=\"colors_violet.html\">Violet palette</a></li>\r\n                                            <li><a href=\"colors_purple.html\">Purple palette</a></li>\r\n                                            <li><a href=\"colors_indigo.html\">Indigo palette</a></li>\r\n                                            <li><a href=\"colors_blue.html\">Blue palette</a></li>\r\n                                            <li><a href=\"colors_teal.html\">Teal palette</a></li>\r\n                                            <li><a href=\"colors_green.html\">Green palette</a></li>\r\n                                            <li><a href=\"colors_orange.html\">Orange palette</a></li>\r\n                                            <li><a href=\"colors_brown.html\">Brown palette</a></li>\r\n                                            <li><a href=\"colors_grey.html\">Grey palette</a></li>\r\n                                            <li><a href=\"colors_slate.html\">Slate palette</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li><a href=\"../../RTL/default/index.html\"><i class=\"icon-width\"></i> RTL version</a></li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Layout</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-indent-decrease2\"></i> Sidebars</a>\r\n                                        <ul>\r\n                                            <li><a href=\"sidebar_default_collapse.html\">Default collapsible</a></li>\r\n                                            <li><a href=\"sidebar_default_hide.html\">Default hideable</a></li>\r\n                                            <li><a href=\"sidebar_mini_collapse.html\">Mini collapsible</a></li>\r\n                                            <li><a href=\"sidebar_mini_hide.html\">Mini hideable</a></li>\r\n                                            <li>\r\n                                                <a href=\"#\">Dual sidebar</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"sidebar_dual.html\">Dual sidebar</a></li>\r\n                                                    <li><a href=\"sidebar_dual_double_collapse.html\">Dual double collapse</a></li>\r\n                                                    <li><a href=\"sidebar_dual_double_hide.html\">Dual double hide</a></li>\r\n                                                    <li><a href=\"sidebar_dual_swap.html\">Swap sidebars</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li>\r\n                                                <a href=\"#\">Double sidebar</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"sidebar_double_collapse.html\">Collapse main sidebar</a></li>\r\n                                                    <li><a href=\"sidebar_double_hide.html\">Hide main sidebar</a></li>\r\n                                                    <li><a href=\"sidebar_double_fix_default.html\">Fix default width</a></li>\r\n                                                    <li><a href=\"sidebar_double_fix_mini.html\">Fix mini width</a></li>\r\n                                                    <li><a href=\"sidebar_double_visible.html\">Opposite sidebar visible</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"sidebar_categories.html\">Separate categories</a></li>\r\n                                            <li><a href=\"sidebar_hidden.html\">Hidden sidebar</a></li>\r\n                                            <li><a href=\"sidebar_dark.html\">Dark sidebar</a></li>\r\n                                            <li><a href=\"sidebar_components.html\">Sidebar components</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-sort\"></i> Vertical navigation</a>\r\n                                        <ul>\r\n                                            <li><a href=\"navigation_vertical_collapsible.html\">Collapsible menu</a></li>\r\n                                            <li><a href=\"navigation_vertical_accordion.html\">Accordion menu</a></li>\r\n                                            <li><a href=\"navigation_vertical_sizing.html\">Navigation sizing</a></li>\r\n                                            <li><a href=\"navigation_vertical_bordered.html\">Bordered navigation</a></li>\r\n                                            <li><a href=\"navigation_vertical_right_icons.html\">Right icons</a></li>\r\n                                            <li><a href=\"navigation_vertical_labels_badges.html\">Labels and badges</a></li>\r\n                                            <li><a href=\"navigation_vertical_disabled.html\">Disabled navigation links</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-transmission\"></i> Horizontal navigation</a>\r\n                                        <ul>\r\n                                            <li><a href=\"navigation_horizontal_click.html\">Submenu on click</a></li>\r\n                                            <li><a href=\"navigation_horizontal_hover.html\">Submenu on hover</a></li>\r\n                                            <li><a href=\"navigation_horizontal_elements.html\">With custom elements</a></li>\r\n                                            <li><a href=\"navigation_horizontal_tabs.html\">Tabbed navigation</a></li>\r\n                                            <li><a href=\"navigation_horizontal_disabled.html\">Disabled navigation links</a></li>\r\n                                            <li><a href=\"navigation_horizontal_mega.html\">Horizontal mega menu</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-paragraph-justify3\"></i> Navbars</a>\r\n                                        <ul>\r\n                                            <li class=\"active\"><a href=\"navbar_single.html\">Single navbar</a></li>\r\n                                            <li>\r\n                                                <a href=\"#\">Multiple navbars</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"navbar_multiple_navbar_navbar.html\">Navbar + navbar</a></li>\r\n                                                    <li><a href=\"navbar_multiple_header_navbar.html\">Header + navbar</a></li>\r\n                                                    <li><a href=\"navbar_multiple_navbar_content.html\">Navbar + content</a></li>\r\n                                                    <li><a href=\"navbar_multiple_top_bottom.html\">Top + bottom</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"navbar_colors.html\">Color options</a></li>\r\n                                            <li><a href=\"navbar_sizes.html\">Sizing options</a></li>\r\n                                            <li><a href=\"navbar_hideable.html\">Hide on scroll</a></li>\r\n                                            <li><a href=\"navbar_components.html\">Navbar components</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-tree5\"></i> Menu levels</a>\r\n                                        <ul>\r\n                                            <li><a href=\"#\"><i class=\"icon-IE\"></i> Second level</a></li>\r\n                                            <li>\r\n                                                <a href=\"#\"><i class=\"icon-firefox\"></i> Second level with child</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"#\"><i class=\"icon-android\"></i> Third level</a></li>\r\n                                                    <li>\r\n                                                        <a href=\"#\"><i class=\"icon-apple2\"></i> Third level with child</a>\r\n                                                        <ul>\r\n                                                            <li><a href=\"#\"><i class=\"icon-html5\"></i> Fourth level</a></li>\r\n                                                            <li><a href=\"#\"><i class=\"icon-css3\"></i> Fourth level</a></li>\r\n                                                        </ul>\r\n                                                    </li>\r\n                                                    <li><a href=\"#\"><i class=\"icon-windows\"></i> Third level</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"#\"><i class=\"icon-chrome\"></i> Second level</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Data visualization</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-graph\"></i> Echarts library</a>\r\n                                        <ul>\r\n                                            <li><a href=\"echarts_lines_areas.html\">Lines and areas</a></li>\r\n                                            <li><a href=\"echarts_columns_waterfalls.html\">Columns and waterfalls</a></li>\r\n                                            <li><a href=\"echarts_bars_tornados.html\">Bars and tornados</a></li>\r\n                                            <li><a href=\"echarts_scatter.html\">Scatter charts</a></li>\r\n                                            <li><a href=\"echarts_pies_donuts.html\">Pies and donuts</a></li>\r\n                                            <li><a href=\"echarts_funnels_chords.html\">Funnels and chords</a></li>\r\n                                            <li><a href=\"echarts_candlesticks_others.html\">Candlesticks and others</a></li>\r\n                                            <li><a href=\"echarts_combinations.html\">Chart combinations</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-statistics\"></i> D3 library</a>\r\n                                        <ul>\r\n                                            <li><a href=\"d3_lines_basic.html\">Simple lines</a></li>\r\n                                            <li><a href=\"d3_lines_advanced.html\">Advanced lines</a></li>\r\n                                            <li><a href=\"d3_bars_basic.html\">Simple bars</a></li>\r\n                                            <li><a href=\"d3_bars_advanced.html\">Advanced bars</a></li>\r\n                                            <li><a href=\"d3_pies.html\">Pie charts</a></li>\r\n                                            <li><a href=\"d3_circle_diagrams.html\">Circle diagrams</a></li>\r\n                                            <li><a href=\"d3_tree.html\">Tree layout</a></li>\r\n                                            <li><a href=\"d3_other.html\">Other charts</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-stats-dots\"></i> Dimple library</a>\r\n                                        <ul>\r\n                                            <li>\r\n                                                <a href=\"#\">Line charts</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"dimple_lines_horizontal.html\">Horizontal orientation</a></li>\r\n                                                    <li><a href=\"dimple_lines_vertical.html\">Vertical orientation</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li>\r\n                                                <a href=\"#\">Bar charts</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"dimple_bars_horizontal.html\">Horizontal orientation</a></li>\r\n                                                    <li><a href=\"dimple_bars_vertical.html\">Vertical orientation</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li>\r\n                                                <a href=\"#\">Area charts</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"dimple_area_horizontal.html\">Horizontal orientation</a></li>\r\n                                                    <li><a href=\"dimple_area_vertical.html\">Vertical orientation</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li>\r\n                                                <a href=\"#\">Step charts</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"dimple_step_horizontal.html\">Horizontal orientation</a></li>\r\n                                                    <li><a href=\"dimple_step_vertical.html\">Vertical orientation</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"dimple_pies.html\">Pie charts</a></li>\r\n                                            <li><a href=\"dimple_rings.html\">Ring charts</a></li>\r\n                                            <li><a href=\"dimple_scatter.html\">Scatter charts</a></li>\r\n                                            <li><a href=\"dimple_bubble.html\">Bubble charts</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-stats-bars\"></i> C3 library</a>\r\n                                        <ul>\r\n                                            <li><a href=\"c3_lines_areas.html\">Lines and areas</a></li>\r\n                                            <li><a href=\"c3_bars_pies.html\">Bars and pies</a></li>\r\n                                            <li><a href=\"c3_advanced.html\">Advanced examples</a></li>\r\n                                            <li><a href=\"c3_axis.html\">Chart axis</a></li>\r\n                                            <li><a href=\"c3_grid.html\">Grid options</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-google\"></i> Google visualization</a>\r\n                                        <ul>\r\n                                            <li><a href=\"google_lines.html\">Line charts</a></li>\r\n                                            <li><a href=\"google_bars.html\">Bar charts</a></li>\r\n                                            <li><a href=\"google_pies.html\">Pie charts</a></li>\r\n                                            <li><a href=\"google_scatter_bubble.html\">Bubble &amp; scatter charts</a></li>\r\n                                            <li><a href=\"google_other.html\">Other charts</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                            <div class=\"col-md-3\">\r\n                                <span class=\"menu-heading underlined\">Extras</span>\r\n                                <ul class=\"menu-list\">\r\n                                    <li><a href=\"animations_css3.html\"><i class=\"icon-spinner3 spinner position-left\"></i> CSS3 animations</a></li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-spinner10 spinner position-left\"></i> Velocity animations</a>\r\n                                        <ul>\r\n                                            <li><a href=\"animations_velocity_basic.html\">Basic usage</a></li>\r\n                                            <li><a href=\"animations_velocity_ui.html\">UI pack effects</a></li>\r\n                                            <li><a href=\"animations_velocity_examples.html\">Advanced examples</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-map5\"></i> Maps integration</a>\r\n                                        <ul>\r\n                                            <li>\r\n                                                <a href=\"#\">Google maps</a>\r\n                                                <ul>\r\n                                                    <li><a href=\"maps_google_basic.html\">Basics</a></li>\r\n                                                    <li><a href=\"maps_google_controls.html\">Controls</a></li>\r\n                                                    <li><a href=\"maps_google_markers.html\">Markers</a></li>\r\n                                                    <li><a href=\"maps_google_drawings.html\">Map drawings</a></li>\r\n                                                    <li><a href=\"maps_google_layers.html\">Layers</a></li>\r\n                                                </ul>\r\n                                            </li>\r\n                                            <li><a href=\"maps_vector.html\">Vector maps</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-magazine\"></i> Timelines</a>\r\n                                        <ul>\r\n                                            <li><a href=\"timelines_left.html\">Left timeline</a></li>\r\n                                            <li><a href=\"timelines_right.html\">Right timeline</a></li>\r\n                                            <li><a href=\"timelines_center.html\">Centered timeline</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                    <li>\r\n                                        <a href=\"#\"><i class=\"icon-thumbs-up2 position-left\"></i> Icons</a>\r\n                                        <ul>\r\n                                            <li><a href=\"icons_glyphicons.html\">Glyphicons</a></li>\r\n                                            <li><a href=\"icons_icomoon.html\">Icomoon</a></li>\r\n                                            <li><a href=\"icons_fontawesome.html\">Font awesome</a></li>\r\n                                        </ul>\r\n                                    </li>\r\n                                </ul>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </li>\r\n\r\n            <li class=\"dropdown\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    <i class=\"icon-make-group position-left\"></i> Page kits <span class=\"caret\"></span>\r\n                </a>\r\n\r\n                <ul class=\"dropdown-menu width-250\">\r\n                    <li class=\"dropdown-header\">General pages</li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-task\"></i> Blog</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"blog_classic_v.html\">Classic vertical</a></li>\r\n                            <li><a href=\"blog_classic_h.html\">Classic horizontal</a></li>\r\n                            <li><a href=\"blog_grid.html\">Grid</a></li>\r\n                            <li><a href=\"blog_single.html\">Single post</a></li>\r\n                            <li class=\"divider\"></li>\r\n                            <li><a href=\"blog_sidebar_left.html\">Left sidebar</a></li>\r\n                            <li><a href=\"blog_sidebar_right.html\">Right sidebar</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-images2\"></i> Gallery</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"gallery_grid.html\">Media grid</a></li>\r\n                            <li><a href=\"gallery_titles.html\">Media with titles</a></li>\r\n                            <li><a href=\"gallery_description.html\">Media with description</a></li>\r\n                            <li><a href=\"gallery_library.html\">Media library</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-grid6\"></i> Others</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"general_feed.html\">Feed</a></li>\r\n                            <li><a href=\"general_widgets_content.html\">Content widgets</a></li>\r\n                            <li class=\"disabled\"><a href=\"general_widgets_stats.html\">Statistics widgets</a></li>\r\n                            <li><a href=\"general_embeds.html\">Embeds</a></li>\r\n                            <li><a href=\"general_faq.html\">FAQ page</a></li>\r\n                            <li><a href=\"general_knowledgebase.html\">Knowledgebase</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-header\">Service pages</li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-cash3\"></i> Invoicing</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"invoice_template.html\">Invoice template</a></li>\r\n                            <li><a href=\"invoice_grid.html\">Invoice grid</a></li>\r\n                            <li><a href=\"invoice_archive.html\">Invoice archive</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-user-plus\"></i> Authentication</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Basic</li>\r\n                            <li><a href=\"login_simple.html\">Simple login</a></li>\r\n                            <li><a href=\"login_advanced.html\">More login info</a></li>\r\n                            <li><a href=\"login_registration.html\">Simple registration</a></li>\r\n                            <li><a href=\"login_registration_advanced.html\">More registration info</a></li>\r\n                            <li><a href=\"login_validation.html\">With validation</a></li>\r\n                            <li><a href=\"login_tabbed.html\">Tabbed form</a></li>\r\n                            <li><a href=\"login_modals.html\">Inside modals</a></li>\r\n                            <li class=\"dropdown-header highlight\">Service</li>\r\n                            <li><a href=\"login_unlock.html\">Unlock user</a></li>\r\n                            <li><a href=\"login_password_recover.html\">Reset password</a></li>\r\n                            <li class=\"dropdown-header highlight\">Other</li>\r\n                            <li><a href=\"login_hide_navbar.html\">Hide navbar</a></li>\r\n                            <li><a href=\"login_transparent.html\">Transparent box</a></li>\r\n                            <li><a href=\"login_background.html\">Background option</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-warning\"></i> Error pages</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"error_403.html\">Error 403</a></li>\r\n                            <li><a href=\"error_404.html\">Error 404</a></li>\r\n                            <li><a href=\"error_405.html\">Error 405</a></li>\r\n                            <li><a href=\"error_500.html\">Error 500</a></li>\r\n                            <li><a href=\"error_503.html\">Error 503</a></li>\r\n                            <li><a href=\"error_offline.html\">Offline page</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-grid6\"></i> Others</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"service_sitemap.html\">Sitemap</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-header\">User pages</li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-profile\"></i> Profile</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"user_pages_profile.html\">Simple profile</a></li>\r\n                            <li><a href=\"user_pages_profile_tabbed.html\">Tabbed profile</a></li>\r\n                            <li><a href=\"user_pages_profile_cover.html\">Profile with cover</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-grid6\"></i> Others</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"user_pages_cards.html\">User cards</a></li>\r\n                            <li><a href=\"user_pages_list.html\">User list</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-header\">Apps</li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-task\"></i> Task manager</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"task_manager_grid.html\">Task grid</a></li>\r\n                            <li><a href=\"task_manager_list.html\">Task list</a></li>\r\n                            <li><a href=\"task_manager_detailed.html\">Task detailed</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-search4\"></i> Search</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Basic</li>\r\n                            <li><a href=\"search_basic.html\">Basic search results</a></li>\r\n                            <li><a href=\"search_users.html\">User search results</a></li>\r\n                            <li class=\"dropdown-header highlight\">Media</li>\r\n                            <li><a href=\"search_images.html\">Image search results</a></li>\r\n                            <li><a href=\"search_videos.html\">Video search results</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-envelop2\"></i> Inbox</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Mail</li>\r\n                            <li><a href=\"mail_list.html\">Mail list</a></li>\r\n                            <li><a href=\"mail_read.html\">Read mail</a></li>\r\n                            <li><a href=\"mail_write.html\">Write mail</a></li>\r\n                            <li class=\"dropdown-header highlight\">Chats</li>\r\n                            <li><a href=\"chat_layouts.html\">Chat layouts</a></li>\r\n                            <li><a href=\"chat_options.html\">Chat options</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-user-tie\"></i> Job search</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"job_list_cards.html\">Cards view</a></li>\r\n                            <li><a href=\"job_list_panel.html\">Panel view</a></li>\r\n                            <li><a href=\"job_detailed.html\">Job detailed</a></li>\r\n                            <li><a href=\"job_apply.html\">Apply</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\"><i class=\"icon-graduation\"></i> Learning</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"learning_list.html\">List view</a></li>\r\n                            <li><a href=\"learning_grid.html\">Grid view</a></li>\r\n                            <li><a href=\"learning_detailed.html\">Detailed course</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu disabled\">\r\n                        <a href=\"#\"><i class=\"icon-cart2\"></i> Ecommerce</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"ecommerce_product_list.html\">Product list</a></li>\r\n                            <li><a href=\"ecommerce_product_grid.html\">Product grid</a></li>\r\n                            <li><a href=\"ecommerce_product_detailed.html\">Product detailed</a></li>\r\n                            <li><a href=\"ecommerce_product_new.html\">New product</a></li>\r\n                            <li><a href=\"ecommerce_cart.html\">Shopping cart</a></li>\r\n                            <li><a href=\"ecommerce_checkout.html\">Checkout process</a></li>\r\n                            <li><a href=\"ecommerce_pricing.html\">Pricing tables</a></li>\r\n                        </ul>\r\n                    </li>\r\n\r\n                    <li class=\"dropdown-submenu disabled\">\r\n                        <a href=\"#\"><i class=\"icon-city\"></i> Real estate</a>\r\n                        <ul class=\"dropdown-menu width-200\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"properties_list.html\">Properties list</a></li>\r\n                            <li><a href=\"properties_grid.html\">Properties grid</a></li>\r\n                            <li><a href=\"properties_defailed.html\">Property detailed</a></li>\r\n                            <li><a href=\"properties_create.html\">Create property</a></li>\r\n                            <li><a href=\"properties_detailed.html\">Property detailed</a></li>\r\n                        </ul>\r\n                    </li>\r\n                </ul>\r\n            </li>\r\n\r\n            <li class=\"dropdown\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    Starter kit <span class=\"caret\"></span>\r\n                </a>\r\n\r\n                <ul class=\"dropdown-menu width-200\">\r\n                    <li class=\"dropdown-header\">Basic layouts</li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"icon-grid2\"></i> Columns</a>\r\n                        <ul class=\"dropdown-menu\">\r\n                            <li class=\"dropdown-header highlight\">Options</li>\r\n                            <li><a href=\"starters/1_col.html\">One column</a></li>\r\n                            <li><a href=\"starters/2_col.html\">Two columns</a></li>\r\n                            <li class=\"dropdown-submenu\">\r\n                                <a href=\"#\">Three columns</a>\r\n                                <ul class=\"dropdown-menu\">\r\n                                    <li class=\"dropdown-header highlight\">Sidebar position</li>\r\n                                    <li><a href=\"starters/3_col_dual.html\">Dual sidebars</a></li>\r\n                                    <li><a href=\"starters/3_col_double.html\">Double sidebars</a></li>\r\n                                </ul>\r\n                            </li>\r\n                            <li><a href=\"starters/4_col.html\">Four columns</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li class=\"dropdown-submenu\">\r\n                        <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\"><i class=\"icon-paragraph-justify3\"></i> Navbars</a>\r\n                        <ul class=\"dropdown-menu\">\r\n                            <li class=\"dropdown-header highlight\">Fixed navbars</li>\r\n                            <li><a href=\"starters/layout_navbar_fixed_main.html\">Fixed main navbar</a></li>\r\n                            <li><a href=\"starters/layout_navbar_fixed_secondary.html\">Fixed secondary navbar</a></li>\r\n                            <li><a href=\"starters/layout_navbar_fixed_both.html\">Both navbars fixed</a></li>\r\n                        </ul>\r\n                    </li>\r\n                    <li class=\"dropdown-header\">Optional layouts</li>\r\n                    <li><a href=\"starters/layout_boxed.html\"><i class=\"icon-align-center-horizontal\"></i> Fixed width</a></li>\r\n                    <li><a href=\"starters/layout_sidebar_sticky.html\"><i class=\"icon-flip-vertical3\"></i> Sticky sidebar</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n\r\n        <form class=\"navbar-form navbar-left\">\r\n            <div class=\"form-group has-feedback\">\r\n                <input type=\"search\" class=\"form-control\" placeholder=\"Search field\">\r\n                <div class=\"form-control-feedback\">\r\n                    <i class=\"icon-search4 text-muted text-size-base\"></i>\r\n                </div>\r\n            </div>\r\n        </form>\r\n\r\n        <ul class=\"nav navbar-nav navbar-right\">\r\n            <li class=\"dropdown\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    <i class=\"icon-people\"></i>\r\n                    <span class=\"visible-xs-inline-block position-right\">Users</span>\r\n                </a>\r\n\r\n                <div class=\"dropdown-menu dropdown-content\">\r\n                    <div class=\"dropdown-content-heading\">\r\n                        Users online\r\n                        <ul class=\"icons-list\">\r\n                            <li><a href=\"#\"><i class=\"icon-gear\"></i></a></li>\r\n                        </ul>\r\n                    </div>\r\n\r\n                    <ul class=\"media-list dropdown-content-body width-300\">\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"../assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading text-semibold\">Jordana Ansley</a>\r\n                                <span class=\"display-block text-muted text-size-small\">Lead web developer</span>\r\n                            </div>\r\n                            <div class=\"media-right media-middle\"><span class=\"status-mark border-success\"></span></div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"../assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading text-semibold\">Will Brason</a>\r\n                                <span class=\"display-block text-muted text-size-small\">Marketing manager</span>\r\n                            </div>\r\n                            <div class=\"media-right media-middle\"><span class=\"status-mark border-danger\"></span></div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"../assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading text-semibold\">Hanna Walden</a>\r\n                                <span class=\"display-block text-muted text-size-small\">Project manager</span>\r\n                            </div>\r\n                            <div class=\"media-right media-middle\"><span class=\"status-mark border-success\"></span></div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"../assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading text-semibold\">Dori Laperriere</a>\r\n                                <span class=\"display-block text-muted text-size-small\">Business developer</span>\r\n                            </div>\r\n                            <div class=\"media-right media-middle\"><span class=\"status-mark border-warning-300\"></span></div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"../assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading text-semibold\">Vanessa Aurelius</a>\r\n                                <span class=\"display-block text-muted text-size-small\">UX expert</span>\r\n                            </div>\r\n                            <div class=\"media-right media-middle\"><span class=\"status-mark border-grey-400\"></span></div>\r\n                        </li>\r\n                    </ul>\r\n\r\n                    <div class=\"dropdown-content-footer\">\r\n                        <a href=\"#\" data-popup=\"tooltip\" title=\"All users\"><i class=\"icon-menu display-block\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </li>\r\n\r\n            <li class=\"dropdown\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    <i class=\"icon-bubbles4\"></i>\r\n                    <span class=\"visible-xs-inline-block position-right\">Messages</span>\r\n                    <span class=\"badge bg-warning-400\">2</span>\r\n                </a>\r\n\r\n                <div class=\"dropdown-menu dropdown-content width-350\">\r\n                    <div class=\"dropdown-content-heading\">\r\n                        Messages\r\n                        <ul class=\"icons-list\">\r\n                            <li><a href=\"#\"><i class=\"icon-compose\"></i></a></li>\r\n                        </ul>\r\n                    </div>\r\n\r\n                    <ul class=\"media-list dropdown-content-body\">\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\">\r\n                                <img src=\"assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\">\r\n                                <span class=\"badge bg-danger-400 media-badge\">5</span>\r\n                            </div>\r\n\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading\">\r\n                                    <span class=\"text-semibold\">James Alexander</span>\r\n                                    <span class=\"media-annotation pull-right\">04:58</span>\r\n                                </a>\r\n\r\n                                <span class=\"text-muted\">who knows, maybe that would be the best thing for me...</span>\r\n                            </div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\">\r\n                                <img src=\"assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\">\r\n                                <span class=\"badge bg-danger-400 media-badge\">4</span>\r\n                            </div>\r\n\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading\">\r\n                                    <span class=\"text-semibold\">Margo Baker</span>\r\n                                    <span class=\"media-annotation pull-right\">12:16</span>\r\n                                </a>\r\n\r\n                                <span class=\"text-muted\">That was something he was unable to do because...</span>\r\n                            </div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading\">\r\n                                    <span class=\"text-semibold\">Jeremy Victorino</span>\r\n                                    <span class=\"media-annotation pull-right\">22:48</span>\r\n                                </a>\r\n\r\n                                <span class=\"text-muted\">But that would be extremely strained and suspicious...</span>\r\n                            </div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading\">\r\n                                    <span class=\"text-semibold\">Beatrix Diaz</span>\r\n                                    <span class=\"media-annotation pull-right\">Tue</span>\r\n                                </a>\r\n\r\n                                <span class=\"text-muted\">What a strenuous career it is that I've chosen...</span>\r\n                            </div>\r\n                        </li>\r\n\r\n                        <li class=\"media\">\r\n                            <div class=\"media-left\"><img src=\"assets/images/placeholder.jpg\" class=\"img-circle img-sm\" alt=\"\"></div>\r\n                            <div class=\"media-body\">\r\n                                <a href=\"#\" class=\"media-heading\">\r\n                                    <span class=\"text-semibold\">Richard Vango</span>\r\n                                    <span class=\"media-annotation pull-right\">Mon</span>\r\n                                </a>\r\n\r\n                                <span class=\"text-muted\">Other travelling salesmen live a life of luxury...</span>\r\n                            </div>\r\n                        </li>\r\n                    </ul>\r\n\r\n                    <div class=\"dropdown-content-footer\">\r\n                        <a href=\"#\" data-popup=\"tooltip\" title=\"All messages\"><i class=\"icon-menu display-block\"></i></a>\r\n                    </div>\r\n                </div>\r\n            </li>\r\n\r\n            <li class=\"dropdown dropdown-user\">\r\n                <a class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    <img src=\"assets/images/placeholder.jpg\" alt=\"\">\r\n                    <span>Victoria</span>\r\n                    <i class=\"caret\"></i>\r\n                </a>\r\n\r\n                <ul class=\"dropdown-menu dropdown-menu-right\">\r\n                    <li><a href=\"#\"><i class=\"icon-user-plus\"></i> My profile</a></li>\r\n                    <li><a href=\"#\"><i class=\"icon-coins\"></i> My balance</a></li>\r\n                    <li><a href=\"#\"><span class=\"badge badge-warning pull-right\">58</span> <i class=\"icon-comment-discussion\"></i> Messages</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <li><a href=\"#\"><i class=\"icon-cog5\"></i> Account settings</a></li>\r\n                    <li><a href=\"#logout\"><i class=\"icon-switch2\"></i> Logout</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n\r\n</div>\r\n\r\n<!-- Page container -->\r\n<div class=\"page-container\" id=\"tjx-shell-main\" style=\" \">\r\n    <!-- Page content -->\r\n    <div class=\"page-content\">\r\n        <!-- Main content -->\r\n        <div class=\"content-wrapper\">\r\n\r\n\r\n        </div>\r\n\r\n\r\n        <!-- /main content -->\r\n    </div>\r\n    <!-- /page content -->\r\n</div>\r\n\r\n<div class=\"navbar navbar-inverse tjx-bottom-booter navbar-sm navbar-fixed-bottom \" style=\" \">\r\n    <ul class=\"nav navbar-nav no-border visible-xs-block\">\r\n        <li><a class=\"text-center collapsed\" data-toggle=\"collapse\" data-target=\"#navbar-bottom\"><i class=\"icon-circle-up2\"></i></a></li>\r\n    </ul>\r\n\r\n    <div class=\"navbar-collapse collapse\" id=\"navbar-bottom\">\r\n        <p class=\"navbar-text\"><i class=\"icon-user-check position-left\"></i> Signed in as <a href=\"#\" class=\"navbar-link\">Victoria</a></p>\r\n        <ul class=\"nav navbar-nav\">\r\n            <li class=\"dropdown\">\r\n                <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                    <i class=\"icon-share4\"></i>\r\n                    <span class=\"visible-xs-inline-block position-right\">Share</span>\r\n                    <span class=\"caret\"></span>\r\n                </a>\r\n\r\n                <ul class=\"dropdown-menu\">\r\n                    <li><a href=\"#\"><i class=\"icon-dribbble3\"></i> Dribbble</a></li>\r\n                    <li><a href=\"#\"><i class=\"icon-pinterest2\"></i> Pinterest</a></li>\r\n                    <li><a href=\"#\"><i class=\"icon-github\"></i> Github</a></li>\r\n                    <li><a href=\"#\"><i class=\"icon-stackoverflow\"></i> Stack Overflow</a></li>\r\n                </ul>\r\n            </li>\r\n        </ul>\r\n\r\n        <div class=\"navbar-right\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li><a href=\"#\">Help center</a></li>\r\n                <li><a href=\"#\">Policy</a></li>\r\n                <li><a href=\"#\" class=\"text-semibold\">Upgrade your account</a></li>\r\n                <li class=\"dropdown\">\r\n                    <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\r\n                        <i class=\"icon-cog3\"></i>\r\n                        <span class=\"visible-xs-inline-block position-right\">Settings</span>\r\n                        <span class=\"caret\"></span>\r\n                    </a>\r\n\r\n                    <ul class=\"dropdown-menu dropdown-menu-right\">\r\n                        <li><a href=\"#\"><i class=\"icon-dribbble3\"></i> Dribbble</a></li>\r\n                        <li><a href=\"#\"><i class=\"icon-pinterest2\"></i> Pinterest</a></li>\r\n                        <li><a href=\"#\"><i class=\"icon-github\"></i> Github</a></li>\r\n                        <li><a href=\"#\"><i class=\"icon-stackoverflow\"></i> Stack Overflow</a></li>\r\n                    </ul>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</div>",
+    ShellView;
+
+ShellView = module.exports = Backbone.View.extend( {
+     template : template
+} );
+
+
+},{"backbone":1}],17:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/4/13.
+ */
+
+var LoginView = require( './views/login' ),
+    ProfileView = require( './views/profile' ),
+    AppBase = require( '../../utils/baseapp' ),
+    $ = require( 'jquery' ),
+    _ = require( 'underscore' ), App;
+
+App = function ( options ) {
+    "use strict";
+    this.currentController = null;
+    this.mainRegion = options.mainRegion;
+    this.bodyRegion = options.bodyRegion;
+    this.GetName = function () {
+        return 'UsersApp';
+    };
+    this.ShowLogin = function () {
+        "use strict";
+        var loginView = this.startController(LoginView);
+         $( 'body' ).append( loginView.render().el );
+
+        //this.bodyRegion.show( loginView );
+        loginView.initUI();
+    };
+
+    this.ShowProfile = function () {
+        "use strict";
+        var profileView = this.startController(ProfileView);
+        profileView.updateView( $('.content-wrapper') );
+    };
+};
+
+_.extend(App.prototype, AppBase );
+
+
+
+
+module.exports = App;
 
 
 
 
 
 
-},{"../../utils/baseapp":18,"./views/login":14,"./views/profile":15,"jquery":21,"underscore":3}],10:[function(require,module,exports){
+
+},{"../../utils/baseapp":26,"./views/login":22,"./views/profile":23,"jquery":33,"underscore":3}],18:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4324,12 +4609,14 @@ module.exports = Backbone.Model.extend( {
         "use strict";
         this.save( {}, {
             success : function ( model, response ) {
+                console.log( 'model', model );
                 console.log( 'success', response );
-                if ( response.data.status === 'success' ) {
-                    callback( response );
+                if ( model.get('status') === 'online' ) {
+                    callback( model.toJSON() );
                 }
             },
             error : function ( model, response ) {
+                console.log( 'model', model );
                 callback( response.responseJSON  );
             }
         }  );
@@ -4349,7 +4636,7 @@ module.exports = Backbone.Model.extend( {
 } );
 
 
-},{"backbone":1}],11:[function(require,module,exports){
+},{"backbone":1}],19:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -4360,7 +4647,7 @@ module.exports = Backbone.Model.extend( {
     urlRoot : 'api/v1/users'
 } );
 
-},{"backbone":1}],12:[function(require,module,exports){
+},{"backbone":1}],20:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/18.
  */
@@ -4397,7 +4684,7 @@ module.exports = Backbone.Model.extend( {
     }
 } );
 
-},{"backbone":1,"underscore":3}],13:[function(require,module,exports){
+},{"backbone":1,"underscore":3}],21:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
@@ -4423,6 +4710,7 @@ UserRouters = module.exports = Backbone.Router.extend( {
     },
     startApp : function () {
         "use strict";
+
         return window.app.startSubApplication( UsersApp );
     }
 } );
@@ -4431,7 +4719,7 @@ window.app.Routers.UsersRouter = UserRouters;
 
 
 
-},{"../app":9,"backbone":1}],14:[function(require,module,exports){
+},{"../app":17,"backbone":1}],22:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4460,13 +4748,20 @@ module.exports = Base.extend( {
         jqueryMap.$menu.hide();
         jqueryMap.$booter.hide();
         jqueryMap.$main_container.hide();
-       
-        if ( userSession.authenticated() ) {
+
+        this.model = userSession;
+       /* if ( userSession.authenticated() ) {
             this.viewModel = userSession;
         }else {
             this.viewModel = {};
-        }
+        }*/
 
+    },
+    render : function () {
+        "use strict";
+        var result = Base.prototype.render.call( this );
+        this.initUI();
+        return result;
     },
     initUI : function () {
         "use strict";
@@ -4566,7 +4861,7 @@ module.exports = Base.extend( {
 
         
         user.login( function ( auth ) {
-            console.log( 'window.app.Routers.navigate', auth );
+
              if ( auth.error )
              {
                  $('.alert-danger span.text-semibold', $('.login-form')).html( auth.error.message );
@@ -4575,18 +4870,17 @@ module.exports = Base.extend( {
              else
              {
 
-                 if (  auth.data.status === 'success' ) {
+                 if (  auth.status === 'online' ) {
                      if ( chk ) {
                          userSession.save( { name : name, accessToken : pw } );
                      }else {
                          userSession.destory( );
                      }
-
                      jqueryMap.$menu.show();
                      jqueryMap.$booter.show();
                      jqueryMap.$main_container.show();
 
-                     window.app.router.navigate('contacts/444455', {trigger: true});
+                     window.app.router.navigate('contacts', {trigger: true});
                  }
                  else {
                      $('.alert-danger span.text-semibold', $('.login-form')).html('用户名或者密码错误');
@@ -4600,7 +4894,7 @@ module.exports = Base.extend( {
 
 
 
-},{"../../../utils/modelview":20,"../models/loginaccount":10,"../models/usersession":12}],15:[function(require,module,exports){
+},{"../../../utils/modelview":31,"../models/loginaccount":18,"../models/usersession":20}],23:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -4624,8 +4918,7 @@ module.exports = Base.extend( {
             app = this;
         user.fetch( {
             success : function ( model, response ) {
-                console.log(response  );
-                app.viewModel = response;
+                app.model = model;
                 app.render();
                 container.html( app.el );
             },
@@ -4648,7 +4941,7 @@ module.exports = Base.extend( {
     }
 } );
 
-},{"../../../utils/modelview":20,"../models/loginaccount":10,"../models/user":11}],16:[function(require,module,exports){
+},{"../../../utils/modelview":31,"../models/loginaccount":18,"../models/user":19}],24:[function(require,module,exports){
 (function (global){
 /**
  * Created by Administrator on 2017/4/13.
@@ -4668,13 +4961,15 @@ $( document ).ready( function () {
 } );
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app":4,"backbone":1,"jquery":21,"underscore":3}],17:[function(require,module,exports){
+},{"./app":4,"backbone":1,"jquery":33,"underscore":3}],25:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
 var BackBone = require( 'backbone' ),
     UserRouter = require( '../apps/users/routers/userrouters' ),
-    ContactRouter = require( '../apps/contacts/routers/contactsrouter' );
+    ContactRouter = require( '../apps/contacts/routers/contactsrouter' ),
+    MainRouter = require( '../apps/shell/routers/shellrouter' );
+
 
 module.exports = BackBone.Router.extend( {
     routes : {
@@ -4685,31 +4980,81 @@ module.exports = BackBone.Router.extend( {
     }
 } );
 
-},{"../apps/contacts/routers/contactsrouter":7,"../apps/users/routers/userrouters":13,"backbone":1}],18:[function(require,module,exports){
+},{"../apps/contacts/routers/contactsrouter":9,"../apps/shell/routers/shellrouter":15,"../apps/users/routers/userrouters":21,"backbone":1}],26:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
 
 var App;
 
-App = module.exports = function ( options ) {
-    "use strict";
-    var currentController = null,
-        region = options.region;
+App = module.exports =  {
+    startController : function ( controller ) {
+        if ( this.currentController && this.currentController instanceof  controller) {
+            return this.currentController;
+        }
+        if ( this.currentController && this.currentController.destory ) {
+            this.currentController.destroy();
+        }
+        this.currentController = new controller( { bodyRegion : this.bodyRegion,mainRegion : this.mainRegion } );
+        return this.currentController;
+    },
+    destroy : function() {
+        if ( this.currentController && this.currentController.destroy ) {
+            this.currentController.destroy();
+        }
+        // this.region.remove();
+        //this.stopListening();
+    }
 
-    this.startController = function ( controller ) {
-        if ( currentController && currentController instanceof  controller) {
-            return currentController;
-        }
-        if ( currentController && currentController.destory ) {
-            currentController.destory();
-        }
-        currentController = new controller( { region : region } );
-        return currentController;
-    };
 };
 
-},{}],19:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/26.
+ */
+
+
+module.exports = {
+    askConfirmation : function (message, callback) {
+    var options = {
+        title: 'Are you sure?',
+        // Show the warning icon
+        type: 'warning',
+        text: message,
+        // By default the cancel button is not shown
+        showCancelButton: true,
+        confirmButtonText: 'Yes, do it!',
+        // Overwrite the default button color
+        confirmButtonColor: '#5cb85c',
+        cancelButtonText: 'No'
+    };
+    // Show the message
+    swal(options, function(isConfirm) {
+        callback(isConfirm);
+    });
+},
+
+  notifySuccess : function  (message) {
+    new noty({
+        text: message,
+        layout: 'topRight',
+        theme: 'relax',
+        type: 'success',
+        timeout: 3000 // close automatically
+    });
+},
+
+  notifyError : function (message) {
+    new noty({
+        text: message,
+        layout: 'topRight',
+        theme: 'relax',
+        type: 'error',
+        timeout: 3000 // close automatically
+    });
+}
+};
+},{}],28:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -4718,14 +5063,144 @@ var Backbone = require( 'backbone' ),
     BaseView;
 
 BaseView = module.exports = Backbone.View.extend( {
-    destory : function () {
+    destroy : function () {
         "use strict";
         this.undelegateEvents();
         this.remove();
     }
 } );
 
-},{"backbone":1}],20:[function(require,module,exports){
+},{"backbone":1}],29:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/22.
+ */
+
+var BaseView = require( './baseview' ),
+    Backbone = require( 'backbone' ),
+    _ = require( 'underscore' ),
+    CollectionView;
+
+CollectionView = module.exports = BaseView.extend( {
+    initialize : function () {
+        "use strict";
+        // Keep track of rendered items
+        this.children = {};
+        this.listenTo( this.collection, 'add', this.modelAdded );
+        this.listenTo( this.collection, 'remove', this.modelRemoved );
+        this.listenTo( this.collection, 'reset', this.render );
+    },
+
+    modelRemoved : function ( model ) {
+        "use strict";
+        var view = this.children[ model.cid ];
+        this.closeChildView(view);
+    },
+    destroy : function () {
+        "use strict";
+
+        Backbone.View.prototype.remove.call( this );
+        this.closeChildren();
+    },
+    closeChildren : function () {
+        "use strict";
+        var children = this.children || {}, app = this;
+        _.each( children, function ( child ) {
+            app.closeChildView( child );
+        } );
+    },
+    closeChildView : function ( view ) {
+        "use strict";
+        if ( !view ) {
+            return;
+        }
+        if ( _.isFunction( view.destroy ) ) {
+            view.destroy();
+        }
+        this.stopListening( view );
+        if ( view.model ) {
+            this.children[ view.model.cid ] = undefined;
+        }
+    },
+    modelAdded : function ( model ) {
+        "use strict";
+
+        var view = this.renderModel( model );
+        this.$el.append( view.$el );
+    },
+    renderModel : function ( model ) {
+        "use strict";
+        var view = new this.modelView( { model : model } );
+        this.children[ model.cid ] = view;
+        this.listenTo( view, 'all', function ( eventName ) {
+            this.trigger( 'item:' + eventName, view, model );
+        } );
+        view.render();
+        return view;
+    },
+    render : function () {
+        "use strict";
+        var view, html, app = this;
+        this.closeChildren();
+        html = this.collection.map( function ( model ) {
+            view = app.renderModel( model );
+            return view.$el;
+        } );
+        this.$el.html( html );
+        return this;
+    }
+} );
+
+},{"./baseview":28,"backbone":1,"underscore":3}],30:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/31.
+ */
+
+var ModelView = require( './modelview' ),
+    Region = require( './region' ),
+    _ = require( 'underscore' ),
+    Layout;
+
+Layout = module.exports = ModelView.extend( {
+    render : function () {
+        "use strict";
+        this.closeRegions();
+        var result = ModelView.prototype.render.call( this );
+        this.configRegions();
+        return result;
+    },
+    configRegions : function () {
+        "use strict";
+        var regionDefinitions = this.regions || {},
+            $el, app = this;
+        if ( ! this._regions ) {
+            this._regions = {};
+        }
+        _.each( regionDefinitions, function ( selector, name ) {
+            $el = app.$(selector);
+            app._regions[ name ] = new Region( { el : $el } );
+        } );
+    },
+    getRegion : function ( regionName ) {
+        "use strict";
+        var regions = this._regions || {};
+        return regions[ regionName ];
+    },
+    destroy : function () {
+        "use strict";
+        ModelView.prototype.destroy.call( this, options );
+        this.closeRegions();
+    },
+    closeRegions : function () {
+        "use strict";
+        var regions = this._regions || {};
+        _.each( regions, function ( region ) {
+            if ( region && region.destroy ) {
+                region.destroy();
+            }
+        } );
+    }
+} );
+},{"./modelview":31,"./region":32,"underscore":3}],31:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -4755,8 +5230,8 @@ ModelView = module.exports = BaseView.extend( {
     serializeData : function () {
         "use strict";
         var data;
-        if ( this.viewModel ) {
-            data = this.viewModel;
+        if ( this.model ) {
+            data = this.model.toJSON();
         }
         return data;
     }
@@ -4765,7 +5240,52 @@ ModelView = module.exports = BaseView.extend( {
 
 
 
-},{"./baseview":19,"mustache":2,"underscore":3}],21:[function(require,module,exports){
+},{"./baseview":28,"mustache":2,"underscore":3}],32:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/5/31.
+ */
+
+var Region;
+
+Region = module.exports = function ( options ) {
+    "use strict";
+     var el = options.el, $el,
+         currentView, ensureEL;
+
+     this.show = function ( view ) {
+         this.closeView( currentView );
+         currentView = view;
+         this.openView( currentView );
+     };
+
+    this.closeView = function ( view ) {
+        if ( view && view.destroy ) {
+            view.destroy();
+        }
+    };
+
+    this.openView = function ( view ) {
+        ensureEL();
+        view.render();
+
+        $el.html( view.el );
+    };
+
+    ensureEL = function () {
+
+
+        if ( $el ) { return; }
+        $el = $( el );
+        console.log('el', el );
+        console.log('$el', $el );
+    };
+
+    this.destroy = function () {
+        this.closeView( currentView );
+    };
+};
+
+},{}],33:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
@@ -14987,4 +15507,4 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}]},{},[16]);
+},{}]},{},[24]);

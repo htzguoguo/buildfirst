@@ -22,8 +22,7 @@ module.exports = Base.extend( {
             app = this;
         user.fetch( {
             success : function ( model, response ) {
-                console.log(response  );
-                app.viewModel = response;
+                app.model = model;
                 app.render();
                 container.html( app.el );
             },

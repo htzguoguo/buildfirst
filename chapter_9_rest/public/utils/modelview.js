@@ -27,8 +27,8 @@ ModelView = module.exports = BaseView.extend( {
     serializeData : function () {
         "use strict";
         var data;
-        if ( this.viewModel ) {
-            data = this.viewModel;
+        if ( this.model ) {
+            data = this.model.toJSON();
         }
         return data;
     }

@@ -15,10 +15,24 @@ module.exports = function ( grunt ) {
                     debug : true
                 }
             }
+        },
+        jshint : {
+            debug : [ 'public/**/*.js', '!public/assets' ]
+        },
+        watch : {
+            rebuild : {
+                tasks : [ 'browserify:debug' ],
+                files : [ 'public/**/*.js' ]
+            }
         }
     } );
 
     grunt.loadNpmTasks( 'grunt-browserify' );
+    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+    grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-    grunt.registerTask( 'build:debug', [ 'browserify:debug' ] );
+    grunt.registerTask( 'build:debug', [ 'jshint:debug', 'browserify:debug' ] );
+
+    grunt.registerTask( 'build:watch', [ 'watch:rebuild' ] );
+
 };

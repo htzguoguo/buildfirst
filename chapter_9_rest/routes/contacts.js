@@ -34,23 +34,11 @@ router.get( '/:number', function ( req, res, next ) {
     "use strict";
     contacts.query( req.params.number, res );
 
-  /*  contacts.query( req.params.number , function( error, data ) {
-        if ( error ) {
-            res.writeHead( 500, { 'Content-Type' : 'text/plain' } );
-            res.end( 'Internal server error' );
-        }else {
-            if ( !data ) {
-                res.writeHead( 404, { 'Content-Type' : 'text/plain' } );
-                res.end( 'Not Found' );
-            }else {
-                res.setHeader(
-                    'Content-Type' , 'application/json'
-                );
-                res.end( JSON.stringify( data ) );
-            }
-        }
-    } );*/
+} );
 
+router.post( '/', function ( req, res, next ) {
+    "use strict";
+    contacts.update( req.body,  res);
 } );
 
 router.patch( '/', function ( req, res, next ) {

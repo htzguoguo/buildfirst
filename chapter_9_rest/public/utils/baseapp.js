@@ -4,19 +4,23 @@
 
 var App;
 
-App = module.exports = function ( options ) {
-    "use strict";
-    var currentController = null,
-        region = options.region;
+App = module.exports =  {
+    startController : function ( controller ) {
+        if ( this.currentController && this.currentController instanceof  controller) {
+            return this.currentController;
+        }
+        if ( this.currentController && this.currentController.destory ) {
+            this.currentController.destroy();
+        }
+        this.currentController = new controller( { bodyRegion : this.bodyRegion,mainRegion : this.mainRegion } );
+        return this.currentController;
+    },
+    destroy : function() {
+        if ( this.currentController && this.currentController.destroy ) {
+            this.currentController.destroy();
+        }
+        // this.region.remove();
+        //this.stopListening();
+    }
 
-    this.startController = function ( controller ) {
-        if ( currentController && currentController instanceof  controller) {
-            return currentController;
-        }
-        if ( currentController && currentController.destory ) {
-            currentController.destory();
-        }
-        currentController = new controller( { region : region } );
-        return currentController;
-    };
 };

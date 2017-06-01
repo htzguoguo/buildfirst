@@ -30,11 +30,9 @@ module.exports.login = function ( req, res, next ) {
         req.session.login = user;
         res.status(200);
         result = {
-            data : {
-                status : 'success',
+                status : 'online',
                 desc : '0'
-            }
-        };
+                };
         res.send( result );
     }else {
         res.status(404);

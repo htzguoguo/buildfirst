@@ -23,6 +23,7 @@ UserRouters = module.exports = Backbone.Router.extend( {
     },
     startApp : function () {
         "use strict";
+
         return window.app.startSubApplication( UsersApp );
     }
 } );

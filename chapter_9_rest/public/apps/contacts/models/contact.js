@@ -8,6 +8,7 @@ var Backbone = require( 'backbone' ),
 Contact = module.exports = Backbone.Model.extend(
     {
         urlRoot : 'api/v1/contacts',
+        idAttribute: 'primarycontactnumber',
         defaults : {
             firstname : 'John Doe',
             lastname : 556677

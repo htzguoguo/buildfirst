@@ -3,7 +3,9 @@
  */
 var BackBone = require( 'backbone' ),
     UserRouter = require( '../apps/users/routers/userrouters' ),
-    ContactRouter = require( '../apps/contacts/routers/contactsrouter' );
+    ContactRouter = require( '../apps/contacts/routers/contactsrouter' ),
+    MainRouter = require( '../apps/shell/routers/shellrouter' );
+
 
 module.exports = BackBone.Router.extend( {
     routes : {

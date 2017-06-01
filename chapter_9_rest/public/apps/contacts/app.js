@@ -2,36 +2,62 @@
  * Created by Administrator on 2017/5/16.
  */
 
-var ContactView = require( './views/contact' ),
+var ContactView = require( './views/contactlistitem' ),
+    ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
+    ContactCollection = require( './collections/contacts' ),
     AppBase = require( '../../utils/baseapp' ),
     _ = require( 'underscore' ),
     App;
 
-_.extend( AppBase.prototype, {
-    ShowContract : function ( id ) {
+App = function ( options ) {
+    "use strict";
+    this.currentController = null;
+    this.mainRegion = options.mainRegion;
+    this.bodyRegion = options.bodyRegion;
+    this.GetName = function () {
+        "use strict";
+        return 'ContactApp';
+    };
+    this.ShowContact = function ( id ) {
         "use strict";
         var contact = new ContactModel( {
-            id :   id
-        } ),
-        app = this;
-
-        console.log( 'id', id );
+                id :   id
+            } ),
+            app = this;
         contact.fetch( {
-            success : function ( data, response ) {
+            success : function ( contact ) {
                 var contactView = app.startController(ContactView);
-                contactView.viewModel = data.toJSON();
-                console.log(   data, response );
+                contactView.model = contact;
                 $('.content-wrapper').html( contactView.render().el );
             },
             error : function () {
-               // window.app.router.navigate('login', {trigger: true});
+                // window.app.router.navigate('login', {trigger: true});
             }
         } );
-    }
-} );
+    };
+    this.ShowContactList = function () {
+        "use strict";
+        var contracts = new ContactCollection(),
+            app = this;
+        contracts.fetch(
+            {
+                success : function ( collection ) {
+                    var contactList = app.startController(ContactList);
+                    contactList.showList(collection);
+                },
+                error : function () {
 
-module.exports = AppBase;
+                }
+            }
+        );
+    }
+};
+
+_.extend( App.prototype, AppBase );
+
+module.exports = App;
+
 
 
 
