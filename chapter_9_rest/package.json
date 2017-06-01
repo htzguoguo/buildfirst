@@ -11,12 +11,15 @@
   "devDependencies": {
     "brfs": "^1.4.3",
     "grunt-browserify": "^5.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-tape": "^0.1.0",
     "sinon": "^2.1.0",
     "tape": "^4.6.3"
   },
   "dependencies": {
     "backbone": "^1.3.3",
+    "backbone.subroute": "^0.4.6",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",

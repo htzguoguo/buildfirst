@@ -28,13 +28,20 @@ module.exports = Base.extend( {
         jqueryMap.$menu.hide();
         jqueryMap.$booter.hide();
         jqueryMap.$main_container.hide();
-       
-        if ( userSession.authenticated() ) {
+
+        this.model = userSession;
+       /* if ( userSession.authenticated() ) {
             this.viewModel = userSession;
         }else {
             this.viewModel = {};
-        }
+        }*/
 
+    },
+    render : function () {
+        "use strict";
+        var result = Base.prototype.render.call( this );
+        this.initUI();
+        return result;
     },
     initUI : function () {
         "use strict";
@@ -134,7 +141,7 @@ module.exports = Base.extend( {
 
         
         user.login( function ( auth ) {
-            console.log( 'window.app.Routers.navigate', auth );
+
              if ( auth.error )
              {
                  $('.alert-danger span.text-semibold', $('.login-form')).html( auth.error.message );
@@ -143,18 +150,17 @@ module.exports = Base.extend( {
              else
              {
 
-                 if (  auth.data.status === 'success' ) {
+                 if (  auth.status === 'online' ) {
                      if ( chk ) {
                          userSession.save( { name : name, accessToken : pw } );
                      }else {
                          userSession.destory( );
                      }
-
                      jqueryMap.$menu.show();
                      jqueryMap.$booter.show();
                      jqueryMap.$main_container.show();
 
-                     window.app.router.navigate('contacts/444455', {trigger: true});
+                     window.app.router.navigate('contacts', {trigger: true});
                  }
                  else {
                      $('.alert-danger span.text-semibold', $('.login-form')).html('用户名或者密码错误');

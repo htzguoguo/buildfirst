@@ -6,7 +6,7 @@ var Backbone = require( 'backbone' ),
     BaseView;
 
 BaseView = module.exports = Backbone.View.extend( {
-    destory : function () {
+    destroy : function () {
         "use strict";
         this.undelegateEvents();
         this.remove();

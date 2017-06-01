@@ -12,12 +12,14 @@ module.exports = Backbone.Model.extend( {
         "use strict";
         this.save( {}, {
             success : function ( model, response ) {
+                console.log( 'model', model );
                 console.log( 'success', response );
-                if ( response.data.status === 'success' ) {
-                    callback( response );
+                if ( model.get('status') === 'online' ) {
+                    callback( model.toJSON() );
                 }
             },
             error : function ( model, response ) {
+                console.log( 'model', model );
                 callback( response.responseJSON  );
             }
         }  );

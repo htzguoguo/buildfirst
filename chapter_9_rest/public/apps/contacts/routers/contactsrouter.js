@@ -12,12 +12,18 @@ var Backbone = require( 'backbone' ),
 
 ContactsRouters = module.exports = Backbone.Router.extend( {
     routes : {
-        'contacts/:id' : 'profile'
+        'contacts/:id' : 'profile',
+        'contacts' : 'list'
     },
     profile : function ( id ) {
         "use strict";
         var app = this.startApp();
-        app.ShowContract( encodeURIComponent(id) );
+        app.ShowContact( encodeURIComponent(id) );
+    },
+    list : function () {
+        "use strict";
+        var app = this.startApp();
+        app.ShowContactList(  );
     },
     startApp : function () {
         "use strict";

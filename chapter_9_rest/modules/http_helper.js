@@ -58,9 +58,7 @@ module.exports.ResourceUpdated = function ( res, tip ) {
 
 module.exports.ResourceFound = function ( res, data ) {
     "use strict";
-    var result = {
-        "data" : data
-    };
+    var result = data;
     res.status( 200 );
     res.setHeader( 'Content-Type', 'application/json' );
     res.send(  result   );
