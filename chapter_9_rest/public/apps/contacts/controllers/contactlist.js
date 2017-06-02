@@ -38,10 +38,10 @@ ContactList = module.exports = function ( options ) {
                 contact.id = contact.get( 'primarycontactnumber' );
                 contact.destroy( {
                     success : function () {
-                        this.notifySuccess( 'The contact was deleted' );
+                        App.notifySuccess( 'The contact was deleted' );
                     },
                     error : function () {
-                        this.notifyError( 'Ooops... Something was wrong' );
+                        App.notifyError( 'Ooops... Something was wrong' );
                     }
                 } );
             }

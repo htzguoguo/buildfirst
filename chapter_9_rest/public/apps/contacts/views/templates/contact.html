@@ -1,7 +1,7 @@
 
     <div class="box thumbnail">
         <div class="photo">
-            <img src="http://placehold.it/250x250" alt="Contact photo" />
+            <img src="./common/images/contact.jpg" alt="Contact photo" />
             <div class="action-bar clearfix">
                 <div class="action-buttons pull-right">
                     <button id="delete" class="btn btn-danger btn-xs">delete</button>
@@ -17,29 +17,34 @@
                 <div class="bottom">
                     <ul class="social-networks">
 
+                        {{#facebook}}
                         <li>
-                            <a href="#" title="Google Drive">
+                            <a href="{{facebook}}" title="Google Drive">
                                 <i class="fa fa-facebook"></i>
                             </a>
                         </li>
+                        {{/facebook}}
+                        {{#twitter}}
                         <li>
-                            <a href="#" title="Twitter">
+                            <a href="{{twitter}}" title="Twitter">
                                 <i class="fa fa-twitter"></i>
                             </a>
                         </li>
-
+                        {{/twitter}}
+                        {{#google}}
                         <li>
-                            <a href="#" title="Google Drive">
+                            <a href="{{google}}" title="Google Drive">
                                 <i class="fa fa-google-plus"></i>
                             </a>
                         </li>
-
+                        {{/google}}
+                        {{#github}}
                         <li>
-                            <a href="#" title="Github">
+                            <a href="{{github}}" title="Github">
                                 <i class="fa fa-github"></i>
                             </a>
                         </li>
-
+                       {{/github}}
                     </ul>
                 </div>
             </div>

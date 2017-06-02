@@ -139,6 +139,8 @@ module.exports = Base.extend( {
             chk = this.$( '.remember-password' ).prop("checked"),
             $error = this.$( '.error' );
 
+        var c = '';
+
         
         user.login( function ( auth ) {
 
@@ -161,6 +163,9 @@ module.exports = Base.extend( {
                      jqueryMap.$main_container.show();
 
                      window.app.router.navigate('contacts', {trigger: true});
+                  //  window.href = 'index.html'
+                    // window.location = "views/index.html"
+
                  }
                  else {
                      $('.alert-danger span.text-semibold', $('.login-form')).html('用户名或者密码错误');

@@ -22,7 +22,7 @@ module.exports = function ( grunt ) {
         watch : {
             rebuild : {
                 tasks : [ 'browserify:debug' ],
-                files : [ 'public/**/*.js' ]
+                files : [ 'public/**/*.js', 'public/**/*.html' ]
             }
         }
     } );

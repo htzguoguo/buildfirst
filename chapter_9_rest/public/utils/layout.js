@@ -27,12 +27,14 @@ Layout = module.exports = ModelView.extend( {
             app._regions[ name ] = new Region( { el : $el } );
         } );
     },
+
+
     getRegion : function ( regionName ) {
         "use strict";
         var regions = this._regions || {};
         return regions[ regionName ];
     },
-    destroy : function () {
+    destroy : function ( options ) {
         "use strict";
         ModelView.prototype.destroy.call( this, options );
         this.closeRegions();

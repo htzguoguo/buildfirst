@@ -67,6 +67,10 @@ function toExistContact( data, contact ) {
 
     data.primaryemailaddress = contact.primaryemailaddress;
     data.groups = contact.groups;
+    data.facebook = contact.facebook;
+    data.twitter = contact.twitter;
+    data.github = contact.github;
+    data.google = contact.google;
 }
 
 function toNewContact( body ) {
@@ -83,7 +87,11 @@ function toNewContact( body ) {
             primaryemailaddress: body.primaryemailaddress,
             emailaddresses: body.emailaddresses,
             groups: body.groups,
-            othercontactnumbers: body.othercontactnumbers
+            othercontactnumbers: body.othercontactnumbers,
+            facebook: body.facebook,
+            twitter: body.twitter,
+            github: body.github,
+            google: body.google
         });
 }
 

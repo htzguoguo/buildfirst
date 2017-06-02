@@ -18,7 +18,11 @@ var mongoose = require( 'mongoose' ),
         othercontactnumbers : [ String ],
         primaryemailaddress: String,
         emailaddresses: [String],
-        groups: [String]
+        groups: [String],
+        facebook: String,
+        twitter: String,
+        github: String,
+        google: String
     } ),
     Contact = mongoose.model( 'Contact', contactSchema );
 

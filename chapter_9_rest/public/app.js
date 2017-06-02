@@ -4,6 +4,7 @@
 
 var BackBone = require( 'backbone' ),
     LoginApp = require( './apps/users/app' ),
+    ShellLayout = require( './apps/shell/views/shell' ),
     Region = require( './utils/region' ),
     _ = require( 'underscore' ),
     DefaultRouter = null,
@@ -16,6 +17,7 @@ Application = function () {
     this.Collections = {};
     this.Routers =  {};
     this.currentSubapp = undefined;
+    this.shell = undefined;
     this.bodyRegion = new Region( { el : 'body' } );
     this.headerRegion = new Region( { el : '#navbar-main' } );
     this.mainRegion = new Region( { el : '.content-wrapper' } );
@@ -39,13 +41,25 @@ DefaultRouter = require( './routers/approuters' );
         "use strict";
 
         if ( SubApplication.prototype.constructor ===   LoginApp) {
-            $( '.tjx-top-first-menu' ).hide();
+           if ( this.shell ) {
+               this.shell.destroy();
+               this.shell = undefined;
+           }
+          /*  $( '.tjx-top-first-menu' ).hide();
             $( '.tjx-bottom-booter' ).hide();
-            $( '#tjx-shell-main' ).hide();
+            $( '#tjx-shell-main' ).hide();*/
         }else {
-            $( '.tjx-top-first-menu' ).show();
+           if ( ! this.shell ) {
+               this.shell = new ShellLayout();
+               this.bodyRegion.show( this.shell );
+               this.headerRegion =  this.shell.getRegion( 'menu' );
+               this.mainRegion = this.shell.getRegion( 'main' );
+               this.footerRegion = this.shell.getRegion( 'footer' );
+               this.rightModal = this.shell.getRegion( 'rightmodal' );
+           }
+          /*  $( '.tjx-top-first-menu' ).show();
             $( '.tjx-bottom-booter' ).show();
-            $( '#tjx-shell-main' ).show();
+            $( '#tjx-shell-main' ).show();*/
         }
 
         if ( this.currentSubapp && this.currentSubapp instanceof  SubApplication) {
