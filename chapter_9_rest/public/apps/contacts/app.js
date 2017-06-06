@@ -2,13 +2,13 @@
  * Created by Administrator on 2017/5/16.
  */
 
-var ContactView = require( './views/contactlistitem' ),
+var ContactView = require( './controllers/contactview' ),
     ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
     ContactCollection = require( './collections/contacts' ),
     AppBase = require( '../../utils/baseapp' ),
     _ = require( 'underscore' ),
-    App;
+    App, C;
 
 App = function ( options ) {
     "use strict";
@@ -19,17 +19,16 @@ App = function ( options ) {
         "use strict";
         return 'ContactApp';
     };
-    this.ShowContact = function ( id ) {
+    this.showContactById = function ( id ) {
         "use strict";
         var contact = new ContactModel( {
-                id :   id
+                id :   id,
+                primarycontactnumber : id
             } ),
             app = this;
         contact.fetch( {
             success : function ( contact ) {
-                var contactView = app.startController(ContactView);
-                contactView.model = contact;
-                $('.content-wrapper').html( contactView.render().el );
+                app.ShowViewer( contact );
             },
             error : function () {
                 // window.app.router.navigate('login', {trigger: true});
@@ -51,7 +50,13 @@ App = function ( options ) {
                 }
             }
         );
-    }
+    };
+    this.ShowViewer = function ( contact ) {
+        var contactViewer =  this.startController(ContactView);
+        contactViewer.showContact( contact );
+    };
+
+
 };
 
 _.extend( App.prototype, AppBase );

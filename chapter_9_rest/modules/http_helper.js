@@ -27,11 +27,13 @@ module.exports.ResourceNotFound = function ( res, context ) {
     };
     res.status( 404 );
     res.setHeader( 'Content-Type', 'text/plain' );
+    res.end();
 };
 
 module.exports.ResourceDeleted = function ( res ) {
     "use strict";
     res.status( 204 );
+    res.end();
 };
 
 module.exports.ResourceCreated = function ( res, tip ) {

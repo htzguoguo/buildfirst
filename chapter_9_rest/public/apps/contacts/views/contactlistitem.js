@@ -11,12 +11,16 @@ ContactView = module.exports = ModelView.extend( {
     template : template,
     className : 'col-xs-12 col-sm-6 col-md-3',
     events : {
-        'click #delete' : 'deleteContact'
+        'click #delete' : 'deleteContact',
+        'click #view' : 'viewContact'
     },
     deleteContact : function () {
         "use strict";
-        console.log( 'deleteContact' );
         this.trigger( 'contact:delete', this.model );
+    },
+    viewContact : function () {
+        var contactId = this.model.get('primarycontactnumber');
+        window.app.router.navigate(`contacts/view/${contactId}`, true);
     }
 } );
 

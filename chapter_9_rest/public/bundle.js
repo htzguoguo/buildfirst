@@ -1922,7 +1922,7 @@
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":31,"underscore":3}],2:[function(require,module,exports){
+},{"jquery":36,"underscore":3}],2:[function(require,module,exports){
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -4168,6 +4168,8 @@ DefaultRouter = require( './routers/approuters' );
           /*  $( '.tjx-top-first-menu' ).show();
             $( '.tjx-bottom-booter' ).show();
             $( '#tjx-shell-main' ).show();*/
+
+
         }
 
         if ( this.currentSubapp && this.currentSubapp instanceof  SubApplication) {
@@ -4187,18 +4189,18 @@ module.exports = Application;
  
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./apps/shell/views/shell":14,"./apps/users/app":15,"./routers/approuters":23,"./utils/region":30,"backbone":1,"underscore":3}],5:[function(require,module,exports){
+},{"./apps/shell/views/shell":19,"./apps/users/app":20,"./routers/approuters":28,"./utils/region":35,"backbone":1,"underscore":3}],5:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
 
-var ContactView = require( './views/contactlistitem' ),
+var ContactView = require( './controllers/contactview' ),
     ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
     ContactCollection = require( './collections/contacts' ),
     AppBase = require( '../../utils/baseapp' ),
     _ = require( 'underscore' ),
-    App;
+    App, C;
 
 App = function ( options ) {
     "use strict";
@@ -4209,17 +4211,16 @@ App = function ( options ) {
         "use strict";
         return 'ContactApp';
     };
-    this.ShowContact = function ( id ) {
+    this.showContactById = function ( id ) {
         "use strict";
         var contact = new ContactModel( {
-                id :   id
+                id :   id,
+                primarycontactnumber : id
             } ),
             app = this;
         contact.fetch( {
             success : function ( contact ) {
-                var contactView = app.startController(ContactView);
-                contactView.model = contact;
-                $('.content-wrapper').html( contactView.render().el );
+                app.ShowViewer( contact );
             },
             error : function () {
                 // window.app.router.navigate('login', {trigger: true});
@@ -4241,7 +4242,13 @@ App = function ( options ) {
                 }
             }
         );
-    }
+    };
+    this.ShowViewer = function ( contact ) {
+        var contactViewer =  this.startController(ContactView);
+        contactViewer.showContact( contact );
+    };
+
+
 };
 
 _.extend( App.prototype, AppBase );
@@ -4254,7 +4261,7 @@ module.exports = App;
 
 
 
-},{"../../utils/baseapp":24,"./collections/contacts":6,"./controllers/contactlist":7,"./models/contact":8,"./views/contactlistitem":12,"underscore":3}],6:[function(require,module,exports){
+},{"../../utils/baseapp":29,"./collections/contacts":6,"./controllers/contactlist":7,"./controllers/contactview":8,"./models/contact":9,"underscore":3}],6:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -4268,7 +4275,7 @@ Contacts = module.exports = Backbone.Collection.extend( {
     model : Contact
 } );
 
-},{"../models/contact":8,"backbone":1}],7:[function(require,module,exports){
+},{"../models/contact":9,"backbone":1}],7:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/26.
  */
@@ -4292,27 +4299,22 @@ ContactList = module.exports = function ( options ) {
             actionbar = new ContactListActionBar(),
             contactList = new ContactListView({collection: contacts});
         this.mainRegion.show( layout );
-
-
-
         layout.getRegion( 'actions' ).show( actionbar );
         layout.getRegion( 'list' ).show( contactList );
-      //  $('.content-wrapper').html( contactList.render().el );
-
         this.listenTo(  contactList, 'item:contact:delete', this.deleteContact );
     };
 
     this.deleteContact = function ( view, contact ) {
+        var app = this;
         this.askConfirmation( 'The contact will be deleted', function ( isConfirm ) {
             if ( isConfirm ) {
-
                 contact.id = contact.get( 'primarycontactnumber' );
                 contact.destroy( {
                     success : function () {
-                        App.notifySuccess( 'The contact was deleted' );
+                        app.successMessage( 'The contact was deleted' );
                     },
                     error : function () {
-                        App.notifyError( 'Ooops... Something was wrong' );
+                        app.errorMessage( 'Ooops... Something was wrong' );
                     }
                 } );
             }
@@ -4322,7 +4324,66 @@ ContactList = module.exports = function ( options ) {
 
 _.extend( ContactList.prototype, App );
 
-},{"../../../utils/basecontroller":25,"../views/contactList":10,"../views/contactlistactionbar":11,"../views/contactlistlayout":13,"backbone":1,"underscore":3}],8:[function(require,module,exports){
+
+},{"../../../utils/basecontroller":30,"../views/contactList":11,"../views/contactlistactionbar":14,"../views/contactlistlayout":16,"backbone":1,"underscore":3}],8:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/2.
+ */
+
+var Backbone = require( 'backbone' ),
+    ControllerBase = require( '../../../utils/basecontroller' ),
+    _ = require( 'underscore' ),
+    ContactViewLayout = require( '../views/contactviewlayout' ),
+    ContactViewWidget = require( '../views/contactviewwidget' ),
+    ContactAbout = require( '../views/contactabout' ),
+    ContactCallLog = require( '../views/contactcalllog' ),
+    ContactViewController;
+
+ContactViewController = module.exports = function ( options ) {
+    var deleteContact;
+    this.mainRegion = options.mainRegion;
+    _.extend( this, Backbone.Events );
+
+    this.showContact = function ( contact ) {
+        var layout = new ContactViewLayout(),
+            contactWidget = new ContactViewWidget( { model : contact } ),
+            contactAbout = new ContactAbout( { model : contact } ),
+            contactCallLog = new ContactCallLog( { model : contact } );
+        this.mainRegion.show( layout );
+        layout.getRegion( 'widget' ).show( contactWidget );
+        layout.getRegion( 'about' ).show( contactAbout );
+        layout.getRegion( 'calls' ).show( contactCallLog );
+
+        this.listenTo( contactAbout, 'contact:delete', deleteContact );
+    };
+
+    deleteContact = function ( contact ) {
+
+
+
+        var app = this;
+        this.askConfirmation( 'The contact will be deleted', function ( isConfirmed ) {
+            if ( isConfirmed ) {
+                contact.destroy( {
+                    success : function () {
+                        app.successMessage( 'The contact was deleted' );
+                        window.app.router.navigate('/contacts', true);
+                    },
+                    error : function () {
+                        app.errorMessage( 'Ooops... Something was wrong' );
+                    }
+                } );
+            }
+        } );
+    }
+
+
+};
+
+_.extend( ContactViewController.prototype, ControllerBase );
+
+
+},{"../../../utils/basecontroller":30,"../views/contactabout":12,"../views/contactcalllog":13,"../views/contactviewlayout":17,"../views/contactviewwidget":18,"backbone":1,"underscore":3}],9:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4340,7 +4401,7 @@ Contact = module.exports = Backbone.Model.extend(
         }
     }
 );
-},{"backbone":1}],9:[function(require,module,exports){
+},{"backbone":1}],10:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -4355,13 +4416,13 @@ var Backbone = require( 'backbone' ),
 
 ContactsRouters = module.exports = Backbone.Router.extend( {
     routes : {
-        'contacts/:id' : 'profile',
+        'contacts/view/:id' : 'profile',
         'contacts' : 'list'
     },
     profile : function ( id ) {
         "use strict";
         var app = this.startApp();
-        app.ShowContact( encodeURIComponent(id) );
+        app.showContactById( id );
     },
     list : function () {
         "use strict";
@@ -4379,7 +4440,7 @@ window.app.Routers.ContactsRouter = ContactsRouters;
 
 
 
-},{"../app":5,"backbone":1}],10:[function(require,module,exports){
+},{"../app":5,"backbone":1}],11:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -4425,7 +4486,45 @@ ContactListView = module.exports = CollectionView.extend( {
 
 
 
-},{"../../../utils/collectionview":27,"./contactlistitem":12}],11:[function(require,module,exports){
+},{"../../../utils/collectionview":32,"./contactlistitem":15}],12:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/2.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    template = "<div class=\"panel-heading\">About John Doe</div>\r\n<div class=\"pabel-body\">\r\n    <div class=\"contact-info\">\r\n        <div class=\"bio\">\r\n            <h4>Bio</h4>\r\n            <p>\r\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae efficitur dui, ac pellentesque nisi. Morbi sit amet nibh ante. Aenean at dui sit amet nunc elementum posuere. Fusce mauris eros, scelerisque a velit et, facilisis faucibus magna. Praesent hendrerit lacinia pharetra. Donec cursus odio nisi, maximus aliquam nibh sodales non. Sed at purus non ante efficitur semper vel et mauris.\r\n            </p>\r\n        </div>\r\n\r\n        <h4>Basic information</h4>\r\n        <div class=\"table-responsive\">\r\n            <table class=\"table\">\r\n                <tbody>\r\n                <tr>\r\n                    <th>Email</th>\r\n                    <td><a href=\"mailto:{{emailaddresses}}\">{{emailaddresses}}</a></td>\r\n                </tr>\r\n                <tr>\r\n                    <th>Phone</th>\r\n                    <td>{{othercontactnumbers}}</td>\r\n                </tr>\r\n                <tr>\r\n                    <th>Social</th>\r\n                    <td>\r\n                        <ul class=\"list-inline\">\r\n                            {{#facebook}}\r\n                            <li>\r\n                                <a href=\"{{facebook}}\" title=\"Google Drive\">\r\n                                    <i class=\"fa fa-facebook\"></i>\r\n                                </a>\r\n                            </li>\r\n                            {{/facebook}}\r\n                            {{#twitter}}\r\n                            <li>\r\n                                <a href=\"{{twitter}}\" title=\"Twitter\">\r\n                                    <i class=\"fa fa-twitter\"></i>\r\n                                </a>\r\n                            </li>\r\n                            {{/twitter}}\r\n                            {{#google}}\r\n                            <li>\r\n                                <a href=\"{{google}}\" title=\"Google Drive\">\r\n                                    <i class=\"fa fa-google-plus\"></i>\r\n                                </a>\r\n                            </li>\r\n                            {{/google}}\r\n                            {{#github}}\r\n                            <li>\r\n                                <a href=\"{{github}}\" title=\"Github\">\r\n                                    <i class=\"fa fa-github\"></i>\r\n                                </a>\r\n                            </li>\r\n                            {{/github}}\r\n                        </ul>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n\r\n        <h4>Personal information</h4>\r\n        <div class=\"table-responsive\">\r\n            <table class=\"table\">\r\n                <tbody>\r\n                <tr>\r\n                    <th>Company</th>\r\n                    <td>{{company}}</td>\r\n                </tr>\r\n                <tr>\r\n                    <th>JobTitle</th>\r\n                    <td>{{jobtitle}}</td>\r\n                </tr>\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"panel-footer clearfix\">\r\n    <div class=\"panel-buttons\">\r\n        <button id=\"back\" class=\"btn btn-default\">Go back</button>\r\n        <button id=\"delete\" class=\"btn btn-danger\">Delete</button>\r\n        <button id=\"edit\" class=\"btn btn-success\">Edit contact</button>\r\n    </div>\r\n</div>",
+    ContactAbout;
+
+ContactAbout = module.exports = ModelView.extend( {
+    template : template,
+    className : 'panel panel-simple',
+    events : {
+        'click #back' : 'goToList',
+        'click #delete' : 'deleteContact'
+    },
+    goToList : function () {
+        window.app.router.navigate('contacts', true);
+    },
+    deleteContact : function () {
+        this.trigger( 'contact:delete', this.model );
+    }
+} );
+
+},{"../../../utils/modelview":34}],13:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/2.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    template = "<div class=\"panel-heading\">Call log</div>\r\n<div class=\"pabel-body\">\r\n    <div class=\"call-log\">\r\n        <table class=\"table table-striped\">\r\n            <thead>\r\n            <tr>\r\n                <th>Type</th>\r\n                <th>Date</th>\r\n                <th>Elapsed time</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody>\r\n            <tr>\r\n                <td>Income</td>\r\n                <td>2 days ago</td>\r\n                <td>3 minutes</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Income</td>\r\n                <td>3 days ago</td>\r\n                <td>17 minutes</td>\r\n            </tr>\r\n            <tr>\r\n                <td>Outcome</td>\r\n                <td>5 days ago</td>\r\n                <td>1 minute</td>\r\n            </tr>\r\n            </tbody>\r\n        </table>\r\n    </div>\r\n</div>",
+    ContactCallLog;
+
+ContactCallLog = module.exports = ModelView.extend( {
+    template : template,
+    className : 'panel panel-simple'
+} );
+
+},{"../../../utils/modelview":34}],14:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/1.
  */
@@ -4458,7 +4557,7 @@ View = module.exports = ModelView.extend( {
     }
 } );
 
-},{"../../../utils/modelview":29,"../models/contact":8}],12:[function(require,module,exports){
+},{"../../../utils/modelview":34,"../models/contact":9}],15:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4471,18 +4570,22 @@ ContactView = module.exports = ModelView.extend( {
     template : template,
     className : 'col-xs-12 col-sm-6 col-md-3',
     events : {
-        'click #delete' : 'deleteContact'
+        'click #delete' : 'deleteContact',
+        'click #view' : 'viewContact'
     },
     deleteContact : function () {
         "use strict";
-        console.log( 'deleteContact' );
         this.trigger( 'contact:delete', this.model );
+    },
+    viewContact : function () {
+        var contactId = this.model.get('primarycontactnumber');
+        window.app.router.navigate(`contacts/view/${contactId}`, true);
     }
 } );
 
 
 
-},{"../../../utils/modelview":29}],13:[function(require,module,exports){
+},{"../../../utils/modelview":34}],16:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/1.
  */
@@ -4502,7 +4605,40 @@ ContactListLayout = module.exports = Layout.extend( {
 
 
 
-},{"../../../utils/layout":28}],14:[function(require,module,exports){
+},{"../../../utils/layout":33}],17:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/2.
+ */
+
+var Layout = require('../../../utils/layout'),
+    template = "<div class=\"row page-container\">\r\n    <div id=\"contact-widget\" class=\"col-xs-12 col-sm-4 col-md-3\"></div>\r\n    <div class=\"col-xs-12 col-sm-8 col-md-9\">\r\n        <div class=\"row\">\r\n            <div id=\"about-container\"></div>\r\n            <div id=\"call-log-container\"></div>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"footer text-muted\">\r\n    © 2015. <a href=\"#\">Mastering Backbone.js</a> by <a href=\"https://twitter.com/abieealejandro\" target=\"_blank\">Abiee Alejandro</a>\r\n</div>",
+    ContactViewLayout;
+
+ContactViewLayout = module.exports = Layout.extend( {
+    template : template,
+    regions : {
+        widget : '#contact-widget',
+        about : '#about-container',
+        calls : '#call-log-container'
+    },
+    className : 'row page-container'
+} );
+
+},{"../../../utils/layout":33}],18:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/2.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    template = "<h3>John Doe</h3>\r\n<img src=\"./common/images/contact.jpg\" alt=\"Photo\" class=\"img-circle\" style=\"width: 250px;height: 250px;\"/>\r\n<ul class=\"social-networks\">\r\n    {{#facebook}}\r\n    <li>\r\n        <a href=\"{{facebook}}\" title=\"Google Drive\">\r\n            <i class=\"fa fa-facebook\"></i>\r\n        </a>\r\n    </li>\r\n    {{/facebook}}\r\n    {{#twitter}}\r\n    <li>\r\n        <a href=\"{{twitter}}\" title=\"Twitter\">\r\n            <i class=\"fa fa-twitter\"></i>\r\n        </a>\r\n    </li>\r\n    {{/twitter}}\r\n    {{#google}}\r\n    <li>\r\n        <a href=\"{{google}}\" title=\"Google Drive\">\r\n            <i class=\"fa fa-google-plus\"></i>\r\n        </a>\r\n    </li>\r\n   {{/google}}\r\n    {{#github}}\r\n    <li>\r\n        <a href=\"{{github}}\" title=\"Github\">\r\n            <i class=\"fa fa-github\"></i>\r\n        </a>\r\n    </li>\r\n    {{/github}}\r\n</ul>",
+    ContactViewWidget;
+
+ContactViewWidget = module.exports = ModelView.extend( {
+    template : template,
+    className : 'box contact-summary'
+} );
+
+},{"../../../utils/modelview":34}],19:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -4522,7 +4658,7 @@ ShellView = module.exports = Layout.extend( {
 } );
 
 
-},{"../../../utils/layout":28}],15:[function(require,module,exports){
+},{"../../../utils/layout":33}],20:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/13.
  */
@@ -4570,7 +4706,7 @@ module.exports = App;
 
 
 
-},{"../../utils/baseapp":24,"./views/login":20,"./views/profile":21,"jquery":31,"underscore":3}],16:[function(require,module,exports){
+},{"../../utils/baseapp":29,"./views/login":25,"./views/profile":26,"jquery":36,"underscore":3}],21:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4612,7 +4748,7 @@ module.exports = Backbone.Model.extend( {
 } );
 
 
-},{"backbone":1}],17:[function(require,module,exports){
+},{"backbone":1}],22:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -4623,7 +4759,7 @@ module.exports = Backbone.Model.extend( {
     urlRoot : 'api/v1/users'
 } );
 
-},{"backbone":1}],18:[function(require,module,exports){
+},{"backbone":1}],23:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/18.
  */
@@ -4660,7 +4796,7 @@ module.exports = Backbone.Model.extend( {
     }
 } );
 
-},{"backbone":1,"underscore":3}],19:[function(require,module,exports){
+},{"backbone":1,"underscore":3}],24:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
@@ -4695,7 +4831,7 @@ window.app.Routers.UsersRouter = UserRouters;
 
 
 
-},{"../app":15,"backbone":1}],20:[function(require,module,exports){
+},{"../app":20,"backbone":1}],25:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4875,7 +5011,7 @@ module.exports = Base.extend( {
 
 
 
-},{"../../../utils/modelview":29,"../models/loginaccount":16,"../models/usersession":18}],21:[function(require,module,exports){
+},{"../../../utils/modelview":34,"../models/loginaccount":21,"../models/usersession":23}],26:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -4922,7 +5058,7 @@ module.exports = Base.extend( {
     }
 } );
 
-},{"../../../utils/modelview":29,"../models/loginaccount":16,"../models/user":17}],22:[function(require,module,exports){
+},{"../../../utils/modelview":34,"../models/loginaccount":21,"../models/user":22}],27:[function(require,module,exports){
 (function (global){
 /**
  * Created by Administrator on 2017/4/13.
@@ -4942,7 +5078,7 @@ $( document ).ready( function () {
 } );
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app":4,"backbone":1,"jquery":31,"underscore":3}],23:[function(require,module,exports){
+},{"./app":4,"backbone":1,"jquery":36,"underscore":3}],28:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4961,7 +5097,7 @@ module.exports = BackBone.Router.extend( {
     }
 } );
 
-},{"../apps/contacts/routers/contactsrouter":9,"../apps/users/routers/userrouters":19,"backbone":1}],24:[function(require,module,exports){
+},{"../apps/contacts/routers/contactsrouter":10,"../apps/users/routers/userrouters":24,"backbone":1}],29:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4989,7 +5125,7 @@ App = module.exports =  {
 
 };
 
-},{}],25:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/26.
  */
@@ -4998,16 +5134,18 @@ App = module.exports =  {
 module.exports = {
     askConfirmation : function (message, callback) {
     var options = {
-        title: 'Are you sure?',
+        title: "提示：",
         // Show the warning icon
         type: 'warning',
         text: message,
         // By default the cancel button is not shown
         showCancelButton: true,
-        confirmButtonText: 'Yes, do it!',
+        confirmButtonText: '确定',
+        cancelButtonText: "取消",
         // Overwrite the default button color
         confirmButtonColor: '#5cb85c',
-        cancelButtonText: 'No'
+        closeOnConfirm: false,
+        closeOnCancel: false
     };
     // Show the message
     swal(options, function(isConfirm) {
@@ -5015,27 +5153,68 @@ module.exports = {
     });
 },
 
+    successMessage : function(message) {
+        swal({
+            title: "提示：",
+            text: message,
+            confirmButtonColor: "#66BB6A",
+            type: "success"
+        });
+
+
+       /* swal({
+            title: "Good job!",
+            text: message,
+            confirmButtonColor: "#66BB6A",
+            type: "warning"
+        });*/
+
+       /* var options = {
+            title: 'Success',
+            type: 'success',
+            text: message,
+            confirmButtonText: 'Okay'
+        };
+        swal(options);*/
+    },
+
+    errorMessage : function(message) {
+        swal({
+            title: "提示：",
+            text: message,
+            confirmButtonColor: "#EF5350",
+            type: "warning"
+        });
+       /* var options = {
+            title: 'Error',
+            type: 'error',
+            text: message,
+            confirmButtonText: 'Okay'
+        };
+        swal(options);*/
+    },
+
   notifySuccess : function  (message) {
-    new noty({
-        text: message,
-        layout: 'topRight',
-        theme: 'relax',
-        type: 'success',
-        timeout: 3000 // close automatically
-    });
+
+      $.jGrowl(message, {
+          header: '提示：',
+          life: 10000,
+          position: 'top-right',
+          theme: 'alert-styled-left alert-arrow-left alert-primary'
+      });
+
 },
 
   notifyError : function (message) {
-    new noty({
-        text: message,
-        layout: 'topRight',
-        theme: 'relax',
-        type: 'error',
-        timeout: 3000 // close automatically
-    });
+      $.jGrowl(message, {
+          header: '提示：',
+          life: 10000,
+          position: 'top-right',
+          theme: 'alert-bordered bg-danger alert-styled-left alert-danger'
+      });
 }
 };
-},{}],26:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -5051,7 +5230,7 @@ BaseView = module.exports = Backbone.View.extend( {
     }
 } );
 
-},{"backbone":1}],27:[function(require,module,exports){
+},{"backbone":1}],32:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -5131,7 +5310,7 @@ CollectionView = module.exports = BaseView.extend( {
     }
 } );
 
-},{"./baseview":26,"backbone":1,"underscore":3}],28:[function(require,module,exports){
+},{"./baseview":31,"backbone":1,"underscore":3}],33:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/31.
  */
@@ -5183,7 +5362,7 @@ Layout = module.exports = ModelView.extend( {
         } );
     }
 } );
-},{"./modelview":29,"./region":30,"underscore":3}],29:[function(require,module,exports){
+},{"./modelview":34,"./region":35,"underscore":3}],34:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -5223,7 +5402,7 @@ ModelView = module.exports = BaseView.extend( {
 
 
 
-},{"./baseview":26,"mustache":2,"underscore":3}],30:[function(require,module,exports){
+},{"./baseview":31,"mustache":2,"underscore":3}],35:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/31.
  */
@@ -5268,7 +5447,7 @@ Region = module.exports = function ( options ) {
     };
 };
 
-},{}],31:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
@@ -15490,4 +15669,4 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}]},{},[22]);
+},{}]},{},[27]);

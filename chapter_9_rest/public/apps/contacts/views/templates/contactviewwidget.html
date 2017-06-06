@@ -1,32 +1,32 @@
 <h3>John Doe</h3>
 <img src="./common/images/contact.jpg" alt="Photo" class="img-circle" style="width: 250px;height: 250px;"/>
 <ul class="social-networks">
-    <% if (facebook) { %>
+    {{#facebook}}
     <li>
-        <a href="<%= facebook %>" title="Google Drive">
+        <a href="{{facebook}}" title="Google Drive">
             <i class="fa fa-facebook"></i>
         </a>
     </li>
-    <% } %>
-    <% if (twitter) { %>
+    {{/facebook}}
+    {{#twitter}}
     <li>
-        <a href="<%= twitter %>" title="Twitter">
+        <a href="{{twitter}}" title="Twitter">
             <i class="fa fa-twitter"></i>
         </a>
     </li>
-    <% } %>
-    <% if (google) { %>
+    {{/twitter}}
+    {{#google}}
     <li>
-        <a href="<%= google %>" title="Google Drive">
+        <a href="{{google}}" title="Google Drive">
             <i class="fa fa-google-plus"></i>
         </a>
     </li>
-    <% } %>
-    <% if (github) { %>
+   {{/google}}
+    {{#github}}
     <li>
-        <a href="<%= github %>" title="Github">
+        <a href="{{github}}" title="Github">
             <i class="fa fa-github"></i>
         </a>
     </li>
-    <% } %>
+    {{/github}}
 </ul>

@@ -21,27 +21,22 @@ ContactList = module.exports = function ( options ) {
             actionbar = new ContactListActionBar(),
             contactList = new ContactListView({collection: contacts});
         this.mainRegion.show( layout );
-
-
-
         layout.getRegion( 'actions' ).show( actionbar );
         layout.getRegion( 'list' ).show( contactList );
-      //  $('.content-wrapper').html( contactList.render().el );
-
         this.listenTo(  contactList, 'item:contact:delete', this.deleteContact );
     };
 
     this.deleteContact = function ( view, contact ) {
+        var app = this;
         this.askConfirmation( 'The contact will be deleted', function ( isConfirm ) {
             if ( isConfirm ) {
-
                 contact.id = contact.get( 'primarycontactnumber' );
                 contact.destroy( {
                     success : function () {
-                        App.notifySuccess( 'The contact was deleted' );
+                        app.successMessage( 'The contact was deleted' );
                     },
                     error : function () {
-                        App.notifyError( 'Ooops... Something was wrong' );
+                        app.errorMessage( 'Ooops... Something was wrong' );
                     }
                 } );
             }
@@ -50,3 +45,4 @@ ContactList = module.exports = function ( options ) {
 };
 
 _.extend( ContactList.prototype, App );
+

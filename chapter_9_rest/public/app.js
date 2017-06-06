@@ -60,6 +60,8 @@ DefaultRouter = require( './routers/approuters' );
           /*  $( '.tjx-top-first-menu' ).show();
             $( '.tjx-bottom-booter' ).show();
             $( '#tjx-shell-main' ).show();*/
+
+
         }
 
         if ( this.currentSubapp && this.currentSubapp instanceof  SubApplication) {
