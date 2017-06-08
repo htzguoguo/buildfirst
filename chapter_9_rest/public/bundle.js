@@ -1922,7 +1922,7 @@
 });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"jquery":36,"underscore":3}],2:[function(require,module,exports){
+},{"jquery":40,"underscore":3}],2:[function(require,module,exports){
 /*!
  * mustache.js - Logic-less {{mustache}} templates with JavaScript
  * http://github.com/janl/mustache.js
@@ -4189,12 +4189,13 @@ module.exports = Application;
  
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./apps/shell/views/shell":19,"./apps/users/app":20,"./routers/approuters":28,"./utils/region":35,"backbone":1,"underscore":3}],5:[function(require,module,exports){
+},{"./apps/shell/views/shell":23,"./apps/users/app":24,"./routers/approuters":32,"./utils/region":39,"backbone":1,"underscore":3}],5:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
 
 var ContactView = require( './controllers/contactview' ),
+    ContactEditor = require( './controllers/contacteditor' ),
     ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
     ContactCollection = require( './collections/contacts' ),
@@ -4248,6 +4249,30 @@ App = function ( options ) {
         contactViewer.showContact( contact );
     };
 
+    this.ShowNewContactForm = function () {
+        var contactEditor = this.startController(ContactEditor);
+        contactEditor.showEditor( new ContactModel( {
+            primarycontactnumber : Math.random().toString(36).substring(7)
+        } )  );
+    };
+
+    this.ShowContactEditorById = function ( id ) {
+        var contact = new ContactModel( {
+                id :   id,
+                primarycontactnumber : id
+            } ),
+            app = this;
+        contact.fetch( {
+            success : function ( contact ) {
+                var contactViewer = app.startController(ContactEditor);
+                contactViewer.showEditor(contact);
+            },
+            error : function () {
+                // window.app.router.navigate('login', {trigger: true});
+            }
+        } );
+    };
+
 
 };
 
@@ -4261,7 +4286,7 @@ module.exports = App;
 
 
 
-},{"../../utils/baseapp":29,"./collections/contacts":6,"./controllers/contactlist":7,"./controllers/contactview":8,"./models/contact":9,"underscore":3}],6:[function(require,module,exports){
+},{"../../utils/baseapp":33,"./collections/contacts":6,"./controllers/contacteditor":7,"./controllers/contactlist":8,"./controllers/contactview":9,"./models/contact":10,"underscore":3}],6:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -4275,7 +4300,60 @@ Contacts = module.exports = Backbone.Collection.extend( {
     model : Contact
 } );
 
-},{"../models/contact":9,"backbone":1}],7:[function(require,module,exports){
+},{"../models/contact":10,"backbone":1}],7:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/6.
+ */
+
+var Backbone = require( 'backbone' ),
+    ControllerBase = require( '../../../utils/basecontroller' ),
+    _ = require( 'underscore' ),
+    ContactFormLayout = require( '../views/contactformlayout' ),
+    ContactForm = require( '../views/contactform' ),
+    ContactPreview = require( '../views/contactpreview' ),
+    ContactEditorController;
+
+ContactEditorController = module.exports = function ( options ) {
+    this.mainRegion = options.mainRegion;
+    _.extend( this, Backbone.Events );
+
+    this.showEditor = function ( contact ) {
+        var layout = new ContactFormLayout( { model : contact } ),
+            form = new ContactForm( { model : contact } ),
+            preview = new ContactPreview( { model : contact } )
+        ;
+        this.mainRegion.show( layout );
+        layout.getRegion( 'form' ).show( form );
+        layout.getRegion( 'preview' ).show( preview );
+
+       /* form.$( '#birthdate' ).datepicker();*/
+        this.listenTo( form, 'form:cancel', this.cancel );
+        this.listenTo( form, 'form:save', this.saveContact );
+    };
+    this.cancel = function () {
+        this.askConfirmation( 'Changes will be lost', true, function ( isConfirm ) {
+            if ( isConfirm ) {
+                window.app.router.navigate( '/contacts', true );
+            }
+        } );
+    };
+    this.saveContact = function ( contact ) {
+        var app = this;
+        contact.save( null , {
+            success : function () {
+                    app.successMessage( 'contact was saved' );
+                    window.app.router.navigate( '/contacts', true );
+                    },
+            error : function () {
+                   app.errorMessage( 'something goes wrong' );
+            }});
+    };
+};
+
+_.extend( ContactEditorController.prototype, ControllerBase );
+
+
+},{"../../../utils/basecontroller":34,"../views/contactform":15,"../views/contactformlayout":16,"../views/contactpreview":20,"backbone":1,"underscore":3}],8:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/26.
  */
@@ -4306,7 +4384,7 @@ ContactList = module.exports = function ( options ) {
 
     this.deleteContact = function ( view, contact ) {
         var app = this;
-        this.askConfirmation( 'The contact will be deleted', function ( isConfirm ) {
+        this.askConfirmation( 'The contact will be deleted', false,  function ( isConfirm ) {
             if ( isConfirm ) {
                 contact.id = contact.get( 'primarycontactnumber' );
                 contact.destroy( {
@@ -4325,7 +4403,7 @@ ContactList = module.exports = function ( options ) {
 _.extend( ContactList.prototype, App );
 
 
-},{"../../../utils/basecontroller":30,"../views/contactList":11,"../views/contactlistactionbar":14,"../views/contactlistlayout":16,"backbone":1,"underscore":3}],8:[function(require,module,exports){
+},{"../../../utils/basecontroller":34,"../views/contactList":12,"../views/contactlistactionbar":17,"../views/contactlistlayout":19,"backbone":1,"underscore":3}],9:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -4362,7 +4440,7 @@ ContactViewController = module.exports = function ( options ) {
 
 
         var app = this;
-        this.askConfirmation( 'The contact will be deleted', function ( isConfirmed ) {
+        this.askConfirmation( 'The contact will be deleted', false, function ( isConfirmed ) {
             if ( isConfirmed ) {
                 contact.destroy( {
                     success : function () {
@@ -4383,7 +4461,7 @@ ContactViewController = module.exports = function ( options ) {
 _.extend( ContactViewController.prototype, ControllerBase );
 
 
-},{"../../../utils/basecontroller":30,"../views/contactabout":12,"../views/contactcalllog":13,"../views/contactviewlayout":17,"../views/contactviewwidget":18,"backbone":1,"underscore":3}],9:[function(require,module,exports){
+},{"../../../utils/basecontroller":34,"../views/contactabout":13,"../views/contactcalllog":14,"../views/contactviewlayout":21,"../views/contactviewwidget":22,"backbone":1,"underscore":3}],10:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -4396,12 +4474,11 @@ Contact = module.exports = Backbone.Model.extend(
         urlRoot : 'api/v1/contacts',
         idAttribute: 'primarycontactnumber',
         defaults : {
-            firstname : 'John Doe',
-            lastname : 556677
+
         }
     }
 );
-},{"backbone":1}],10:[function(require,module,exports){
+},{"backbone":1}],11:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -4417,6 +4494,8 @@ var Backbone = require( 'backbone' ),
 ContactsRouters = module.exports = Backbone.Router.extend( {
     routes : {
         'contacts/view/:id' : 'profile',
+        'contacts/edit/:id' : 'editContact',
+        'contacts/new' : 'createContact',
         'contacts' : 'list'
     },
     profile : function ( id ) {
@@ -4429,6 +4508,14 @@ ContactsRouters = module.exports = Backbone.Router.extend( {
         var app = this.startApp();
         app.ShowContactList(  );
     },
+    createContact : function () {
+        var app = this.startApp();
+        app.ShowNewContactForm();
+    },
+    editContact : function ( id ) {
+        var app = this.startApp();
+        app.ShowContactEditorById( id );
+    },
     startApp : function () {
         "use strict";
         return window.app.startSubApplication( ContactApp );
@@ -4440,7 +4527,7 @@ window.app.Routers.ContactsRouter = ContactsRouters;
 
 
 
-},{"../app":5,"backbone":1}],11:[function(require,module,exports){
+},{"../app":5,"backbone":1}],12:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -4486,7 +4573,7 @@ ContactListView = module.exports = CollectionView.extend( {
 
 
 
-},{"../../../utils/collectionview":32,"./contactlistitem":15}],12:[function(require,module,exports){
+},{"../../../utils/collectionview":36,"./contactlistitem":18}],13:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -4500,17 +4587,22 @@ ContactAbout = module.exports = ModelView.extend( {
     className : 'panel panel-simple',
     events : {
         'click #back' : 'goToList',
-        'click #delete' : 'deleteContact'
+        'click #delete' : 'deleteContact',
+        'click #edit' : 'editContact'
     },
     goToList : function () {
         window.app.router.navigate('contacts', true);
     },
     deleteContact : function () {
         this.trigger( 'contact:delete', this.model );
+    },
+    editContact : function () {
+        var contactId = this.model.get( 'id' );
+        window.app.router.navigate( 'contacts/edit/' +  contactId , true );
     }
 } );
 
-},{"../../../utils/modelview":34}],13:[function(require,module,exports){
+},{"../../../utils/modelview":38}],14:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -4524,7 +4616,71 @@ ContactCallLog = module.exports = ModelView.extend( {
     className : 'panel panel-simple'
 } );
 
-},{"../../../utils/modelview":34}],14:[function(require,module,exports){
+},{"../../../utils/modelview":38}],15:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/6.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    _ = require('underscore'),
+    template = "<div class=\"panel panel-simple\">\r\n    <div class=\"panel-heading\">Edit contact</div>\r\n    <div class=\"panel-body\">\r\n        <form class=\"form-horizontal\">\r\n            <div class=\"form-group\">\r\n                <label for=\"title\" class=\"col-sm-2 control-label\">Name</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"name\" type=\"text\" class=\"form-control\" placeholder=\"Full name\" value=\"{{firstname}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"birthdate\" class=\"col-sm-2 control-label\">Birth Date</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"birthdate\" type=\"text\" class=\"form-control\"  value=\"{{birthdate}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"title\" class=\"col-sm-2 control-label\">Title</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"title\" type=\"text\" class=\"form-control\" placeholder=\"Full name\" value=\"{{title}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"company\" class=\"col-sm-2 control-label\">Company</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"company\" type=\"text\" class=\"form-control\" placeholder=\"Street, number, interior, suite\" value=\"{{company}}\" />\r\n                </div>\r\n            </div>\r\n\r\n            <hr />\r\n\r\n            <h4>Contact info</h4>\r\n            <div class=\"form-group\">\r\n                <label for=\"othercontactnumbers\" class=\"col-sm-2 control-label\">Phone</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"othercontactnumbers\" type=\"text\" class=\"form-control\" placeholder=\"(123) 456 7890\" value=\"{{othercontactnumbers}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"primaryemailaddress\" class=\"col-sm-2 control-label\">Email address</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"primaryemailaddress\" type=\"email\" class=\"form-control\" placeholder=\"john.doe@example.com\" value=\"{{primaryemailaddress}}\" />\r\n                </div>\r\n            </div>\r\n\r\n            <hr />\r\n\r\n            <h4>Social</h4>\r\n            <div class=\"form-group\">\r\n                <label for=\"facebook\" class=\"col-sm-2 control-label\">Facebook</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"facebook\" type=\"text\" class=\"form-control\" placeholder=\"https://www.facebook.com/abiee.alejandro\" value=\"{{facebook}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"twitter\" class=\"col-sm-2 control-label\">Twitter</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"twitter\" type=\"text\" class=\"form-control\" placeholder=\"https://twitter.com/abieealejandro\" value=\"{{twitter}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"google\" class=\"col-sm-2 control-label\">Google+</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"google\" type=\"text\" class=\"form-control\" placeholder=\"https://plus.google.com/u/0/+AbieeAlejandroEchameaMárquez\" value=\"{{google}}\" />\r\n                </div>\r\n            </div>\r\n            <div class=\"form-group\">\r\n                <label for=\"github\" class=\"col-sm-2 control-label\">Github</label>\r\n                <div class=\"col-sm-10\">\r\n                    <input id=\"github\" type=\"text\" class=\"form-control\" placeholder=\"https://github.com/abiee\" value=\"{{github}} \" />\r\n                </div>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"panel-footer clearfix\">\r\n        <div class=\"panel-buttons\">\r\n            <button id=\"cancel\" class=\"btn btn-default\">Cancel</button>\r\n            <button id=\"save\" class=\"btn btn-success\">Save</button>\r\n        </div>\r\n    </div>\r\n</div>",
+    ContactForm;
+
+ContactForm = module.exports = ModelView.extend( {
+    template : template,
+    className : 'form-horizontal',
+    events : {
+        'click #save' : 'saveContact',
+        'click #cancel' : 'cancel'
+    },
+    serializeData : function () {
+        return _.defaults( this.model.toJSON(), {
+            title : '',
+            company : '',
+            othercontactnumbers : '',
+            primaryemailaddress : '',
+            birthdate : ''
+        } );
+    },
+    getInput : function ( selector ) {
+        return this.$el.find( selector ).val();
+    },
+    saveContact : function ( event ) {
+        event.preventDefault();
+        this.model.set( 'firstname',  this.getInput( '#name' ));
+        this.model.set( 'birthdate', this.getInput( '#birthdate' ) );
+        this.model.set( 'title',  this.getInput( '#title' ));
+        this.model.set( 'company', this.getInput( '#company' ) );
+        this.model.set( 'othercontactnumbers', this.getInput( '#othercontactnumbers' ) );
+        this.model.set( 'primaryemailaddress', this.getInput( '#primaryemailaddress' ) );
+        this.model.set( 'facebook', this.getInput( '#facebook' ) );
+        this.model.set( 'twitter', this.getInput( '#twitter' ) );
+        this.model.set( 'google', this.getInput( '#google' ) );
+        this.model.set( 'github', this.getInput( '#github' ) );
+        this.trigger( 'form:save', this.model );
+    },
+    cancel : function () {
+        this.trigger( 'form:cancel', this.model );
+    }
+} );
+},{"../../../utils/modelview":38,"underscore":3}],16:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/6.
+ */
+
+var Layout = require('../../../utils/layout'),
+    template = "<div id=\"preview-container\" class=\"col-xs-12 col-sm-4 col-md-3\"></div>\r\n<div id=\"form-container\" class=\"col-xs-12 col-sm-8 col-md-9\"></div>\r\n\r\n<div class=\"footer text-muted\">\r\n    © 2015. <a href=\"#\">Mastering Backbone.js</a> by <a href=\"http://themeforest.net/user/Kopyov\" target=\"_blank\">Abiee Alejandro</a>\r\n</div>",
+    ContactFormLayout;
+
+ContactFormLayout = module.exports = Layout.extend( {
+    template : template,
+    regions : {
+        preview : '#preview-container',
+        form : '#form-container'
+    },
+    className : 'row page-container'
+} );
+},{"../../../utils/layout":37}],17:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/1.
  */
@@ -4542,7 +4698,7 @@ View = module.exports = ModelView.extend( {
     },
     addContract : function () {
         "use strict";
-        var contact = new ContactModel(),
+       /* var contact = new ContactModel(),
             app = this;
         contact.set( {
             "firstname": "errt",
@@ -4553,17 +4709,18 @@ View = module.exports = ModelView.extend( {
             "primarycontactnumber": "12345678",
             "primaryemailaddress": "joe.smith@xyz.com",
         } );
-        this.collection.create( contact );
+        this.collection.create( contact );*/
+       window.app.router.navigate( '/contacts/new', true );
     }
 } );
 
-},{"../../../utils/modelview":34,"../models/contact":9}],15:[function(require,module,exports){
+},{"../../../utils/modelview":38,"../models/contact":10}],18:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
 
 var ModelView = require('../../../utils/modelview'),
-    template = "\r\n    <div class=\"box thumbnail\">\r\n        <div class=\"photo\">\r\n            <img src=\"./common/images/contact.jpg\" alt=\"Contact photo\" />\r\n            <div class=\"action-bar clearfix\">\r\n                <div class=\"action-buttons pull-right\">\r\n                    <button id=\"delete\" class=\"btn btn-danger btn-xs\">delete</button>\r\n                    <button id=\"view\" class=\"btn btn-primary btn-xs\">view</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"caption-container\">\r\n            <div class=\"caption\">\r\n                <h5>{{firstname}}</h5>\r\n                <p class=\"phone no-margin\">{{lastname}}</p>\r\n                <p class=\"email no-margin\">{{title}}</p>\r\n                <div class=\"bottom\">\r\n                    <ul class=\"social-networks\">\r\n\r\n                        {{#facebook}}\r\n                        <li>\r\n                            <a href=\"{{facebook}}\" title=\"Google Drive\">\r\n                                <i class=\"fa fa-facebook\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/facebook}}\r\n                        {{#twitter}}\r\n                        <li>\r\n                            <a href=\"{{twitter}}\" title=\"Twitter\">\r\n                                <i class=\"fa fa-twitter\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/twitter}}\r\n                        {{#google}}\r\n                        <li>\r\n                            <a href=\"{{google}}\" title=\"Google Drive\">\r\n                                <i class=\"fa fa-google-plus\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/google}}\r\n                        {{#github}}\r\n                        <li>\r\n                            <a href=\"{{github}}\" title=\"Github\">\r\n                                <i class=\"fa fa-github\"></i>\r\n                            </a>\r\n                        </li>\r\n                       {{/github}}\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n",
+    template = "\r\n    <div class=\"box thumbnail\">\r\n        <div class=\"photo\">\r\n            <img src=\"./common/images/contact.jpg\" alt=\"Contact photo\" />\r\n            <div class=\"action-bar clearfix\">\r\n                <div class=\"action-buttons pull-right\">\r\n                    <button id=\"delete\" class=\"btn btn-danger btn-xs\">delete</button>\r\n                    <button id=\"view\" class=\"btn btn-primary btn-xs\">view</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"caption-container\">\r\n            <div class=\"caption\">\r\n                <h5>{{firstname}}</h5>\r\n                <p class=\"phone no-margin\">{{company}}</p>\r\n                <p class=\"email no-margin\">{{title}}</p>\r\n                <div class=\"bottom\">\r\n                    <ul class=\"social-networks\">\r\n\r\n                        {{#facebook}}\r\n                        <li>\r\n                            <a href=\"{{facebook}}\" title=\"Google Drive\">\r\n                                <i class=\"fa fa-facebook\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/facebook}}\r\n                        {{#twitter}}\r\n                        <li>\r\n                            <a href=\"{{twitter}}\" title=\"Twitter\">\r\n                                <i class=\"fa fa-twitter\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/twitter}}\r\n                        {{#google}}\r\n                        <li>\r\n                            <a href=\"{{google}}\" title=\"Google Drive\">\r\n                                <i class=\"fa fa-google-plus\"></i>\r\n                            </a>\r\n                        </li>\r\n                        {{/google}}\r\n                        {{#github}}\r\n                        <li>\r\n                            <a href=\"{{github}}\" title=\"Github\">\r\n                                <i class=\"fa fa-github\"></i>\r\n                            </a>\r\n                        </li>\r\n                       {{/github}}\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n",
     ContactView;
 
 ContactView = module.exports = ModelView.extend( {
@@ -4585,7 +4742,7 @@ ContactView = module.exports = ModelView.extend( {
 
 
 
-},{"../../../utils/modelview":34}],16:[function(require,module,exports){
+},{"../../../utils/modelview":38}],19:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/1.
  */
@@ -4605,7 +4762,21 @@ ContactListLayout = module.exports = Layout.extend( {
 
 
 
-},{"../../../utils/layout":33}],17:[function(require,module,exports){
+},{"../../../utils/layout":37}],20:[function(require,module,exports){
+/**
+ * Created by Administrator on 2017/6/6.
+ */
+
+var ModelView = require('../../../utils/modelview'),
+    template = "<span class=\"notice\">Click the image to change the avatar</span>\r\n<div class=\"box thumbnail\">\r\n    <div class=\"photo\">\r\n        <img src=\"http://placehold.it/250x250\" alt=\"Contact photo\" />\r\n    </div>\r\n    <div class=\"caption\">\r\n        <h5>John Doe</h5>\r\n        <p class=\"phone no-margin\">3319902233</p>\r\n        <p class=\"email no-margin\">abiee.alejandro@gmail.com</p>\r\n        <ul class=\"social-networks\">\r\n            {{#facebook}}\r\n            <li>\r\n                <a href=\"{{facebook}}\" title=\"Google Drive\">\r\n                    <i class=\"fa fa-facebook\"></i>\r\n                </a>\r\n            </li>\r\n            {{/facebook}}\r\n           {{#twitter}}\r\n            <li>\r\n                <a href=\"{{twitter}}\" title=\"Twitter\">\r\n                    <i class=\"fa fa-twitter\"></i>\r\n                </a>\r\n            </li>\r\n           {{/twitter}}\r\n            {{#google}}\r\n            <li>\r\n                <a href=\"{{google}}\" title=\"Google Drive\">\r\n                    <i class=\"fa fa-google-plus\"></i>\r\n                </a>\r\n            </li>\r\n            {{/google}}\r\n            {{#github}}\r\n            <li>\r\n                <a href=\"{{github}}\" title=\"Github\">\r\n                    <i class=\"fa fa-github\"></i>\r\n                </a>\r\n            </li>\r\n           {{/github}}\r\n        </ul>\r\n    </div>\r\n</div>",
+    ContactPreview;
+
+ContactPreview = module.exports = ModelView.extend( {
+    template : template
+} );
+
+
+},{"../../../utils/modelview":38}],21:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -4624,7 +4795,7 @@ ContactViewLayout = module.exports = Layout.extend( {
     className : 'row page-container'
 } );
 
-},{"../../../utils/layout":33}],18:[function(require,module,exports){
+},{"../../../utils/layout":37}],22:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -4638,7 +4809,7 @@ ContactViewWidget = module.exports = ModelView.extend( {
     className : 'box contact-summary'
 } );
 
-},{"../../../utils/modelview":34}],19:[function(require,module,exports){
+},{"../../../utils/modelview":38}],23:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/24.
  */
@@ -4658,7 +4829,7 @@ ShellView = module.exports = Layout.extend( {
 } );
 
 
-},{"../../../utils/layout":33}],20:[function(require,module,exports){
+},{"../../../utils/layout":37}],24:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/13.
  */
@@ -4666,7 +4837,6 @@ ShellView = module.exports = Layout.extend( {
 var LoginView = require( './views/login' ),
     ProfileView = require( './views/profile' ),
     AppBase = require( '../../utils/baseapp' ),
-    $ = require( 'jquery' ),
     _ = require( 'underscore' ), App;
 
 App = function ( options ) {
@@ -4706,7 +4876,7 @@ module.exports = App;
 
 
 
-},{"../../utils/baseapp":29,"./views/login":25,"./views/profile":26,"jquery":36,"underscore":3}],21:[function(require,module,exports){
+},{"../../utils/baseapp":33,"./views/login":29,"./views/profile":30,"underscore":3}],25:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -4748,7 +4918,7 @@ module.exports = Backbone.Model.extend( {
 } );
 
 
-},{"backbone":1}],22:[function(require,module,exports){
+},{"backbone":1}],26:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -4759,7 +4929,7 @@ module.exports = Backbone.Model.extend( {
     urlRoot : 'api/v1/users'
 } );
 
-},{"backbone":1}],23:[function(require,module,exports){
+},{"backbone":1}],27:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/18.
  */
@@ -4796,7 +4966,7 @@ module.exports = Backbone.Model.extend( {
     }
 } );
 
-},{"backbone":1,"underscore":3}],24:[function(require,module,exports){
+},{"backbone":1,"underscore":3}],28:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/16.
  */
@@ -4831,7 +5001,7 @@ window.app.Routers.UsersRouter = UserRouters;
 
 
 
-},{"../app":20,"backbone":1}],25:[function(require,module,exports){
+},{"../app":24,"backbone":1}],29:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -5011,7 +5181,7 @@ module.exports = Base.extend( {
 
 
 
-},{"../../../utils/modelview":34,"../models/loginaccount":21,"../models/usersession":23}],26:[function(require,module,exports){
+},{"../../../utils/modelview":38,"../models/loginaccount":25,"../models/usersession":27}],30:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -5058,7 +5228,7 @@ module.exports = Base.extend( {
     }
 } );
 
-},{"../../../utils/modelview":34,"../models/loginaccount":21,"../models/user":22}],27:[function(require,module,exports){
+},{"../../../utils/modelview":38,"../models/loginaccount":25,"../models/user":26}],31:[function(require,module,exports){
 (function (global){
 /**
  * Created by Administrator on 2017/4/13.
@@ -5078,7 +5248,7 @@ $( document ).ready( function () {
 } );
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./app":4,"backbone":1,"jquery":36,"underscore":3}],28:[function(require,module,exports){
+},{"./app":4,"backbone":1,"jquery":40,"underscore":3}],32:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/4/14.
  */
@@ -5097,7 +5267,7 @@ module.exports = BackBone.Router.extend( {
     }
 } );
 
-},{"../apps/contacts/routers/contactsrouter":10,"../apps/users/routers/userrouters":24,"backbone":1}],29:[function(require,module,exports){
+},{"../apps/contacts/routers/contactsrouter":11,"../apps/users/routers/userrouters":28,"backbone":1}],33:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/21.
  */
@@ -5125,14 +5295,14 @@ App = module.exports =  {
 
 };
 
-},{}],30:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/26.
  */
 
 
 module.exports = {
-    askConfirmation : function (message, callback) {
+    askConfirmation : function (message, isAutoClose, callback) {
     var options = {
         title: "提示：",
         // Show the warning icon
@@ -5144,8 +5314,8 @@ module.exports = {
         cancelButtonText: "取消",
         // Overwrite the default button color
         confirmButtonColor: '#5cb85c',
-        closeOnConfirm: false,
-        closeOnCancel: false
+        closeOnConfirm: isAutoClose,
+        closeOnCancel: true
     };
     // Show the message
     swal(options, function(isConfirm) {
@@ -5214,7 +5384,7 @@ module.exports = {
       });
 }
 };
-},{}],31:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -5230,7 +5400,7 @@ BaseView = module.exports = Backbone.View.extend( {
     }
 } );
 
-},{"backbone":1}],32:[function(require,module,exports){
+},{"backbone":1}],36:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/22.
  */
@@ -5310,7 +5480,7 @@ CollectionView = module.exports = BaseView.extend( {
     }
 } );
 
-},{"./baseview":31,"backbone":1,"underscore":3}],33:[function(require,module,exports){
+},{"./baseview":35,"backbone":1,"underscore":3}],37:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/31.
  */
@@ -5362,7 +5532,7 @@ Layout = module.exports = ModelView.extend( {
         } );
     }
 } );
-},{"./modelview":34,"./region":35,"underscore":3}],34:[function(require,module,exports){
+},{"./modelview":38,"./region":39,"underscore":3}],38:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/17.
  */
@@ -5402,7 +5572,7 @@ ModelView = module.exports = BaseView.extend( {
 
 
 
-},{"./baseview":31,"mustache":2,"underscore":3}],35:[function(require,module,exports){
+},{"./baseview":35,"mustache":2,"underscore":3}],39:[function(require,module,exports){
 /**
  * Created by Administrator on 2017/5/31.
  */
@@ -5447,7 +5617,7 @@ Region = module.exports = function ( options ) {
     };
 };
 
-},{}],36:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
@@ -15669,4 +15839,4 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}]},{},[27]);
+},{}]},{},[31]);

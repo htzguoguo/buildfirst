@@ -4,7 +4,6 @@
 
 var MainView = require( './views/shell' ),
     AppBase = require( '../../utils/baseapp' ),
-    $ = require( 'jquery' ),
     _ = require( 'underscore' );
 
 _.extend( AppBase.prototype, {

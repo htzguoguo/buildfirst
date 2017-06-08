@@ -13,6 +13,8 @@ var Backbone = require( 'backbone' ),
 ContactsRouters = module.exports = Backbone.Router.extend( {
     routes : {
         'contacts/view/:id' : 'profile',
+        'contacts/edit/:id' : 'editContact',
+        'contacts/new' : 'createContact',
         'contacts' : 'list'
     },
     profile : function ( id ) {
@@ -24,6 +26,14 @@ ContactsRouters = module.exports = Backbone.Router.extend( {
         "use strict";
         var app = this.startApp();
         app.ShowContactList(  );
+    },
+    createContact : function () {
+        var app = this.startApp();
+        app.ShowNewContactForm();
+    },
+    editContact : function ( id ) {
+        var app = this.startApp();
+        app.ShowContactEditorById( id );
     },
     startApp : function () {
         "use strict";

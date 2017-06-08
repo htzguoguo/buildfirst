@@ -5,7 +5,6 @@
 var LoginView = require( './views/login' ),
     ProfileView = require( './views/profile' ),
     AppBase = require( '../../utils/baseapp' ),
-    $ = require( 'jquery' ),
     _ = require( 'underscore' ), App;
 
 App = function ( options ) {

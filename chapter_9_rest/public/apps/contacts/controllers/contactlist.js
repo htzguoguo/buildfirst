@@ -28,7 +28,7 @@ ContactList = module.exports = function ( options ) {
 
     this.deleteContact = function ( view, contact ) {
         var app = this;
-        this.askConfirmation( 'The contact will be deleted', function ( isConfirm ) {
+        this.askConfirmation( 'The contact will be deleted', false,  function ( isConfirm ) {
             if ( isConfirm ) {
                 contact.id = contact.get( 'primarycontactnumber' );
                 contact.destroy( {

@@ -46,7 +46,7 @@ router.patch( '/', function ( req, res, next ) {
     contacts.update(  req.body,  res );
 } );
 
-router.put( '/', function ( req, res, next ) {
+router.put( '/:number', function ( req, res, next ) {
     "use strict";
     contacts.update( req.body,  res);
 } );

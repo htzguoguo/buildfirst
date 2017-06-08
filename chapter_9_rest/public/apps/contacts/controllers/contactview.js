@@ -34,7 +34,7 @@ ContactViewController = module.exports = function ( options ) {
 
 
         var app = this;
-        this.askConfirmation( 'The contact will be deleted', function ( isConfirmed ) {
+        this.askConfirmation( 'The contact will be deleted', false, function ( isConfirmed ) {
             if ( isConfirmed ) {
                 contact.destroy( {
                     success : function () {

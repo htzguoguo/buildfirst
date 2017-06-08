@@ -3,6 +3,7 @@
  */
 
 var ContactView = require( './controllers/contactview' ),
+    ContactEditor = require( './controllers/contacteditor' ),
     ContactList = require( './controllers/contactlist' ),
     ContactModel = require( './models/contact' ),
     ContactCollection = require( './collections/contacts' ),
@@ -54,6 +55,30 @@ App = function ( options ) {
     this.ShowViewer = function ( contact ) {
         var contactViewer =  this.startController(ContactView);
         contactViewer.showContact( contact );
+    };
+
+    this.ShowNewContactForm = function () {
+        var contactEditor = this.startController(ContactEditor);
+        contactEditor.showEditor( new ContactModel( {
+            primarycontactnumber : Math.random().toString(36).substring(7)
+        } )  );
+    };
+
+    this.ShowContactEditorById = function ( id ) {
+        var contact = new ContactModel( {
+                id :   id,
+                primarycontactnumber : id
+            } ),
+            app = this;
+        contact.fetch( {
+            success : function ( contact ) {
+                var contactViewer = app.startController(ContactEditor);
+                contactViewer.showEditor(contact);
+            },
+            error : function () {
+                // window.app.router.navigate('login', {trigger: true});
+            }
+        } );
     };
 
 

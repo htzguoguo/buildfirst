@@ -4,7 +4,7 @@
 
 
 module.exports = {
-    askConfirmation : function (message, callback) {
+    askConfirmation : function (message, isAutoClose, callback) {
     var options = {
         title: "提示：",
         // Show the warning icon
@@ -16,8 +16,8 @@ module.exports = {
         cancelButtonText: "取消",
         // Overwrite the default button color
         confirmButtonColor: '#5cb85c',
-        closeOnConfirm: false,
-        closeOnCancel: false
+        closeOnConfirm: isAutoClose,
+        closeOnCancel: true
     };
     // Show the message
     swal(options, function(isConfirm) {

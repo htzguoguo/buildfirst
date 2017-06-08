@@ -16,7 +16,7 @@ View = module.exports = ModelView.extend( {
     },
     addContract : function () {
         "use strict";
-        var contact = new ContactModel(),
+       /* var contact = new ContactModel(),
             app = this;
         contact.set( {
             "firstname": "errt",
@@ -27,6 +27,7 @@ View = module.exports = ModelView.extend( {
             "primarycontactnumber": "12345678",
             "primaryemailaddress": "joe.smith@xyz.com",
         } );
-        this.collection.create( contact );
+        this.collection.create( contact );*/
+       window.app.router.navigate( '/contacts/new', true );
     }
 } );

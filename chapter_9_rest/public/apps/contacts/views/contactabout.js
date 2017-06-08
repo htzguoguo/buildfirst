@@ -12,12 +12,17 @@ ContactAbout = module.exports = ModelView.extend( {
     className : 'panel panel-simple',
     events : {
         'click #back' : 'goToList',
-        'click #delete' : 'deleteContact'
+        'click #delete' : 'deleteContact',
+        'click #edit' : 'editContact'
     },
     goToList : function () {
         window.app.router.navigate('contacts', true);
     },
     deleteContact : function () {
         this.trigger( 'contact:delete', this.model );
+    },
+    editContact : function () {
+        var contactId = this.model.get( 'id' );
+        window.app.router.navigate( 'contacts/edit/' +  contactId , true );
     }
 } );
