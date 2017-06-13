@@ -4492,8 +4492,6 @@ ContactEditorController = module.exports = function ( options ) {
         layout.getRegion( 'form' ).show( form );
         layout.getRegion( 'preview' ).show( preview );
 
-      //  form.$( '#birthdate' ).datepicker();
-
         this.listenTo( form, 'form:cancel', this.cancel );
         this.listenTo( form, 'form:save', this.saveContact );
     };
@@ -4509,7 +4507,7 @@ ContactEditorController = module.exports = function ( options ) {
         contact.save( null , {
             success : function () {
                     app.successMessage( 'contact was saved' );
-                    window.app.router.navigate( '/contacts', true );
+                  //  window.app.router.navigate( '/contacts', true );
                     },
             error : function () {
                    app.errorMessage( 'something goes wrong' );
@@ -4945,7 +4943,11 @@ var ModelView = require('../../../utils/modelview'),
     ContactPreview;
 
 ContactPreview = module.exports = ModelView.extend( {
-    template : template
+    template : template,
+    initialize : function () {
+        this.model.on( 'change', this.render, this );
+        ModelView.prototype.initialize.call( this );
+    }
 } );
 
 

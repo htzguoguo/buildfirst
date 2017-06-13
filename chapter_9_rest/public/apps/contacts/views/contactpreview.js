@@ -8,6 +8,10 @@ var ModelView = require( '../../../utils/modelview' ),
     ContactPreview;
 
 ContactPreview = module.exports = ModelView.extend( {
-    template : template
+    template : template,
+    initialize : function () {
+        this.model.on( 'change', this.render, this );
+        ModelView.prototype.initialize.call( this );
+    }
 } );
 
