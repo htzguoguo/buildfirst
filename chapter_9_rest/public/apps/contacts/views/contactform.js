@@ -27,8 +27,14 @@ ContactForm = module.exports = ModelView.extend( {
     getInput : function ( selector ) {
         return this.$el.find( selector ).val();
     },
+    onShow : function () {
+        this.$el.find( '#birthdate' ).datepicker();
+    },
     saveContact : function ( event ) {
         event.preventDefault();
+
+        var c = 5;
+        console.log( c );
         this.model.set( 'firstname',  this.getInput( '#name' ));
         this.model.set( 'birthdate', this.getInput( '#birthdate' ) );
         this.model.set( 'title',  this.getInput( '#title' ));

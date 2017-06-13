@@ -58,6 +58,7 @@ function toExistContact( data, contact ) {
     "use strict";
     data.firstname = contact.firstname;
     data.lastname = contact.lastname;
+    data.birthdate = contact.birthdate;
     data.title = contact.title;
     data.company = contact.company;
     data.jobtitle = contact.jobtitle;
@@ -80,6 +81,7 @@ function toNewContact( body ) {
         {
             firstname: body.firstname,
             lastname: body.lastname,
+            birthdate: body.birthdate,
             title: body.title,
             company: body.company,
             jobtitle: body.jobtitle,

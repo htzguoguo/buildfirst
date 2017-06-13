@@ -74,5 +74,13 @@ CollectionView = module.exports = BaseView.extend( {
         } );
         this.$el.html( html );
         return this;
+    },
+    onShow : function () {
+        var children = this.children || {};
+        _.each( children, function ( child ) {
+            if ( child.onShow ) {
+                child.onShow();
+            }
+        } );
     }
 } );

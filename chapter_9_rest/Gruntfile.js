@@ -31,7 +31,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks( 'grunt-contrib-jshint' );
     grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-    grunt.registerTask( 'build:debug', [ 'jshint:debug', 'browserify:debug' ] );
+    grunt.registerTask( 'build:debug', [ 'browserify:debug' ] );
 
     grunt.registerTask( 'build:watch', [ 'watch:rebuild' ] );
 

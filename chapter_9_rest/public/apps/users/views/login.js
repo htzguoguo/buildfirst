@@ -13,9 +13,9 @@ var
 setJqueryMap = function (  ) {
     "use strict";
     jqueryMap = {
-        $menu : $( '.tjx-top-first-menu' ),
+       /* $menu : $( '.tjx-top-first-menu' ),
         $booter : $( '.tjx-bottom-booter' ),
-        $main_container : $( '#tjx-shell-main' )
+        $main_container : $( '#tjx-shell-main' )*/
     }
 };
 setJqueryMap();
@@ -25,9 +25,9 @@ module.exports = Base.extend( {
     initialize : function () {
         "use strict";
 
-        jqueryMap.$menu.hide();
+      /*  jqueryMap.$menu.hide();
         jqueryMap.$booter.hide();
-        jqueryMap.$main_container.hide();
+        jqueryMap.$main_container.hide();*/
 
         this.model = userSession;
        /* if ( userSession.authenticated() ) {
@@ -158,9 +158,9 @@ module.exports = Base.extend( {
                      }else {
                          userSession.destory( );
                      }
-                     jqueryMap.$menu.show();
+                   /*  jqueryMap.$menu.show();
                      jqueryMap.$booter.show();
-                     jqueryMap.$main_container.show();
+                     jqueryMap.$main_container.show();*/
 
                      window.app.router.navigate('contacts', {trigger: true});
                   //  window.href = 'index.html'

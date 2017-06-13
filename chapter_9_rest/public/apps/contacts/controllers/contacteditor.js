@@ -17,13 +17,13 @@ ContactEditorController = module.exports = function ( options ) {
     this.showEditor = function ( contact ) {
         var layout = new ContactFormLayout( { model : contact } ),
             form = new ContactForm( { model : contact } ),
-            preview = new ContactPreview( { model : contact } )
-        ;
+            preview = new ContactPreview( { model : contact } );
         this.mainRegion.show( layout );
         layout.getRegion( 'form' ).show( form );
         layout.getRegion( 'preview' ).show( preview );
 
-       /* form.$( '#birthdate' ).datepicker();*/
+      //  form.$( '#birthdate' ).datepicker();
+
         this.listenTo( form, 'form:cancel', this.cancel );
         this.listenTo( form, 'form:save', this.saveContact );
     };

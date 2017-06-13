@@ -2,7 +2,10 @@
  * Created by Administrator on 2017/4/18.
  */
 var Backbone = require( 'backbone' ),
+    Cookies = require( 'js-cookie' ),
     _ = require( 'underscore' );
+
+
 
 module.exports = Backbone.Model.extend( {
     defaults : {
@@ -15,17 +18,24 @@ module.exports = Backbone.Model.extend( {
     },
     authenticated : function () {
         "use strict";
-        return ! _.isEmpty( $.cookie( 'accessToken' ) );
+        return ! _.isEmpty( Cookies.get( 'accessToken' ) );
     },
     load : function () {
         "use strict";
-        this.userName = $.cookie( 'name' );
-        this.accessToken = $.cookie( 'accessToken' );
+        this.userName = Cookies.get( 'name' );
+        this.accessToken = Cookies.get( 'accessToken' );
     },
     save : function ( authHash ) {
         "use strict";
-        $.cookie( 'name', authHash.name );
-        $.cookie( 'accessToken', authHash.accessToken );
+        Cookies.set( 'name', authHash.name );
+        Cookies.set( 'accessToken', authHash.accessToken );
+
+        var c = 1;
+
+
+
+
+
     },
     destory : function () {
         "use strict";

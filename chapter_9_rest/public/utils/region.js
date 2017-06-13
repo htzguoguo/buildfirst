@@ -24,17 +24,15 @@ Region = module.exports = function ( options ) {
     this.openView = function ( view ) {
         ensureEL();
         view.render();
-
         $el.html( view.el );
+        if ( view.onShow ) {
+            view.onShow();
+        }
     };
 
     ensureEL = function () {
-
-
         if ( $el ) { return; }
         $el = $( el );
-        console.log('el', el );
-        console.log('$el', $el );
     };
 
     this.destroy = function () {
