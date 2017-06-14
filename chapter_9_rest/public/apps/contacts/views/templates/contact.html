@@ -11,9 +11,13 @@
         </div>
         <div class="caption-container">
             <div class="caption">
-                <h5>{{firstname}}</h5>
-                <p class="phone no-margin">{{company}}</p>
-                <p class="email no-margin">{{title}}</p>
+                <h5>{{name}}</h5>
+                 {{#phone}}
+                <p class="phone no-margin">{{phone}}</p>
+                {{/phone}}
+                {{#email}}
+                <p class="email no-margin">{{email}}</p>
+                {{/email}}
                 <div class="bottom">
                     <ul class="social-networks">
 

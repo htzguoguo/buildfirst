@@ -10,16 +10,21 @@ var mongoose = require( 'mongoose' ),
                 unique : true
             }
         },
-        firstname : String,
-        lastname : String,
+        name : String,
+        address : String,
         birthdate : Date,
-        title : String,
-        company : String,
-        jobtitle : String,
-        othercontactnumbers : [ String ],
-        primaryemailaddress: String,
-        emailaddresses: [String],
-        groups: [String],
+        phones : [
+            {
+                description : String,
+                phone : String
+             }
+             ],
+        emails: [
+            {
+                description : String,
+                email : String
+            }
+        ],
         facebook: String,
         twitter: String,
         github: String,

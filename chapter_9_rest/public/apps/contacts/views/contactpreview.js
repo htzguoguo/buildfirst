@@ -11,29 +11,13 @@ var ModelView = require( '../../../utils/modelview' ),
 
 ContactPreview = module.exports = ModelView.extend( {
     template : template,
-   /* initialize : function () {
-        this.model.on( 'change', this.handleChange, this );
-        ModelView.prototype.initialize.call( this );
-    },
-    handleChange : function ( event ) {
-        console.log( 'event', event );
-        var changedKeys = _.keys( event.changed ),
-            $target;
-        console.log( 'changedKeys', changedKeys  );
-        changedKeys.forEach( function ( key ) {
-            $target = this.$( '#' + key );
-            if ( $target ) {
-                $target.html( event.changed[ key ] );
-            }
-        } );
-    },*/
-   onShow : function () {
+    onShow : function () {
        this.stickit();
    },
     bindings : {
-        '#firstname' : 'firstname',
-        '#othercontactnumbers' : 'othercontactnumbers',
-        '#primaryemailaddress' : 'primaryemailaddress'
+        '#name' : 'name',
+        '#phone' : 'phone',
+        '#email' : 'email'
     }
 } );
 

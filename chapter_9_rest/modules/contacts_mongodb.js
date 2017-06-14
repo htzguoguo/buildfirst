@@ -56,18 +56,12 @@ module.exports.update = function ( contact, res ) {
 
 function toExistContact( data, contact ) {
     "use strict";
-    data.firstname = contact.firstname;
-    data.lastname = contact.lastname;
-    data.birthdate = contact.birthdate;
-    data.title = contact.title;
-    data.company = contact.company;
-    data.jobtitle = contact.jobtitle;
     data.primarycontactnumber = contact.primarycontactnumber;
-    data.othercontactnumbers = contact.othercontactnumbers;
-    data.emailaddresses = contact.emailaddresses;
-
-    data.primaryemailaddress = contact.primaryemailaddress;
-    data.groups = contact.groups;
+    data.name = contact.name;
+    data.address = contact.address;
+    data.birthdate = contact.birthdate;
+    data.phones = contact.phones;
+    data.emails = contact.emails;
     data.facebook = contact.facebook;
     data.twitter = contact.twitter;
     data.github = contact.github;
@@ -79,17 +73,12 @@ function toNewContact( body ) {
     //console.log( body );
     return new Contact(
         {
-            firstname: body.firstname,
-            lastname: body.lastname,
+            primarycontactnumber : body.primarycontactnumber,
+            name: body.name,
+            address: body.address,
             birthdate: body.birthdate,
-            title: body.title,
-            company: body.company,
-            jobtitle: body.jobtitle,
-            primarycontactnumber: body.primarycontactnumber,
-            primaryemailaddress: body.primaryemailaddress,
-            emailaddresses: body.emailaddresses,
-            groups: body.groups,
-            othercontactnumbers: body.othercontactnumbers,
+            phones: body.phones,
+            emails: body.emails,
             facebook: body.facebook,
             twitter: body.twitter,
             github: body.github,
