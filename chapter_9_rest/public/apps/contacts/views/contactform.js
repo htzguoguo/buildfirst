@@ -13,7 +13,10 @@ ContactForm = module.exports = ModelView.extend( {
     className : 'form-horizontal',
     events : {
         'click #save' : 'saveContact',
-        'click #cancel' : 'cancel'
+        'click #cancel' : 'cancel',
+        'keyup input' : 'inputChanged',
+        'change input' : 'inputChanged'
+
     },
     serializeData : function () {
         return _.defaults( this.model.toJSON(), {
@@ -23,6 +26,12 @@ ContactForm = module.exports = ModelView.extend( {
             primaryemailaddress : '',
             birthdate : ''
         } );
+    },
+    inputChanged : function ( event ) {
+        var $target = $( event.target ),
+            value = $target.val(),
+            id = $target.attr( 'id' );
+        this.model.set( id, value );
     },
     getInput : function ( selector ) {
         return this.$el.find( selector ).val();

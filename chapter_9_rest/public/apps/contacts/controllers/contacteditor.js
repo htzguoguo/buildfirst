@@ -37,7 +37,7 @@ ContactEditorController = module.exports = function ( options ) {
         contact.save( null , {
             success : function () {
                     app.successMessage( 'contact was saved' );
-                  //  window.app.router.navigate( '/contacts', true );
+                    window.app.router.navigate( '/contacts', true );
                     },
             error : function () {
                    app.errorMessage( 'something goes wrong' );
