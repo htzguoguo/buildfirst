@@ -3,6 +3,7 @@
  */
 
 var Backbone = require( 'backbone' ),
+    _ = require( 'underscore' ),
     Contact;
 
 Contact = module.exports = Backbone.Model.extend(
@@ -28,7 +29,20 @@ Contact = module.exports = Backbone.Model.extend(
                 result.email = result.emails[ 0 ].email;
             }
             return result;
+        },
+        validation : {
+            name : {
+                required : true,
+                minLength : 3
+            }
         }
-
+        /*validate : function ( attrs ) {
+            if ( _.isEmpty( attrs.name ) ) {
+                return {
+                    attr : 'name',
+                    message : 'name is required'
+                }
+            }
+        }*/
     }
 );

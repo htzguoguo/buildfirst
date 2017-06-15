@@ -3,6 +3,7 @@
  */
 
 var ModelView = require( '../../../utils/modelview' ),
+    BackboneValidation = require( 'backbone-validation' ),
     fs = require( 'fs' ),
     template = fs.readFileSync( __dirname + '/templates/contactformemailitem.html', 'utf8' ),
     EmailListItem;
@@ -10,6 +11,10 @@ var ModelView = require( '../../../utils/modelview' ),
 EmailListItem = module.exports = ModelView.extend( {
     template : template,
     className : 'form-group',
+    initialize : function () {
+        ModelView.prototype.initialize.call( this );
+        BackboneValidation.bind( this );
+    },
     events : {
         'change .description' : 'updateDescription',
         'change .email' : 'updateEmail',
@@ -21,7 +26,7 @@ EmailListItem = module.exports = ModelView.extend( {
     },
     updateEmail : function () {
         var $email = this.$( '.email' );
-        this.model.set( 'email', $email.val() );
+        this.model.set( 'email', $email.val(), { validate : true } );
     },
     deleteEmail : function ( event ) {
         event.preventDefault();

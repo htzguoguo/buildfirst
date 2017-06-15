@@ -9,5 +9,11 @@ EmailModel = module.exports = Backbone.Model.extend( {
     defaults : {
         description : '',
         email : ''
+    },
+    validation : {
+        email : {
+            required : true,
+            pattern: 'email'
+        }
     }
 } );

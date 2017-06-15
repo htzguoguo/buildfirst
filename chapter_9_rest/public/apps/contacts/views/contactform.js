@@ -4,8 +4,10 @@
 
 var Layout = require( '../../../utils/layout' ),
     _ = require( 'underscore' ),
+    BackboneValidation = require( 'backbone-validation' ),
     fs = require( 'fs' ),
     template = fs.readFileSync( __dirname + '/templates/contactform.html', 'utf8' ),
+    //template = require( './templates/contactform.html' ),
     ContactForm;
 
 ContactForm = module.exports = Layout.extend( {
@@ -14,6 +16,9 @@ ContactForm = module.exports = Layout.extend( {
     regions : {
         phones : '.phone-list-container',
         emails : '.email-list-container'
+    },
+    initialize : function () {
+       // this.listenTo( this.model, 'invalid', this.showError  );
     },
     events : {
         'click #save' : 'saveContact',
@@ -36,13 +41,15 @@ ContactForm = module.exports = Layout.extend( {
         var $target = $( event.target ),
             value = $target.val(),
             id = $target.attr( 'id' );
-        this.model.set( id, value );
+        this.model.set( id, value, { validate : true } );
     },
     getInput : function ( selector ) {
         return this.$el.find( selector ).val();
     },
+
     onShow : function () {
         this.$el.find( '#birthdate' ).datepicker();
+        BackboneValidation.bind( this );
     },
     saveContact : function ( event ) {
         event.preventDefault();
@@ -56,5 +63,23 @@ ContactForm = module.exports = Layout.extend( {
     },
     addEmail : function () {
         this.trigger( 'email:add' );
+    },
+    showError : function ( model, error ) {
+        this.clearErrors();
+        var selector =  '#' + error.attr ;
+        var $msg = $( '<span>' )
+            .addClass( 'error')
+            .addClass( 'help-block' )
+            .html( error.message );
+        this.$( selector )
+            .closest( '.form-group' )
+            .addClass( 'has-error' );
+        this.$( selector )
+            .after( $msg );
+
+    },
+    clearErrors : function () {
+        this.$( '.has-error' ).removeClass( 'has-error' );
+        this.$( 'span.error' ).remove();
     }
 } );

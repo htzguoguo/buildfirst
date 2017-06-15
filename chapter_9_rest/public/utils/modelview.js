@@ -18,6 +18,9 @@ ModelView = module.exports = BaseView.extend( {
             renderedHtml = Mustache.render(this.template, data );
         }
         this.$el.html( renderedHtml );
+        if ( this.onRender ) {
+            this.onRender();
+        }
         return this;
     },
     complieTemplate : function () {

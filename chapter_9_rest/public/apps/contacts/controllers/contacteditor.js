@@ -76,10 +76,22 @@ ContactEditorController = module.exports = function ( options ) {
         var app = this,
             phonesData = this.phones.toJSON(),
             emailsData = this.emails.toJSON();
+        /*if ( ! this.emails.isValid( true ) ) {
+            return;
+        }*/
+        var emailsHasError = _.some(this.emails.models, function(m) {
+            return m.validationError;
+        });
+        if ( emailsHasError ) {
+            return;
+        }
         contact.set( {
             phones : phonesData,
             emails : emailsData
         } );
+        if ( ! contact.isValid( true ) ) {
+            return;
+        }
         contact.save( null , {
             success : function () {
                     app.successMessage( 'contact was saved' );
