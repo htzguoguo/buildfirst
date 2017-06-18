@@ -28,7 +28,11 @@ var mongoose = require( 'mongoose' ),
         facebook: String,
         twitter: String,
         github: String,
-        google: String
+        google: String,
+        avatar : {
+            file : String,
+            url : String
+        }
     } ),
     Contact = mongoose.model( 'Contact', contactSchema );
 

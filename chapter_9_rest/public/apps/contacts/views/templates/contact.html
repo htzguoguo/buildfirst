@@ -1,7 +1,15 @@
 
     <div class="box thumbnail">
         <div class="photo">
+            {{#avatar}}
+            {{#avatar.url}}
+            <img src="{{avatar.url}}" alt="Contact photo"   />
+            {{/avatar.url}}
+            {{/avatar}}
+            {{^avatar}}
             <img src="./common/images/contact.png" alt="Contact photo" />
+            {{/avatar}}
+
             <div class="action-bar clearfix">
                 <div class="action-buttons pull-right">
                     <button id="delete" class="btn btn-danger btn-xs">delete</button>

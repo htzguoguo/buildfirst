@@ -14,9 +14,8 @@ var express = require( 'express' ),
 
     app = express(),
     port = process.env.PORT || 8180,
-    staticPath = path.join( __dirname, 'public' );
-
-
+    staticPath = path.join( __dirname, 'public' ),
+    avatarPath = path.join( __dirname, 'avatar' );
 
 // view engine setup
 app.set( 'views', path.join( __dirname , 'views' ) )
@@ -32,6 +31,8 @@ app.use(cookieParser('login'));
 app.use(session());
 
 app.use( express.static( staticPath ) );
+app.use( '/avatar', express.static( avatarPath ) );
+
 app.use( '/', routes );
 app.use( '/auth', authrouter );
 app.use( '/api/v1', admin.authorize,  apirouter_v1 );
@@ -61,7 +62,6 @@ if ( app.get( 'env' ) === 'development' ) {
         } );
     } );
 }
-
 // production error handler
 // no stacktraces leak to user
 app.use( function ( error, request, response, next ) {

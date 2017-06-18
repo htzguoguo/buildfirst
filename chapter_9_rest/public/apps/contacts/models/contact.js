@@ -18,7 +18,8 @@ Contact = module.exports = Backbone.Model.extend(
             facebook: '',
             twitter: '',
             google: '',
-            github: ''
+            github: '',
+            avatar : null
         },
         toJSON : function () {
             var result = Backbone.Model.prototype.toJSON.call( this );
@@ -35,6 +36,43 @@ Contact = module.exports = Backbone.Model.extend(
                 required : true,
                 minLength : 3
             }
+        },
+        uploadAvatar : function ( imageBlob, options ) {
+            console.log( this );
+            var formData = new FormData(),
+                ajaxOptions = {
+                    url : 'api/v1/contacts/' + this.get( this.idAttribute ) + "/avatar",
+                    type : 'POST',
+                    data : formData,
+                    cache : false,
+                    contentType : false,
+                    processData : false
+                };
+
+
+            formData.append( 'avatar', imageBlob );
+            options = options || {};
+
+
+            _.extend( ajaxOptions, _.pick( options, 'success', 'error' ) );
+
+            if ( options.progress ) {
+                ajaxOptions.xhr = function () {
+                    var xhr = $.ajaxSettings.xhr();
+                    if ( xhr.upload ) {
+                        xhr.upload.addEventListener( 'progress', function ( event ) {
+                            var length = event.length,
+                                uploaded = event.loaded,
+                                precent = uploaded / length;
+                            options.progress( length, uploaded, precent );
+                        }, false );
+                    }
+                    return xhr;
+                };
+            }
+
+            $.ajax( ajaxOptions );
+
         }
         /*validate : function ( attrs ) {
             if ( _.isEmpty( attrs.name ) ) {

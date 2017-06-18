@@ -28,7 +28,7 @@ ContactEditorController = module.exports = function ( options ) {
             phonesView = new PhonesView( { collection : this.phones } ),
             emailsView = new EmailsView( { collection : this.emails } ),
             form = new ContactForm( { model : contact } ),
-            preview = new ContactPreview( { model : contact } );
+            preview = new ContactPreview( { model : contact, controller : this } );
 
         this.mainRegion.show( layout );
         layout.getRegion( 'form' ).show( form );
@@ -45,6 +45,33 @@ ContactEditorController = module.exports = function ( options ) {
         } );
         this.listenTo( emailsView, 'item:email:deleted', function ( view, email ) {
             this.deleteEmail( email );
+        } );
+
+        this.listenTo( preview, 'avatar:selected', function ( blob ) {
+            this.avatarSelected = blob;
+            console.log( 'contact.isNew', contact.isNew()  );
+            if ( ! contact.isNew() ) {
+                this.uploadAvatar( contact, blob );
+            }
+        } );
+    };
+
+    this.uploadAvatar = function ( contact, options) {
+        var app = this;
+        this.trigger( 'avatar:uploading:start' );
+        contact.uploadAvatar( this.avatarSelected, {
+            progress : function ( length, uploaded, precent ) {
+                app.trigger( 'avatar:uploading:progress', length, uploaded, precent );
+            },
+            success : function () {
+                app.trigger( 'avatar:uploading:done' );
+                if ( options && _.isFunction( options.success ) ) {
+                    options.success();
+                }
+            },
+            error : function ( err ) {
+                app.trigger( 'avatar:uploading:error', err );
+            }
         } );
     };
 
@@ -74,6 +101,7 @@ ContactEditorController = module.exports = function ( options ) {
     };
     this.saveContact = function ( contact ) {
         var app = this,
+            wasNew = false,
             phonesData = this.phones.toJSON(),
             emailsData = this.emails.toJSON();
         /*if ( ! this.emails.isValid( true ) ) {
@@ -92,13 +120,30 @@ ContactEditorController = module.exports = function ( options ) {
         if ( ! contact.isValid( true ) ) {
             return;
         }
+        wasNew = contact.isNew();
+        if ( contact.has( 'avatar' ) ) {
+            contact.unset( 'avatar' );
+        }
+        function notifyAndRedirect() {
+            app.notifySuccess( 'contact was saved' );
+            window.app.router.navigate( '/contacts', true );
+        }
         contact.save( null , {
             success : function () {
-                    app.successMessage( 'contact was saved' );
-                    window.app.router.navigate( '/contacts', true );
+                        if ( ! wasNew ) {
+                            notifyAndRedirect();
+                            return;
+                        }
+                        if (   app.avatarSelected ) {
+                            app.uploadAvatar( contact, {
+                                success : notifyAndRedirect
+                            } );
+                        }else {
+                            notifyAndRedirect();
+                        }
                     },
             error : function () {
-                   app.errorMessage( 'something goes wrong' );
+                   app.notifyError( 'something goes wrong' );
             }});
     };
 };

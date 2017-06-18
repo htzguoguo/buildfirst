@@ -25,9 +25,11 @@ require( './assets/js/plugins/jquery-validation/js/jquery.validate' );
 require( './assets/js/plugins/forms/selects/select2.min' );
 require( './assets/js/plugins/forms/selects/bootstrap_multiselect' );
 
+
 require( './assets/js/plugins/forms/selects/selectboxit.min' );
 require( './assets/js/plugins/forms/selects/bootstrap_select.min' );
 require( './assets/js/plugins/notifications/sweet_alert.min' );
+require( 'pnotify' );
 require( './assets/js/plugins/pickers/datepicker' );
 require( './assets/js/core/app' );
 require( './assets/js/pages/colors_brown' );

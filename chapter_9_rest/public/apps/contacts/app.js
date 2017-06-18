@@ -59,9 +59,10 @@ App = function ( options ) {
 
     this.ShowNewContactForm = function () {
         var contactEditor = this.startController(ContactEditor);
-        contactEditor.showEditor( new ContactModel( {
+       /* contactEditor.showEditor( new ContactModel( {
             primarycontactnumber : Math.random().toString(36).substring(7)
-        } )  );
+        } )  );*/
+        contactEditor.showEditor( new ContactModel()  );
     };
 
     this.ShowContactEditorById = function ( id ) {

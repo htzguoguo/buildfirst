@@ -1,7 +1,15 @@
 <span class="notice">Click the image to change the avatar</span>
 <div class="box thumbnail">
     <div class="photo">
-        <img src="./common/images/contact.png" alt="Contact photo" />
+        {{#avatar}}
+            {{#avatar.url}}
+                <img src="{{avatar.url}}" alt="Contact photo" />
+            {{/avatar.url}}
+        {{/avatar}}
+        {{^avatar}}
+            <img src="./common/images/contact.png" alt="Contact photo" />
+        {{/avatar}}
+       <input type="file" id="avatar" name="avatar" style="display: none;"/>
     </div>
     <div class="caption">
         <h5 id="name">{{name}}</h5>

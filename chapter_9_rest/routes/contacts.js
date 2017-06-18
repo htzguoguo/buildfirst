@@ -4,8 +4,10 @@
 
 var express = require( 'express' ),
     router = express.Router(),
-    url = require( 'url' );
-    contacts = require( '../modules/contacts_mongodb' );
+    multer = require( 'multer' ),
+    url = require( 'url' ),
+    contacts = require( '../modules/contacts_mongodb' ),
+    upload;
 
 function internalServerError ( res ) {
     "use strict";
@@ -60,6 +62,18 @@ router.get( '/:arg/:value', function (  req, res, next) {
     "use strict";
     contacts.query_by_arg( req.params.arg, req.params.value, res);
 } );
-
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/avatar')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+})
+/*upload = multer({ dest: './uploads/' });*/
+upload = multer();
+router.post( '/:number/avatar', upload.array( 'avatar',12), function ( req, res, next ) {
+    contacts.uploadAvatar( req, res, next );
+} );
 
 module.exports = router;

@@ -29,6 +29,7 @@
     "errorhandler": "^1.5.0",
     "express-session": "^1.15.2",
     "jade": "^1.11.0",
+    "jgrowl": "^1.4.5",
     "jquery-datepicker": "^1.11.5",
     "js-cookie": "^2.1.4",
     "leveldown": "^1.6.0",
@@ -36,6 +37,7 @@
     "mongoose": "^4.9.6",
     "morgan": "^1.8.1",
     "mustache": "^2.3.0",
+    "pnotify": "^3.2.0",
     "serve-favicon": "^2.4.2",
     "underscore": "^1.8.3"
   }

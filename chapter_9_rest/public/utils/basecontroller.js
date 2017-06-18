@@ -2,6 +2,8 @@
  * Created by Administrator on 2017/5/26.
  */
 
+var PNotify = require( 'pnotify' );
+
 
 module.exports = {
     askConfirmation : function (message, isAutoClose, callback) {
@@ -32,22 +34,6 @@ module.exports = {
             confirmButtonColor: "#66BB6A",
             type: "success"
         });
-
-
-       /* swal({
-            title: "Good job!",
-            text: message,
-            confirmButtonColor: "#66BB6A",
-            type: "warning"
-        });*/
-
-       /* var options = {
-            title: 'Success',
-            type: 'success',
-            text: message,
-            confirmButtonText: 'Okay'
-        };
-        swal(options);*/
     },
 
     errorMessage : function(message) {
@@ -57,32 +43,54 @@ module.exports = {
             confirmButtonColor: "#EF5350",
             type: "warning"
         });
-       /* var options = {
-            title: 'Error',
-            type: 'error',
-            text: message,
-            confirmButtonText: 'Okay'
-        };
-        swal(options);*/
+    },
+
+    notifyProgress : function ( message ) {
+        var notice = new PNotify({
+            text: "Please wait",
+            addclass: 'bg-primary',
+            type: 'info',
+            icon: 'icon-spinner4 spinner',
+            hide: false,
+            buttons: {
+                closer: false,
+                sticker: false
+            },
+            opacity: .9,
+            width: "170px"
+        });
     },
 
   notifySuccess : function  (message) {
+      var notice = new PNotify({
+          title: "提示：",
+          text: message,
+          addclass: 'alert alert-styled-left alert-arrow-left',
+          type: 'info',
+          buttons: {
+              closer_hover: false
 
-      $.jGrowl(message, {
-          header: '提示：',
-          life: 10000,
-          position: 'top-right',
-          theme: 'alert-styled-left alert-arrow-left alert-primary'
+          }
+      });
+      notice.get().click(function() {
+          notice.remove();
       });
 
 },
 
   notifyError : function (message) {
-      $.jGrowl(message, {
-          header: '提示：',
-          life: 10000,
-          position: 'top-right',
-          theme: 'alert-bordered bg-danger alert-styled-left alert-danger'
+      var notice = new PNotify({
+          title: "提示：",
+          text: message,
+          addclass: 'alert alert-styled-left alert-arrow-left',
+          type: 'error',
+          buttons: {
+              closer_hover: false
+
+          }
+      });
+      notice.get().click(function() {
+          notice.remove();
       });
 }
 };
