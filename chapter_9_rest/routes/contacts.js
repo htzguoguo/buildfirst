@@ -24,12 +24,16 @@ router.get( '/', function ( req, res, next ) {
     if ( Object.keys( get_params ).length === 0 ) {
         contacts.list( res );
     }else {
-        key = [], value= [];
-        Object.keys( get_params ).forEach( function ( para ) {
-            key.push( para );
-            value.push( get_params[ para ] );
-        } );
-        contacts.query_by_arg( key, value, res);
+        if ( get_params[ 'page' !== null ] || get_params[ 'limit' ] !== null ) {
+            contacts.paginate( req, res );
+        }else {
+            key = [], value= [];
+            Object.keys( get_params ).forEach( function ( para ) {
+                key.push( para );
+                value.push( get_params[ para ] );
+            } );
+            contacts.query_by_arg( key, value, res);
+        }
     }
 } );
 
@@ -93,37 +97,5 @@ router.post( '/:number/portrait', upload.array( 'portrait',12), function ( req, 
     contacts.uploadPortrait( req, res, next );
 } );
 
-
-
-/*router.post('/:number/portrait'
-    , multer({
-    upload: null,// take uploading process
-    onFileUploadStart: function (file) {
-        //set upload with WritableStream
-        this.upload = gfs.createWriteStream({
-            filename: file.originalname,
-            mode: "w",
-            chunkSize: 1024*4,
-            content_type: file.mimetype,
-            root: "fs"
-        });
-    },
-
-    onFileUploadData: function (file, data) {
-        //put the chucks into db
-        this.upload.write(data);
-    },
-
-    onFileUploadComplete: function (file) {
-        //end process
-        this.upload.on('drain', function () {
-            this.upload.end();
-        });
-    }
-}),
-    function (req, res, next) {
-    res.sendStatus(200);
-}
-);*/
 
 module.exports = router;

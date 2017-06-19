@@ -5,7 +5,9 @@ var express = require( 'express' ),
     logger = require( 'morgan' ),
     bodyParser = require( 'body-parser' ),
     errorHandler = require( 'errorhandler' ),
-
+    expressPaginate = require( 'express-paginate' ),
+    CacheControl = require( 'express-cache-control' ),
+    cache = new CacheControl().middleware,
     routes = require( './routes/index' ),
     apirouter_v1 = require( './routes/api_v1' ),
     apirouter_v2 = require( './routes/api_v2' ),
@@ -26,6 +28,7 @@ app.set( 'view engine', 'jade' );
 app.use( logger( 'dev' ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended : false } ) );
+app.use( expressPaginate.middleware( 10, 100 ) );
 
 app.use(cookieParser('login'));
 app.use(session());
@@ -36,7 +39,7 @@ app.use( '/avatar', express.static( avatarPath ) );
 app.use( '/', routes );
 app.use( '/auth', authrouter );
 /*app.use( '/api/v1', admin.authorize,  apirouter_v1 );*/
-app.use( '/api/v1', apirouter_v1 );
+app.use( '/api/v1',admin.authorize, cache( 'minutes', 5 ), apirouter_v1 );
 app.use( '/api/v2', admin.authorize, apirouter_v2  );
 
 //catch 404 and forward to error handler

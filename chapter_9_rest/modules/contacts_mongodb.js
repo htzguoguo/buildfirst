@@ -162,6 +162,27 @@ module.exports.list = function ( res ) {
     } );
 };
 
+module.exports.paginate = function ( req, res ) {
+    console.log( 'paginate' );
+    Contact.paginate( {}
+     ,{ page : req.query.page, limit : req.query.limit }
+    , function ( error, data ) {
+        if ( error ) {
+            helper.InternalServerError( res );
+        }else {
+            helper.ResourceFound( res, {
+                object : 'contacts',
+                items_count : data.total,
+                page_count : data.pages,
+                item_count : data.limit,
+                page_index : data.page,
+                result : data.docs
+            } );
+        }
+    }
+    );
+};
+
 module.exports.deletePortrait = function (req, res, next) {
     var number = req.params.number;
     var filename = req.params.filename;

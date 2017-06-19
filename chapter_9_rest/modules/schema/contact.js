@@ -3,6 +3,7 @@
  */
 
 var mongoose = require( 'mongoose' ),
+    mongoosePaginate = require( 'mongoose-paginate' ),
     contactSchema = new mongoose.Schema( {
         primarycontactnumber : {
             type : String,
@@ -34,7 +35,10 @@ var mongoose = require( 'mongoose' ),
             url : String
         },
         portrait : []
-    } ),
-    Contact = mongoose.model( 'Contact', contactSchema );
+    } );
+
+contactSchema.plugin( mongoosePaginate );
+
+var   Contact = mongoose.model( 'Contact', contactSchema );
 
 module.exports = Contact;
