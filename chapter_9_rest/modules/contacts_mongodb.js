@@ -4,17 +4,23 @@
 
 var mongoose = require( 'mongoose' ),
     Contact = require( './schema/contact' ),
+    Grid = require('gridfs-stream'),
     fs = require( 'fs' ),
     Path = require( 'path' ),
+    Streamifier = require( './streamifier' ),
     crispy = require( 'crispy-string' ),
     _ = require( 'underscore' ),
     helper = require( './http_helper' ),
     key = 'primarycontactnumber',
     AVATAR_PATH =   './avatar',
-    ID_LENGTH = 10
-    ;
+    ID_LENGTH = 10;
 
 mongoose.connect( 'mongodb://localhost/contacts' );
+var mongodb = mongoose.connection;
+Grid.mongo = mongoose.mongo;
+var gfs = Grid(mongodb.db);
+
+module.exports.mongoose = mongoose;
 
 module.exports.query = function ( number, res ) {
     "use strict";
@@ -72,6 +78,7 @@ function toExistContact( data, contact ) {
     data.github = contact.github;
     data.google = contact.google;
     data.avatar = contact.avatar;
+    data.portrait = contact.portrait;
 }
 
 function makeId() {
@@ -80,7 +87,7 @@ function makeId() {
 
 function toNewContact( body ) {
     "use strict";
-    //console.log( body );
+
     return new Contact(
         {
             primarycontactnumber : makeId(),
@@ -93,7 +100,8 @@ function toNewContact( body ) {
             twitter: body.twitter,
             github: body.github,
             google: body.google,
-            avatar:body.avatar
+            avatar:body.avatar,
+            portrait : body.portrait
         });
 }
 
@@ -154,6 +162,111 @@ module.exports.list = function ( res ) {
     } );
 };
 
+module.exports.deletePortrait = function (req, res, next) {
+    var number = req.params.number;
+    var filename = req.params.filename;
+    gfs.exist({num: number, filename: filename}, function(err, found){
+        if(err) return res.send("Error occured");
+        if(found){
+            gfs.remove({num: number, filename: filename}, function(err){
+                if(err) return res.send("Error occured");
+                helper.ResourceDeleted(res);
+            });
+        } else{
+            res.send("No image found with that title");
+        }
+    });
+
+   /* var collection = mongodb.collection('fs.files');
+    collection.remove({num: number, filename: filename}, function (error, contact) {
+        if (error) {
+            console.log(error);
+            return;
+        }
+
+        if (contact === null) {
+            res.send('404', 'Not found');
+            return;
+        }
+        else {
+            console.log('Successfully deleted image for primary contact number: ' + number);
+        }
+    });
+
+    res.send('Successfully deleted image for primary contact number: ' + number);*/
+};
+
+module.exports.getPortrait = function ( req, res, next ) {
+    var number = req.params.number;
+    var filename = req.params.filename;
+    var imageStream = gfs.createReadStream({
+        num : number,
+        filename: filename,
+        mode : 'r'
+    });
+    imageStream.on('error', function(error) {
+        res.send('404', 'Not found');
+        return;
+    });
+    res.setHeader('Content-Type', 'image/jpeg');
+    imageStream.pipe(res);
+};
+
+module.exports.uploadPortrait = function ( req, res, next ) {
+    var number = req.params.number,
+        fileName, fullPath, metaData,
+        extension, wstream;
+    if ( !_.has( req, 'file' ) && !_.has( req, 'files' ) ) {
+        return  helper.BadRequest( res, 'Please upload a file in the avatar field', '' );
+    }
+    metaData = req.files;
+   /* metaData = req.files[0];
+    var target = gfs.createWriteStream({
+        _id : number,
+        filename: metaData.originalname,
+        mode: 'w'
+    });
+    target.write( metaData.buffer );
+    target.end();
+    helper.ResourceUpdated( res, { data : 'success' } );*/
+
+    Contact.findOne( { primarycontactnumber : number }, function ( error, data ) {
+        if ( error ) {
+            helper.InternalServerError( res, 'contact not found', { primarycontactnumber : number } );
+        }else {
+            if ( ! data ) {
+                helper.ResourceNotFound( res , { primarycontactnumber : number });
+                return next();
+            }else {
+
+                if ( metaData && metaData.length > 0 ) {
+                    data.portrait = data.portrait || [];
+                    _.each( metaData, function ( file ) {
+                        if ( isValidImage(file.mimetype) ) {
+                            var ffn = generateRandomName(30);
+                            var target = gfs.createWriteStream({
+                                num : number,
+                                filename: ffn,
+                                mode: 'w'
+                            });
+                            data.portrait.push( 'api/v1/contacts/' + number + '/' + ffn +  '/portrait' );
+                            target.write( file.buffer );
+                            target.end();
+
+                        }
+                    } );
+                }
+                data.save( function ( error ) {
+                    if ( ! error ) {
+                        data.save();
+                    }
+                    helper.ResourceUpdated( res, data );
+                } );
+            }
+        }
+    } );
+};
+
 module.exports.uploadAvatar = function ( req, res, next ) {
     var number = req.params.number,
         fileName, fullPath, metaData,
@@ -165,7 +278,6 @@ module.exports.uploadAvatar = function ( req, res, next ) {
     if ( metaData && metaData.length > 0 ) {
         metaData = metaData[0];
     }
-
     if ( ! isValidImage(metaData.mimetype) ) {
         helper.BadRequest( res, 'Invalid format, please use png,jpg or gif file', '' );
         return next();
@@ -183,7 +295,7 @@ module.exports.uploadAvatar = function ( req, res, next ) {
                 }
                 extension =getExtension( metaData.originalname );
 
-                console.log('metaData', metaData );
+
                // fileName = metaData.filename;
                 do {
                     fileName = generateFileName( 25, extension );
@@ -192,7 +304,7 @@ module.exports.uploadAvatar = function ( req, res, next ) {
                 removeAvatar( data );
                 wstream = fs.createWriteStream( fullPath );
 
-                console.log('metaData.buffer', metaData.buffer );
+
                 wstream.write( metaData.buffer );
                 wstream.end();
 
@@ -217,6 +329,10 @@ function isValidImage( mimetype ) {
 
 function getExtension( filename ) {
     return Path.extname( filename );
+}
+
+function generateRandomName( len ) {
+    return crispy.base32String(len);
 }
 
 function generateFileName(len,  extension ) {

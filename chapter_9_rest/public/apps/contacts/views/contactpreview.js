@@ -54,6 +54,7 @@ ContactPreview = module.exports = ModelView.extend( {
         var $fileInput = this.$( '#avatar' )[0],
             $img = this.$( 'img' ),
             fileBlob = $fileInput.files[ 0 ],
+
             fileReader = new FileReader(),
             app = this;
         fileReader.onload = function ( event ) {

@@ -9,12 +9,13 @@ var express = require( 'express' ),
     contacts = require( '../modules/contacts_mongodb' ),
     upload;
 
+
+
 function internalServerError ( res ) {
     "use strict";
     res.writeHead( 500, { 'Content-Type' : 'text/plain' } );
     res.end( 'Internal server error' );
 }
-
 
 router.get( '/', function ( req, res, next ) {
     "use strict";
@@ -58,10 +59,15 @@ router.delete( '/:number', function ( req, res, next ) {
     contacts.remove( req.params.number, res);
 } );
 
-router.get( '/:arg/:value', function (  req, res, next) {
+router.get('/:number/:filename/portrait', function(req, res, next){
+
+    contacts.getPortrait( req, res, next );
+});
+
+/*router.get( '/:arg/:value', function (  req, res, next) {
     "use strict";
     contacts.query_by_arg( req.params.arg, req.params.value, res);
-} );
+} );*/
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, '/avatar')
@@ -69,11 +75,55 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         cb(null, file.fieldname + '-' + Date.now())
     }
-})
+});
 /*upload = multer({ dest: './uploads/' });*/
 upload = multer();
 router.post( '/:number/avatar', upload.array( 'avatar',12), function ( req, res, next ) {
+
     contacts.uploadAvatar( req, res, next );
 } );
+
+router.delete( '/:number/:filename/portrait', function ( req, res, next ) {
+    "use strict";
+    contacts.deletePortrait( req, res, next);
+} );
+
+router.post( '/:number/portrait', upload.array( 'portrait',12), function ( req, res, next ) {
+
+    contacts.uploadPortrait( req, res, next );
+} );
+
+
+
+/*router.post('/:number/portrait'
+    , multer({
+    upload: null,// take uploading process
+    onFileUploadStart: function (file) {
+        //set upload with WritableStream
+        this.upload = gfs.createWriteStream({
+            filename: file.originalname,
+            mode: "w",
+            chunkSize: 1024*4,
+            content_type: file.mimetype,
+            root: "fs"
+        });
+    },
+
+    onFileUploadData: function (file, data) {
+        //put the chucks into db
+        this.upload.write(data);
+    },
+
+    onFileUploadComplete: function (file) {
+        //end process
+        this.upload.on('drain', function () {
+            this.upload.end();
+        });
+    }
+}),
+    function (req, res, next) {
+    res.sendStatus(200);
+}
+);*/
 
 module.exports = router;

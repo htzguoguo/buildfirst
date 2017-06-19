@@ -16305,7 +16305,6 @@ ContactEditorController = module.exports = function ( options ) {
     this.uploadAvatar = function ( contact, options) {
         var app = this;
         this.trigger( 'avatar:uploading:start' );
-        this.notifyProgress( 'dddd' );
         contact.uploadAvatar( this.avatarSelected, {
             progress : function ( length, uploaded, precent ) {
                 app.trigger( 'avatar:uploading:progress', length, uploaded, precent );
@@ -17007,6 +17006,7 @@ ContactPreview = module.exports = ModelView.extend( {
         var $fileInput = this.$( '#avatar' )[0],
             $img = this.$( 'img' ),
             fileBlob = $fileInput.files[ 0 ],
+
             fileReader = new FileReader(),
             app = this;
         fileReader.onload = function ( event ) {

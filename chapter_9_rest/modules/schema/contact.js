@@ -32,7 +32,8 @@ var mongoose = require( 'mongoose' ),
         avatar : {
             file : String,
             url : String
-        }
+        },
+        portrait : []
     } ),
     Contact = mongoose.model( 'Contact', contactSchema );
 
