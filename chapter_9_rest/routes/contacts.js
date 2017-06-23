@@ -9,8 +9,6 @@ var express = require( 'express' ),
     contacts = require( '../modules/contacts_mongodb' ),
     upload;
 
-
-
 function internalServerError ( res ) {
     "use strict";
     res.writeHead( 500, { 'Content-Type' : 'text/plain' } );

@@ -30,19 +30,21 @@ module.exports.BadRequest = function ( res, error, context ) {
     res.send( result );
 };
 
-module.exports.ResourceNotFound = function ( res, context ) {
+module.exports.ResourceNotFound = function ( res,  context, message ) {
     "use strict";
     var result = {
         "error": {
             "code": "bf-404",
-            "message": 'Not Found',
+            "message":  message || 'Not Found',
             "context":  context
         }
     };
     res.status( 404 );
-    res.setHeader( 'Content-Type', 'text/plain' );
-    res.end();
+    res.setHeader('Content-Type', 'application/json' );
+    res.send( result );
 };
+
+
 
 module.exports.ResourceDeleted = function ( res ) {
     "use strict";

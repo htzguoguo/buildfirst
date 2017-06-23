@@ -15,7 +15,7 @@ var mongoose = require( 'mongoose' ),
     AVATAR_PATH =   './avatar',
     ID_LENGTH = 10;
 
-mongoose.connect( 'mongodb://localhost/contacts' );
+/*mongoose.connect( 'mongodb://localhost/contacts' );*/
 var mongodb = mongoose.connection;
 Grid.mongo = mongoose.mongo;
 var gfs = Grid(mongodb.db);

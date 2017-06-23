@@ -1,3 +1,6 @@
+/**
+ * Created by Administrator on 2017/6/20.
+ */
 var express = require( 'express' ),
     mongoose = require( 'mongoose' );
 
@@ -17,6 +20,8 @@ var session = require( 'express-session' ),
     apirouter_v2 = require( './routes/api_v2' ),
     admin = require( './modules/user' ),
     authrouter = require( './routes/auth' ),
+    Auth = require( 'basic-auth' ),
+    User = require( './modules/schema/user' ),
 
     app = express(),
     port = process.env.PORT || 8180,
@@ -35,16 +40,26 @@ app.use(cookieParser('login'));
 app.use(session({
     secret: "TKRv0IJs=HYqrvagQ#&!F!%V]Ww/4KiVs$s,<<MX",
     resave: true,
-    saveUninitialized: true,
-    cookie : { maxAge : 300 * 1000 }
-
+    saveUninitialized: true
 }));
 
 app.use( express.static( staticPath ) );
 app.use( '/avatar', express.static( avatarPath ) );
 
+app.use( function ( req, res, next ) {
+    var credentials = Auth( req );
+    if ( credentials === undefined ) {
+        res.statusCode = 401;
+        res.setHeader('WWW-Authenticate',
+            'Basic');
+        res.end('Unauthorized');
+    }else {
+        authenticate( credentials.name, credentials.pass, res, next );
+    }
+} );
+
 app.use( '/', routes );
-app.use( '/auth',cache( 'minutes', 2 ), authrouter );
+app.use( '/auth', authrouter );
 /*app.use( '/api/v1', admin.authorize,  apirouter_v1 );*/
 app.use( '/api/v1',admin.authorize, cache( 'minutes', 5 ), apirouter_v1 );
 app.use( '/api/v2', admin.authorize, apirouter_v2  );
@@ -83,6 +98,28 @@ app.use( function ( error, request, response, next ) {
         error : {}
     } );
 } );
+
+
+
+function authenticate( username, password, res, call ) {
+    User.findOne( { username : username }, function ( err, user ) {
+        if ( err ) {
+           res.statusCode = 401;
+           res.end(err);
+           return;
+        }else {
+            user.checkPassword( password, function ( err, isMatch ) {
+                if ( isMatch ) {
+                    return call( null, username );
+                }else {
+                    res.statusCode = 401;
+                    res.end('password failed');
+                    return;
+                }
+            } );
+        }
+    }  );
+}
 
 module.exports = app;
 

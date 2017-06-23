@@ -2,6 +2,9 @@
  * Created by Administrator on 2017/4/17.
  */
 
+var helper = require( './http_helper' ),
+    User = require( './schema/user' );
+
 module.exports.authorize = function ( req, res, next ) {
     "use strict";
     var result;
@@ -22,31 +25,37 @@ module.exports.authorize = function ( req, res, next ) {
 };
 
 module.exports.login = function ( req, res, next ) {
-    "use strict";
     var result;
     var user = req.body;
-    res.setHeader( 'Content-Type', 'application/json' );
-    if ( user.name === 'admin' && user.pw === '123' ) {
-        req.session.login = user;
-        res.status(200);
-        result = {
-                status : 'online',
-                desc : '0'
-                };
-        res.send( result );
-    }else {
-        res.status(404);
-        result = {
-            "error": {
-                "code": "bf-404",
-                "message": "用户名或者密码错误",
-                "context": {
-                   name : user.name
-                }
+    var username = user.name,
+        password = user.pw;
+    User.findOne({ username: username }, function(err, user) {
+        if (err) {
+            helper.InternalServerError( res, err, { username :  username } );
+        }else {
+            if (!user) {
+                helper.ResourceNotFound( res , { username : username } , "用户名不存在");
+            }else {
+                user.checkPassword(password, function(err, isMatch) {
+                    if (err) {
+                        helper.InternalServerError( res, err, { username :  username } );
+                    }else {
+                        if (isMatch) {
+                            req.session.login = user;
+                            helper.ResourceFound( res,  {
+                                status : 'online',
+                                desc : '0'
+                            });
+                        } else {
+                            helper.ResourceNotFound( res , { username : username } , "密码错误");
+                        }
+                    }
+                });
             }
-        };
-        res.send(  result );
-    }
+
+        }
+
+    });
 };
 
 module.exports.logout = function ( req, res, next ) {
