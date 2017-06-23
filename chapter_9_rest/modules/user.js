@@ -71,3 +71,30 @@ module.exports.logout = function ( req, res, next ) {
         }
     }  );
 };
+
+module.exports.initAdminUser = function ( req, res, next ) {
+    User.findOne({ username : 'admin' }, function(error, data) {
+        if ( ! error) {
+            if (!data) {
+                var adminUser = new AuthUser({
+                    username: 'admin',
+                    password: 'admin',
+                    role: 'Admin'
+                });
+                adminUser.save(function(error) {
+                    if (!error) {
+                        adminUser.save();
+                        console.log('Creating Admin user');
+                    } else {
+                        console.log('Admin user already exist');
+                    }
+                });
+            } else {
+                console.log('Admin user already exist');
+            }
+        }
+    });
+
+
+};
+

@@ -40,6 +40,8 @@ app.use(session({
 
 }));
 
+admin.initAdminUser();
+
 app.use( express.static( staticPath ) );
 app.use( '/avatar', express.static( avatarPath ) );
 
