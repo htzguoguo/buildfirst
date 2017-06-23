@@ -76,7 +76,7 @@ module.exports.initAdminUser = function ( req, res, next ) {
     User.findOne({ username : 'admin' }, function(error, data) {
         if ( ! error) {
             if (!data) {
-                var adminUser = new AuthUser({
+                var adminUser = new User({
                     username: 'admin',
                     password: 'admin',
                     role: 'Admin'
